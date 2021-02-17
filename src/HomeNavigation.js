@@ -3,13 +3,13 @@ import IdleTimer from "react-idle-timer";
 import { AppWrap, RouteByMenu } from "./lib/AppWrap";
 import { AuthContext } from "./lib/Login";
 import { makeStyles } from "@material-ui/core/styles";
-import Settings from "@material-ui/icons/Settings";
-import Tasks from "@material-ui/icons/List";
+import { UsuariosList, UsuarioForm } from "./modules/usuarios";
 import { Switch, Redirect, Route } from "react-router-dom";
 import * as R from "ramda";
+import Person from "@material-ui/icons/Person";
 import api from "./services/api";
 import { useAbility } from "./modules/usuarios";
-import logo from "./images/logo-full-white.png";
+import logo from "./images/hermes-logo-horizontal.png";
 
 
 const TEMPO_PING_5_MIN = 1000 * 60 * 5;
@@ -23,20 +23,11 @@ const useStyles = makeStyles(() => ({
 
 const allMenuItems = [
   {
-    label: "Tarefas",
-    group: true,
-    icon: Tasks,
-    pathname: "/tarefas",
-    items: [
-    ],
-  },
-  {
-    label: "Configurações",
-    group: true,
-    icon: Settings,
-    pathname: "/configurations",
-    items: [
-    ],
+    label: "Usuarios",
+    pathname: "/users",
+    icon: Person,
+    list: UsuariosList,
+    form: UsuarioForm,
   },
 ];
 
@@ -79,7 +70,6 @@ export const Home = () => {
         timeout={TEMPO_INATIVIDADE_20_MIN}
       />
       <AppWrap
-        logo={<img alt="logo tp" src={logo} className={classes.logo} />}
         userAvatarProps={{
           action: "Sair",
           label: "Olá,",

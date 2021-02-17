@@ -1,18 +1,19 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { withLogin } from "../../lib/Login";
 import api from "../../services/api";
+import * as R from "ramda";
 import logo from "../../images/hermes-logo.png";
 import { Grid } from "@material-ui/core";
 import LoginForm from "./LoginForm";
-import { useLocation } from "react-router-dom";
 
 const Login = withLogin(LoginForm);
 
-export const handleLogin = ({ login }) => async ({
+export const handleLogin = ({ login, setToken = R.empty }) => async ({
   email,
   password,
 }) => {
-  if (!email) {
+
+  if (!email || !password) {
     return;
   }
   const response = await login({
@@ -20,13 +21,16 @@ export const handleLogin = ({ login }) => async ({
     password,
   });
 
+  setToken(response.data.authentication.accessToken)
+
   if (response.ok) {
     return {
       ok: true,
-      id: response.data.usuario.id,
-      email: response.data.usuario.email,
-      name: response.data.usuario.name,
-      role: response.data.usuario.role,
+      id: response.data.user.id,
+      email: response.data.user.email,
+      name: response.data.user.name,
+      role: response.data.user.role,
+      token: response.data.authentication.accessToken
     };
   } else {
     return {
@@ -37,18 +41,7 @@ export const handleLogin = ({ login }) => async ({
 };
 
 const CustomLogin = ({ history }) => {
-  const location = useLocation();
-  const loginRef = useRef();
-
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const password = params.get("password");
-    const email = params.get("state");
-    if (password && email) {
-      loginRef.current.handleSubmit({ email, password });
-    }
-  }, [location.search]);
-
+  const loginRef = useRef();;
   return (
     <Login
       logo={

@@ -32,6 +32,7 @@ const LoginForm = ({
   const validate = values => {
     return {
       email: values.email ? undefined : "Obrigatório",
+      password: values.password ? undefined : "Obrigatório",
     };
   };
 

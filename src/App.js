@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { ThemeProvider } from "@material-ui/core/styles";
+import { ThemeProvider, withStyles } from "@material-ui/core/styles";
 import theme from "./Theme";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import moment from "moment";
 import "moment/locale/pt-br";
 import api from "./services/api";
 import { Home } from "./HomeNavigation";
-import {Auth as AuthProvider, loginRoutes, PrivateRoute} from  "./lib/Login"
+import { Auth as AuthProvider, loginRoutes, PrivateRoute } from "./lib/Login"
 import {
   Login,
   ResetPassword,
@@ -37,7 +37,6 @@ const styles = () => ({
 function App() {
   moment.locale("pt-br");
 
-
   const [ability, setAbility] = useState();
 
   const updateUsuario = async id => {
@@ -48,7 +47,7 @@ function App() {
   };
 
   const withUsuario = async usuario => {
-    await api.setToken(usuario.token);
+    api.setToken(usuario.token);
     updateUsuario(usuario.id);
   };
 
@@ -82,4 +81,4 @@ function App() {
   );
 }
 
-export default App;
+export default withStyles(styles)(App);
