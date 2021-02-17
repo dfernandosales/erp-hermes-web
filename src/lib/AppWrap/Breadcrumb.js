@@ -1,50 +1,50 @@
-import React, { useEffect, useState } from "react";
-import PropsTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
-import * as R from "ramda";
-import classNames from "classnames";
-import styles from "./BreadcrumbStyles";
-import Typography from "@material-ui/core/Typography";
-import ArrowIcon from "@material-ui/icons/KeyboardArrowRight";
-import { getBreadcrumbConfig } from "./BreadCrumbUtils";
+import React, { useEffect, useState } from 'react'
+import PropsTypes from 'prop-types'
+import { makeStyles } from '@material-ui/core/styles'
+import * as R from 'ramda'
+import classNames from 'classnames'
+import styles from './BreadcrumbStyles'
+import Typography from '@material-ui/core/Typography'
+import ArrowIcon from '@material-ui/icons/KeyboardArrowRight'
+import { getBreadcrumbConfig } from './BreadCrumbUtils'
 
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(styles)
 
 const Breadcrumb = props => {
-  const [parts, setParts] = useState([]);
-  const classes = useStyles();
+  const [parts, setParts] = useState([])
+  const classes = useStyles()
 
   useEffect(() => {
-    const parts = getBreadcrumbConfig(props.history.location.pathname) || [];
-    setParts(parts);
-  }, [props.history.location.pathname]);
+    const parts = getBreadcrumbConfig(props.history.location.pathname) || []
+    setParts(parts)
+  }, [props.history.location.pathname])
 
   const navigate = path => {
-    props.history.push(`/${path}`);
-  };
+    props.history.push(`/${path}`)
+  }
 
   const getLabel = (part, index) => {
     switch (true) {
       case part.isId:
         if (index === 1) {
-          return R.pathOr(part.pathPart, ["info", "label"], props);
+          return R.pathOr(part.pathPart, ['info', 'label'], props)
         }
-        return part.pathPart;
-      case part.pathPart === "new" || part.pathPart === "new-child":
-        return "Novo";
-      case part.pathPart === "view":
-        return "Visualizar";
+        return part.pathPart
+      case part.pathPart === 'new' || part.pathPart === 'new-child':
+        return 'Novo'
+      case part.pathPart === 'view':
+        return 'Visualizar'
       default:
         const key = Object.keys(props.pathReadableMap).find(
-          key => key.split("?")[0] === part.pathPart
-        );
+          key => key.split('?')[0] === part.pathPart
+        )
         if (props.pathReadableMap[key]) {
-          return props.pathReadableMap[key];
+          return props.pathReadableMap[key]
         } else {
-          return part.pathPart.replace(/-/g, " ");
+          return part.pathPart.replace(/-/g, ' ')
         }
     }
-  };
+  }
 
   const renderPart = (part, index) => {
     return (
@@ -53,20 +53,20 @@ const Breadcrumb = props => {
           classes.part,
           part.isCurrentPath && classes.currentPath
         )}
-        type={index === 0 ? "subtitle1" : "caption"}
+        type={index === 0 ? 'subtitle1' : 'caption'}
         onClick={() => navigate(part.path)}
         key={part.pathPart}
       >
         {getLabel(part, index)}
         {!part.isFinalPath && <ArrowIcon className={classes.separator} />}
       </Typography>
-    );
-  };
+    )
+  }
 
   return (
     <div className={classNames(classes.root)}>{parts.map(renderPart)}</div>
-  );
-};
+  )
+}
 Breadcrumb.propTypes = {
   /** Pathname source used to get the label, normally got from useHistory */
   history: PropsTypes.shape({
@@ -83,9 +83,9 @@ Breadcrumb.propTypes = {
   }),
   /** Map a path name to readable name */
   pathReadableMap: PropsTypes.object
-};
+}
 Breadcrumb.defaultProps = {
   pathReadableMap: {}
-};
+}
 
-export default Breadcrumb;
+export default Breadcrumb

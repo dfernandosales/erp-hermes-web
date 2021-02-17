@@ -1,66 +1,66 @@
-import React from "react";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
-import { useHistory } from "react-router-dom";
-import PropTypes from "prop-types";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import * as R from "ramda";
+import React from 'react'
+import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
+import Button from '@material-ui/core/Button'
+import { useHistory } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import Typography from '@material-ui/core/Typography'
+import { makeStyles } from '@material-ui/core/styles'
+import * as R from 'ramda'
 
 const useStyles = makeStyles(theme => ({
   formContent: {
     paddingTop: 16,
     paddingBottom: 16,
-    direction: "row",
-    alignItems: "center",
-    justify: "flex-start"
+    direction: 'row',
+    alignItems: 'center',
+    justify: 'flex-start'
   },
   root: {
     padding: 16,
     marginBottom: 20
   },
   buttonContent: {
-    width: "100%"
+    width: '100%'
   },
   buttonContainer: {
     width: 160
   }
-}));
+}))
 
 const LabelValue = ({ label, value }) => (
   <>
     {label && (
       <Typography
-        variant="caption"
-        style={{ display: "inline-block", width: "100%" }}
+        variant='caption'
+        style={{ display: 'inline-block', width: '100%' }}
       >
         {label}
       </Typography>
     )}
     <Typography
-      variant="body1"
+      variant='body1'
       style={{
-        width: "100%",
-        display: "inline-block",
-        wordWrap: "break-word",
-        overflow: "hidden"
+        width: '100%',
+        display: 'inline-block',
+        wordWrap: 'break-word',
+        overflow: 'hidden'
       }}
     >
       {value}
     </Typography>
   </>
-);
+)
 
 const format = (value, item, fieldConfig) =>
-  fieldConfig.format ? fieldConfig.format(value, item) : value;
+  fieldConfig.format ? fieldConfig.format(value, item) : value
 
 const goToEdit = history =>
   history.location.pathname
-    .split("/")
+    .split('/')
     .filter(p => !!p)
     .slice(0, -1)
-    .join("/");
+    .join('/')
 
 const ReadView = ({
   config,
@@ -69,26 +69,26 @@ const ReadView = ({
   edit = true,
   hideGoBack = false
 }) => {
-  const history = useHistory();
-  const classes = useStyles();
+  const history = useHistory()
+  const classes = useStyles()
 
   const handleGoBack = () => {
     if (onGoBack) {
-      onGoBack();
-      return;
+      onGoBack()
+      return
     }
-    const listPath = /\/.+?\//;
-    const path = listPath.exec(history.location.pathname);
-    const goBack = path[0].substring(0, path[0].length - 1);
+    const listPath = /\/.+?\//
+    const path = listPath.exec(history.location.pathname)
+    const goBack = path[0].substring(0, path[0].length - 1)
     if (sessionStorage.listCache) {
-      const listCache = JSON.parse(sessionStorage.listCache);
+      const listCache = JSON.parse(sessionStorage.listCache)
       if (!R.isNil(listCache[goBack])) {
-        history.push(goBack + listCache[goBack]);
-        return;
+        history.push(goBack + listCache[goBack])
+        return
       }
     }
-    history.push(goBack + history.location.search);
-  };
+    history.push(goBack + history.location.search)
+  }
 
   return (
     <Paper className={classes.root}>
@@ -97,8 +97,8 @@ const ReadView = ({
           <React.Fragment key={key}>
             <Grid item xs={12}>
               <Typography
-                variant={secao.variant || "h6"}
-                style={{ display: "inline-block", width: "100%" }}
+                variant={secao.variant || 'h6'}
+                style={{ display: 'inline-block', width: '100%' }}
               >
                 {secao.title}
               </Typography>
@@ -118,13 +118,13 @@ const ReadView = ({
           </React.Fragment>
         ))}
         <Grid item xs={12} className={classes.buttonContent}>
-          <Grid justify="flex-end" container spacing={2}>
+          <Grid justify='flex-end' container spacing={2}>
             {!hideGoBack && (
               <Grid item classes={{ item: classes.buttonContainer }}>
                 <Button
-                  type="button"
+                  type='button'
                   fullWidth
-                  variant="outlined"
+                  variant='outlined'
                   onClick={handleGoBack}
                 >
                   Voltar
@@ -135,10 +135,10 @@ const ReadView = ({
               <Grid item classes={{ item: classes.buttonContainer }}>
                 <Button
                   fullWidth
-                  variant="contained"
-                  color="primary"
+                  variant='contained'
+                  color='primary'
                   onClick={() => {
-                    history.push("/" + goToEdit(history));
+                    history.push('/' + goToEdit(history))
                   }}
                 >
                   Editar
@@ -149,14 +149,14 @@ const ReadView = ({
         </Grid>
       </Grid>
     </Paper>
-  );
-};
+  )
+}
 
 ReadView.propTypes = {
   config: PropTypes.array,
   item: PropTypes.object,
   onGoBack: PropTypes.func,
   edit: PropTypes.bool
-};
+}
 
-export default React.memo(ReadView);
+export default React.memo(ReadView)

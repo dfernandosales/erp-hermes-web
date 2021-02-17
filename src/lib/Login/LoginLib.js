@@ -1,11 +1,11 @@
-import validation from "../Utils/Validation";
+import validation from '../Utils/Validation'
 
 export const validate = label => values => {
   return {
     username: validation.required(values.username, label),
     password: validation.required(values.password, label)
-  };
-};
+  }
+}
 
 export const handleSubmit = async ({
   handleUserLogin,
@@ -13,14 +13,14 @@ export const handleSubmit = async ({
   console,
   onSubmit
 }) => {
-  const data = (await onSubmit(credentials)) || { ok: false };
+  const data = (await onSubmit(credentials)) || { ok: false }
   if (data.ok) {
     if (!handleUserLogin) {
-      return console.warn("Login Context not found");
+      return console.warn('Login Context not found')
     }
-    return handleUserLogin(data);
+    return handleUserLogin(data)
   }
   return {
-    error: data.message || "Usuário ou senha inválidos"
-  };
-};
+    error: data.message || 'Usuário ou senha inválidos'
+  }
+}

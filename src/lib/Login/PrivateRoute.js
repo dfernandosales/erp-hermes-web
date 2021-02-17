@@ -1,19 +1,19 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Redirect, Route } from "react-router-dom";
-import { Consumer } from "./Auth";
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Redirect, Route } from 'react-router-dom'
+import { Consumer } from './Auth'
 
 const PrivateRoute = ({
   component: Component,
   render,
-  loginPath = "/login",
+  loginPath = '/login',
   ...props
 }) => (
   <Consumer>
     {({ loggedin, redirectPath }) => {
       const path = redirectPath
         ? `${loginPath}?redirectPath=${redirectPath}`
-        : loginPath;
+        : loginPath
       return (
         <Route
           exact
@@ -27,17 +27,16 @@ const PrivateRoute = ({
               )
             ) : (
               <Redirect to={path} />
-            )
-          }
+            )}
         />
-      );
+      )
     }}
   </Consumer>
-);
+)
 
 PrivateRoute.propTypes = {
   loginPath: PropTypes.string,
   loggedin: PropTypes.bool
-};
+}
 
-export default PrivateRoute;
+export default PrivateRoute

@@ -1,13 +1,13 @@
-import React from "react";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+import React from 'react'
+import Radio from '@material-ui/core/Radio'
+import RadioGroup from '@material-ui/core/RadioGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
 
 const CustomRadioGroup = ({ onChange, input, options, ...props }) => {
   const handleChange = event => {
-    input.onChange(event.target.value);
-    onChange(event.target.value);
-  };
+    input.onChange(event.target.value)
+    onChange(event.target.value)
+  }
 
   return (
     <RadioGroup
@@ -25,11 +25,11 @@ const CustomRadioGroup = ({ onChange, input, options, ...props }) => {
         />
       ))}
     </RadioGroup>
-  );
-};
+  )
+}
 
 CustomRadioGroup.defaultProps = {
   options: []
-};
+}
 
-export default CustomRadioGroup;
+export default CustomRadioGroup

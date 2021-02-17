@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { PureAutocomplete, autocompleteHelpers } from "../lib/Common";
-import { CancelToken } from "apisauce";
-const { toOption } = autocompleteHelpers;
+import React, { useEffect, useState } from 'react'
+import { PureAutocomplete, autocompleteHelpers } from '../lib/Common'
+import { CancelToken } from 'apisauce'
+const { toOption } = autocompleteHelpers
 
 const Autocomplete = ({
   input,
@@ -12,10 +12,10 @@ const Autocomplete = ({
   labelFormat,
   ...props
 }) => {
-  const [value, setValue] = useState();
+  const [value, setValue] = useState()
 
   useEffect(() => {
-    const source = CancelToken.source();
+    const source = CancelToken.source()
     const fetch = async () => {
       if (input.value) {
         const response = await repository.getOne({
@@ -23,30 +23,30 @@ const Autocomplete = ({
           options: {
             cancelToken: source.token
           }
-        });
+        })
         if (response.ok) {
           if (labelFormat) {
-            const option = labelFormat(response.data);
-            setValue(option);
+            const option = labelFormat(response.data)
+            setValue(option)
           } else {
-            const option = toOption(labelOption)(response.data);
-            setValue(option);
+            const option = toOption(labelOption)(response.data)
+            setValue(option)
           }
         }
       } else {
-        setValue(null);
+        setValue(null)
       }
-    };
-    fetch();
-    return () => source.cancel();
-  }, [input.value, labelOption, repository, labelFormat]);
+    }
+    fetch()
+    return () => source.cancel()
+  }, [input.value, labelOption, repository, labelFormat])
 
   const onChange = item => {
-    setValue(item);
-    input.onChange(item ? item.id : undefined);
-  };
+    setValue(item)
+    input.onChange(item ? item.id : undefined)
+  }
 
-  const touched = meta.touched || props.showError;
+  const touched = meta.touched || props.showError
 
   return (
     <PureAutocomplete
@@ -63,7 +63,7 @@ const Autocomplete = ({
       onChange={onChange}
       value={value}
     />
-  );
-};
+  )
+}
 
-export default Autocomplete;
+export default Autocomplete

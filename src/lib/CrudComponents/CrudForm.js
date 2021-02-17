@@ -1,32 +1,32 @@
-import React, { useEffect, useState } from "react";
-import Grid from "@material-ui/core/Grid";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
-import { Form } from "react-final-form";
-import green from "@material-ui/core/colors/green";
-import red from "@material-ui/core/colors/red";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import classNames from "classnames";
-import Snackbar from "../Common/Snackbar";
-import { useHistory } from "react-router-dom";
-import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useEffect, useState } from 'react'
+import Grid from '@material-ui/core/Grid'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import Paper from '@material-ui/core/Paper'
+import Button from '@material-ui/core/Button'
+import { Form } from 'react-final-form'
+import green from '@material-ui/core/colors/green'
+import red from '@material-ui/core/colors/red'
+import CheckCircleIcon from '@material-ui/icons/CheckCircle'
+import classNames from 'classnames'
+import Snackbar from '../Common/Snackbar'
+import { useHistory } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { makeStyles } from '@material-ui/core/styles'
 
 export const PRISTINE_BEHAVIOR = {
   DISABLED_WHEN_DIRTY: pristine => !pristine,
   DISABLED_WHEN_NOT_DIRTY: pristine => pristine,
   DEFAULT: pristine => false
-};
+}
 
 const useStyles = makeStyles(theme => ({
   formContent: {
     paddingTop: 16,
     paddingBottom: 16,
-    width: "100%"
+    width: '100%'
   },
   buttonContent: {
-    width: "100%"
+    width: '100%'
   },
   buttonContainer: {
     width: 160
@@ -37,32 +37,32 @@ const useStyles = makeStyles(theme => ({
   },
   buttonWrapper: {
     margin: theme.spacing(),
-    position: "relative"
+    position: 'relative'
   },
   buttonProgress: {
-    position: "absolute",
-    top: "50%",
+    position: 'absolute',
+    top: '50%',
     right: 8,
     marginTop: -12,
     marginLeft: -12
   },
   successButton: {
     backgroundColor: green[500],
-    "&:hover": {
+    '&:hover': {
       backgroundColor: green[500]
     },
-    "&:active": {
-      boxShadow: "none",
+    '&:active': {
+      boxShadow: 'none',
       backgroundColor: green[500]
     }
   },
   errorButton: {
     backgroundColor: red[500],
-    "&:hover": {
+    '&:hover': {
       backgroundColor: red[500]
     },
-    "&:active": {
-      boxShadow: "none",
+    '&:active': {
+      boxShadow: 'none',
       backgroundColor: red[500]
     }
   },
@@ -75,9 +75,9 @@ const useStyles = makeStyles(theme => ({
   iconSmall: {
     fontSize: 20
   }
-}));
+}))
 
-function CrudForm({
+function CrudForm ({
   children,
   validate,
   getItem,
@@ -88,53 +88,53 @@ function CrudForm({
   formProps,
   ...props
 }) {
-  const history = useHistory();
-  const classes = useStyles();
-  const Container = withPaper ? Paper : props => <div {...props} />;
-  const [item, setItem] = useState();
+  const history = useHistory()
+  const classes = useStyles()
+  const Container = withPaper ? Paper : props => <div {...props} />
+  const [item, setItem] = useState()
   const [formState, setFormState] = useState({
-    status: "edit",
-    message: ""
-  });
+    status: 'edit',
+    message: ''
+  })
 
   const _getItem = async () => {
     if (getItem) {
-      const data = await getItem();
-      setItem(data);
+      const data = await getItem()
+      setItem(data)
     }
-  };
+  }
 
   const handleSubmit = async data => {
     if (onSubmit) {
-      const result = await onSubmit(data);
-      setItem(data);
+      const result = await onSubmit(data)
+      setItem(data)
       if (result) {
         setFormState({
-          status: result.ok ? "success" : "error",
+          status: result.ok ? 'success' : 'error',
           message: result.message
-        });
+        })
         setTimeout(
           () =>
             setFormState({
-              status: "edit",
+              status: 'edit',
               ...formState
             }),
           4000
-        );
+        )
       }
     }
-  };
+  }
 
   const handleSnackbarClose = () => {
     setFormState({
       ...formState,
-      message: ""
-    });
-  };
+      message: ''
+    })
+  }
 
   useEffect(() => {
-    _getItem();
-  }, [history.location.pathname]);
+    _getItem()
+  }, [history.location.pathname])
 
   const getButtonLabel = submitting => {
     if (submitting) {
@@ -143,38 +143,38 @@ function CrudForm({
           <CircularProgress size={24} className={classes.buttonProgress} />
           Salvando
         </div>
-      );
+      )
     }
     switch (formState.status) {
-      case "success":
+      case 'success':
         return [
           <CheckCircleIcon
-            key="successIcon"
+            key='successIcon'
             className={classNames(classes.leftIcon, classes.iconSmall)}
           />,
-          <span key="successLabel">Sucesso</span>
-        ];
-      case "edit":
-        return "Salvar";
-      case "error":
-        return "Oops, algo errado";
+          <span key='successLabel'>Sucesso</span>
+        ]
+      case 'edit':
+        return 'Salvar'
+      case 'error':
+        return 'Oops, algo errado'
       default:
-        throw Error("Unexpected formState");
+        throw Error('Unexpected formState')
     }
-  };
+  }
 
   const getButtonClass = () => {
     switch (formState.status) {
-      case "success":
-        return classes.successButton;
-      case "edit":
-        return classes.button;
-      case "error":
-        return classes.errorButton;
+      case 'success':
+        return classes.successButton
+      case 'edit':
+        return classes.button
+      case 'error':
+        return classes.errorButton
       default:
-        throw Error("Unexpected formState");
+        throw Error('Unexpected formState')
     }
-  };
+  }
 
   return (
     <Container className={classes.root}>
@@ -187,28 +187,28 @@ function CrudForm({
       >
         {({ handleSubmit, submitting, pristine, values, ...rest }) => (
           <form onSubmit={handleSubmit}>
-            <Grid direction="column" container spacing={2}>
+            <Grid direction='column' container spacing={2}>
               <Grid item>
                 <div className={classes.formContent}>
-                  {typeof children === "function"
+                  {typeof children === 'function'
                     ? children({ values, ...rest })
                     : children}
                 </div>
               </Grid>
               <Grid item xs={12} className={classes.buttonContent}>
-                <Grid justify="flex-end" container spacing={2}>
+                <Grid justify='flex-end' container spacing={2}>
                   <Grid item classes={{ item: classes.buttonContainer }}>
                     <Button
                       fullWidth
-                      type="button"
-                      variant="outlined"
+                      type='button'
+                      variant='outlined'
                       onClick={() => {
                         const goBack = props.history.location.pathname
-                          .split("/")
+                          .split('/')
                           .filter(p => !!p)
                           .slice(0, -1)
-                          .join("/");
-                        history.push("/" + goBack);
+                          .join('/')
+                        history.push('/' + goBack)
                       }}
                     >
                       Voltar
@@ -222,9 +222,9 @@ function CrudForm({
                     >
                       <Button
                         fullWidth
-                        variant="outlined"
-                        type="button"
-                        color="primary"
+                        variant='outlined'
+                        type='button'
+                        color='primary'
                         onClick={action.onClick}
                         component={action.component}
                         disabled={
@@ -242,10 +242,10 @@ function CrudForm({
                     <Button
                       className={getButtonClass()}
                       fullWidth
-                      type="submit"
+                      type='submit'
                       disabled={submitting}
-                      variant="contained"
-                      color="primary"
+                      variant='contained'
+                      color='primary'
                     >
                       {getButtonLabel(submitting)}
                     </Button>
@@ -258,7 +258,7 @@ function CrudForm({
       </Form>
       <Snackbar message={formState.message} onClose={handleSnackbarClose} />
     </Container>
-  );
+  )
 }
 
 CrudForm.propTypes = {
@@ -271,6 +271,6 @@ CrudForm.propTypes = {
   validate: PropTypes.func,
   /** use createDecorator from final-form-calculate, a simple explanation is: "If field X changes, update field Y" */
   decorators: PropTypes.array
-};
+}
 
-export default CrudForm;
+export default CrudForm

@@ -1,49 +1,49 @@
-import React, { useState, useEffect } from "react";
-import { withStyles } from "@material-ui/core/styles";
-import InputLabel from "@material-ui/core/InputLabel";
-import IconButton from "@material-ui/core/IconButton";
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from "@material-ui/icons/Delete";
-import AddIcon from "@material-ui/icons/Add";
-import PickImage from "./PickImage";
+import React, { useState, useEffect } from 'react'
+import { withStyles } from '@material-ui/core/styles'
+import InputLabel from '@material-ui/core/InputLabel'
+import IconButton from '@material-ui/core/IconButton'
+import EditIcon from '@material-ui/icons/Edit'
+import DeleteIcon from '@material-ui/icons/Delete'
+import AddIcon from '@material-ui/icons/Add'
+import PickImage from './PickImage'
 
 const styles = () => ({
   imageContainer: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center"
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   iconButton: {
-    color: "#fff"
+    color: '#fff'
   },
   darken: {
-    filter: "gray" /* IE6-9 */,
-    "-webkit-filter":
-      "brightness(40%)" /* Chrome 19+, Safari 6+, Safari 6+ iOS */,
-    transition: "filter 0.5s"
+    filter: 'gray' /* IE6-9 */,
+    '-webkit-filter':
+      'brightness(40%)' /* Chrome 19+, Safari 6+, Safari 6+ iOS */,
+    transition: 'filter 0.5s'
   },
   normal: {
-    filter: "gray" /* IE6-9 */,
-    "-webkit-filter":
-      "brightness(100%)" /* Chrome 19+, Safari 6+, Safari 6+ iOS */,
-    transition: "filter 0.5s"
+    filter: 'gray' /* IE6-9 */,
+    '-webkit-filter':
+      'brightness(100%)' /* Chrome 19+, Safari 6+, Safari 6+ iOS */,
+    transition: 'filter 0.5s'
   },
   avatarControlsContainer: {
-    position: "absolute",
+    position: 'absolute',
     top: 0,
     left: 0,
-    height: "100%",
-    width: "100%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-around"
+    height: '100%',
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-around'
   }
-});
+})
 
 const EditControls = ({ classes, id, onChange, ...props }) => (
   <div {...props} className={classes.avatarControlsContainer}>
     <PickImage onChange={onChange} id={id}>
-      <IconButton component="span" className={classes.iconButton}>
+      <IconButton component='span' className={classes.iconButton}>
         <EditIcon />
       </IconButton>
     </PickImage>
@@ -54,39 +54,39 @@ const EditControls = ({ classes, id, onChange, ...props }) => (
       <DeleteIcon />
     </IconButton>
   </div>
-);
+)
 
 const NewControls = ({ classes, onChange, id, ...props }) => (
   <div {...props} className={classes.avatarControlsContainer}>
     <PickImage onChange={onChange} id={id}>
-      <IconButton component="span" className={classes.iconButton}>
+      <IconButton component='span' className={classes.iconButton}>
         <AddIcon />
       </IconButton>
     </PickImage>
   </div>
-);
-function ImagePicker({
+)
+function ImagePicker ({
   classes,
-  id = "image-pick",
+  id = 'image-pick',
   value,
   defaultImage,
   onChange,
-  component = "img",
+  component = 'img',
   size,
   width
 }) {
-  const hasValue = !!value;
-  const Component = component;
-  const [showControls, changeShowControls] = useState(false);
+  const hasValue = !!value
+  const Component = component
+  const [showControls, changeShowControls] = useState(false)
   const getStringData = () => {
-    if (typeof value === "string") return value;
-    return value[0].dataURL;
-  };
+    if (typeof value === 'string') return value
+    return value[0].dataURL
+  }
   useEffect(() => {
-    value && changeShowControls(false);
-  }, [value]);
+    value && changeShowControls(false)
+  }, [value])
   return (
-    <div style={{ position: "relative", height: size, width: size || width }}>
+    <div style={{ position: 'relative', height: size, width: size || width }}>
       <Component
         onError={() => onChange(null)}
         onMouseEnter={() => changeShowControls(true)}
@@ -114,13 +114,13 @@ function ImagePicker({
         />
       )}
     </div>
-  );
+  )
 }
 
-function ImagePickerField({ input, label, ...props }) {
+function ImagePickerField ({ input, label, ...props }) {
   return (
     <div>
-      {label ? <InputLabel htmlFor="my-input">{label}</InputLabel> : null}
+      {label ? <InputLabel htmlFor='my-input'>{label}</InputLabel> : null}
       <div style={{ marginTop: 8 }} />
       <ImagePicker
         {...props}
@@ -129,7 +129,7 @@ function ImagePickerField({ input, label, ...props }) {
         onChange={input.onChange}
       />
     </div>
-  );
+  )
 }
 
-export default withStyles(styles)(ImagePickerField);
+export default withStyles(styles)(ImagePickerField)

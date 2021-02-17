@@ -1,7 +1,7 @@
-import React from "react";
-import AutocompleteCreatable from "../Common/AutocompleteCreatable";
+import React from 'react'
+import AutocompleteCreatable from '../Common/AutocompleteCreatable'
 
-export default function AutocompleteCreatableField({ input, meta, ...props }) {
+export default function AutocompleteCreatableField ({ input, meta, ...props }) {
   return (
     <AutocompleteCreatable
       {...input}
@@ -18,5 +18,5 @@ export default function AutocompleteCreatableField({ input, meta, ...props }) {
       onBlur={input.onBlur}
       onChange={input.onChange}
     />
-  );
+  )
 }

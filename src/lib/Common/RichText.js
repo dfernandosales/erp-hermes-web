@@ -1,32 +1,32 @@
-import React, { useState, useEffect } from "react";
-import InputLabel from "@material-ui/core/InputLabel";
-import RichTextEditor from "react-rte";
-import FormHelperText from "@material-ui/core/FormHelperText";
+import React, { useState, useEffect } from 'react'
+import InputLabel from '@material-ui/core/InputLabel'
+import RichTextEditor from 'react-rte'
+import FormHelperText from '@material-ui/core/FormHelperText'
 
-export default function RichText({
+export default function RichText ({
   toolbarConfig,
-  label = "",
+  label = '',
   meta,
   onChange,
   onBlur,
   onFocus,
-  value = ""
+  value = ''
 }) {
   const [editorState, setEditorState] = useState(
-    RichTextEditor.createValueFromString(value, "html")
-  );
+    RichTextEditor.createValueFromString(value, 'html')
+  )
   const handleChange = state => {
-    setEditorState(state);
+    setEditorState(state)
     if (onChange) {
-      onChange(state.toString("html"));
+      onChange(state.toString('html'))
     }
-  };
+  }
 
   useEffect(() => {
     if (!meta.visited) {
-      setEditorState(RichTextEditor.createValueFromString(value, "html"));
+      setEditorState(RichTextEditor.createValueFromString(value, 'html'))
     }
-  }, [value]);
+  }, [value])
 
   return (
     <div>
@@ -45,5 +45,5 @@ export default function RichText({
         <FormHelperText error>{meta.error}</FormHelperText>
       )}
     </div>
-  );
+  )
 }

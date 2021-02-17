@@ -1,40 +1,40 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Select from "react-select";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import CancelIcon from "@material-ui/icons/Cancel";
-import NoSsr from "@material-ui/core/NoSsr";
-import TextField from "@material-ui/core/TextField";
-import Paper from "@material-ui/core/Paper";
-import MenuItem from "@material-ui/core/MenuItem";
-import { emphasize } from "@material-ui/core/styles/colorManipulator";
-import Chip from "@material-ui/core/Chip";
-import classNames from "classnames";
-import Async from "react-select/async";
+import React from 'react'
+import PropTypes from 'prop-types'
+import Select from 'react-select'
+import { makeStyles, useTheme } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
+import CancelIcon from '@material-ui/icons/Cancel'
+import NoSsr from '@material-ui/core/NoSsr'
+import TextField from '@material-ui/core/TextField'
+import Paper from '@material-ui/core/Paper'
+import MenuItem from '@material-ui/core/MenuItem'
+import { emphasize } from '@material-ui/core/styles/colorManipulator'
+import Chip from '@material-ui/core/Chip'
+import classNames from 'classnames'
+import Async from 'react-select/async'
 
 const styles = theme => ({
   root: {
-    marginTop: "-4px"
+    marginTop: '-4px'
   },
   input: {
-    display: "flex",
+    display: 'flex',
     padding: 0,
-    height: "auto"
+    height: 'auto'
   },
   valueContainer: {
-    display: "flex",
-    flexWrap: "wrap",
+    display: 'flex',
+    flexWrap: 'wrap',
     flex: 1,
-    alignItems: "center",
-    overflow: "hidden"
+    alignItems: 'center',
+    overflow: 'hidden'
   },
   chip: {
     margin: `2px ${theme.spacing(1 / 4)}px`
   },
   chipFocused: {
     backgroundColor: emphasize(
-      theme.palette.type === "light"
+      theme.palette.type === 'light'
         ? theme.palette.grey[300]
         : theme.palette.grey[700],
       0.08
@@ -47,12 +47,12 @@ const styles = theme => ({
     fontSize: 16
   },
   placeholder: {
-    position: "absolute",
+    position: 'absolute',
     left: 2,
     fontSize: 16
   },
   paper: {
-    position: "absolute",
+    position: 'absolute',
     zIndex: 20,
     marginTop: theme.spacing(),
     left: 0,
@@ -62,33 +62,33 @@ const styles = theme => ({
     height: theme.spacing(2)
   },
   separator: {
-    alignSelf: "stretch",
-    backgroundColor: "hsl(0,0%,80%)",
-    width: "1px",
-    boxSizing: "border-box"
+    alignSelf: 'stretch',
+    backgroundColor: 'hsl(0,0%,80%)',
+    width: '1px',
+    boxSizing: 'border-box'
   },
   chipExpanded: {
-    width: "100%"
+    width: '100%'
   },
   chipLabel: {
     flexGrow: 1,
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-    whiteSpace: "nowrap"
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap'
   }
-});
+})
 
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(styles)
 
 const NoOptionsMessage = props => (
   <Typography
-    color="textSecondary"
+    color='textSecondary'
     className={props.selectProps.classes.noOptionsMessage}
     {...props.innerProps}
   >
     {props.children}
   </Typography>
-);
+)
 
 const MultiValue = props => (
   <Chip
@@ -102,7 +102,7 @@ const MultiValue = props => (
         : {}
     }
     label={
-      <Typography variant="body2" noWrap>
+      <Typography variant='body2' noWrap>
         {props.children}
       </Typography>
     }
@@ -114,18 +114,18 @@ const MultiValue = props => (
     onDelete={props.removeProps.onClick}
     deleteIcon={<CancelIcon {...props.removeProps} />}
   />
-);
+)
 
-function inputComponent({ inputRef, ...props }) {
-  return <div ref={inputRef} {...props} />;
+function inputComponent ({ inputRef, ...props }) {
+  return <div ref={inputRef} {...props} />
 }
 
-function Control(props) {
-  const obj = props.getValue()[0];
+function Control (props) {
+  const obj = props.getValue()[0]
   return (
     <TextField
       fullWidth
-      value={obj ? obj.label : ""}
+      value={obj ? obj.label : ''}
       InputProps={{
         inputComponent,
         inputProps: {
@@ -137,15 +137,15 @@ function Control(props) {
       }}
       {...props.selectProps.textFieldProps}
     />
-  );
+  )
 }
 
-function Option(props) {
+function Option (props) {
   return (
     <MenuItem
       buttonRef={props.innerRef}
       selected={props.isFocused}
-      component="div"
+      component='div'
       style={{
         fontWeight: props.isSelected ? 500 : 400
       }}
@@ -153,22 +153,22 @@ function Option(props) {
     >
       {props.children}
     </MenuItem>
-  );
+  )
 }
 
-function Placeholder(props) {
+function Placeholder (props) {
   return (
     <Typography
-      color="textSecondary"
+      color='textSecondary'
       className={props.selectProps.classes.placeholder}
       {...props.innerProps}
     >
       {props.children}
     </Typography>
-  );
+  )
 }
 
-function SingleValue(props) {
+function SingleValue (props) {
   return (
     <Typography
       className={props.selectProps.classes.singleValue}
@@ -176,18 +176,18 @@ function SingleValue(props) {
     >
       {props.children}
     </Typography>
-  );
+  )
 }
 
-function ValueContainer(props) {
+function ValueContainer (props) {
   return (
     <div className={props.selectProps.classes.valueContainer}>
       {props.children}
     </div>
-  );
+  )
 }
 
-function Menu(props) {
+function Menu (props) {
   return (
     <Paper
       square
@@ -196,11 +196,11 @@ function Menu(props) {
     >
       {props.children}
     </Paper>
-  );
+  )
 }
 
-function IndicatorSeparator(props) {
-  return <span className={props.selectProps.classes.separator}></span>;
+function IndicatorSeparator (props) {
+  return <span className={props.selectProps.classes.separator} />
 }
 
 const components = {
@@ -213,7 +213,7 @@ const components = {
   Placeholder,
   SingleValue,
   ValueContainer
-};
+}
 
 const IntegrationReactSelect = ({
   isMulti,
@@ -229,18 +229,18 @@ const IntegrationReactSelect = ({
   disabled,
   defaultOptions
 }) => {
-  const classes = useStyles();
-  const theme = useTheme();
+  const classes = useStyles()
+  const theme = useTheme()
   const selectStyles = {
     input: base => ({
       ...base,
       color: theme.palette.text.primary,
-      "& input": {
-        font: "inherit"
+      '& input': {
+        font: 'inherit'
       }
     })
-  };
-  const AutocompleteComponent = loadOptions ? Async : Select;
+  }
+  const AutocompleteComponent = loadOptions ? Async : Select
 
   return (
     <div className={classes.root}>
@@ -260,39 +260,39 @@ const IntegrationReactSelect = ({
           isMulti={isMulti}
           isMultiExpanded={isMultiExpanded}
           isDisabled={disabled || false}
-          loadingMessage={() => "Carregando..."}
-          noOptionsMessage={() => "Sem opções"}
+          loadingMessage={() => 'Carregando...'}
+          noOptionsMessage={() => 'Sem opções'}
         />
       </NoSsr>
     </div>
-  );
-};
+  )
+}
 
 /// builds an object to use with Autocomplete components
 /// @labelKey prop to autocomplete
 /// @whitelist prop or props to keep on the object
 export const toOption = (labelKey, whitelist) => {
-  if (typeof labelKey !== "string") {
+  if (typeof labelKey !== 'string') {
     throw new Error(
       `labelKey: expected 'string' but received '${typeof labelKey}'`
-    );
+    )
   }
 
-  if (typeof whitelist === "string") {
+  if (typeof whitelist === 'string') {
     return obj => ({
       [whitelist]: obj[whitelist],
 
       id: obj.id,
       value: obj.id,
       label: obj[labelKey]
-    });
+    })
   }
 
   if (Array.isArray(whitelist)) {
     return obj => {
-      const ret = {};
+      const ret = {}
 
-      for (const key of whitelist) ret[key] = obj[key];
+      for (const key of whitelist) ret[key] = obj[key]
 
       return {
         ...ret,
@@ -300,22 +300,22 @@ export const toOption = (labelKey, whitelist) => {
         id: obj.id,
         value: obj.id,
         label: obj[labelKey]
-      };
-    };
+      }
+    }
   }
 
   return obj => ({
     id: obj.id,
     value: obj.id,
     label: obj[labelKey]
-  });
-};
+  })
+}
 
 IntegrationReactSelect.defaultProps = {
-  placeholder: "",
+  placeholder: '',
   textFieldProps: {},
   defaultOptions: true
-};
+}
 
 IntegrationReactSelect.propTypes = {
   onChange: PropTypes.func,
@@ -329,6 +329,6 @@ IntegrationReactSelect.propTypes = {
   autoFocus: PropTypes.bool,
   disabled: PropTypes.bool,
   defaultOptions: PropTypes.bool
-};
+}
 
-export default IntegrationReactSelect;
+export default IntegrationReactSelect

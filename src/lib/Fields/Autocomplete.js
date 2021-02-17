@@ -1,7 +1,7 @@
-import React from "react";
-import Autocomplete from "../Common/Autocomplete";
+import React from 'react'
+import Autocomplete from '../Common/Autocomplete'
 
-export default function AutocompleteField({
+export default function AutocompleteField ({
   input,
   meta,
   textFieldProps,
@@ -24,5 +24,5 @@ export default function AutocompleteField({
       onBlur={input.onBlur}
       onChange={input.onChange}
     />
-  );
+  )
 }

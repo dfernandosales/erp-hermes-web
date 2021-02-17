@@ -1,30 +1,30 @@
-import React, { Component } from "react";
-import FormGroup from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import grey from "@material-ui/core/colors/grey";
+import React, { Component } from 'react'
+import FormGroup from '@material-ui/core/FormControl'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
+import grey from '@material-ui/core/colors/grey'
 
-import { withStyles } from "@material-ui/core/styles";
-import classNames from "classnames";
+import { withStyles } from '@material-ui/core/styles'
+import classNames from 'classnames'
 
 const styles = theme => ({
   center: {
-    justifyContent: "center"
+    justifyContent: 'center'
   },
   checkboxBordered: {
-    border: `solid 1px ${grey["400"]}`,
+    border: `solid 1px ${grey['400']}`,
     borderRadius: 28
   },
   checkboxSelected: {
     borderColor: theme.palette.primary.main
   },
   checkboxDisabled: {
-    borderColor: grey["400"]
+    borderColor: grey['400']
   }
-});
+})
 
 class CheckboxInput extends Component {
-  render() {
+  render () {
     const {
       disabled,
       simple,
@@ -32,11 +32,11 @@ class CheckboxInput extends Component {
       classes,
       input: { checked, onChange, ...input },
       label
-    } = this.props;
+    } = this.props
 
     return (
       <FormGroup
-        style={{ width: "100%" }}
+        style={{ width: '100%' }}
         className={classNames(
           !simple && classes.checkboxBordered,
           checked && classes.checkboxSelected,
@@ -48,18 +48,18 @@ class CheckboxInput extends Component {
           control={
             <Checkbox
               {...input}
-              color="primary"
+              color='primary'
               onChange={value => onChange(value)}
               checked={checked}
               disabled={disabled}
             />
           }
           label={label}
-          style={{ margin: "0px" }}
-        ></FormControlLabel>
+          style={{ margin: '0px' }}
+        />
       </FormGroup>
-    );
+    )
   }
 }
 
-export default withStyles(styles)(CheckboxInput);
+export default withStyles(styles)(CheckboxInput)

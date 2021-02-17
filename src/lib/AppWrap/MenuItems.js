@@ -1,25 +1,24 @@
-import React, { useEffect } from "react";
-import ListItem from "@material-ui/core/ListItem";
-import List from "@material-ui/core/List";
-import Collapse from "@material-ui/core/Collapse";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import { makeStyles } from "@material-ui/core/styles";
-import classNames from "classnames";
-import { Link } from "react-router-dom";
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import ExpandMore from "@material-ui/icons/ExpandMore";
-import { useState } from "react";
-import { useLocation } from "react-router-dom";
-import PropTypes from "prop-types";
-import MenuItem from "@material-ui/core/MenuItem";
-import Paper from "@material-ui/core/Paper";
-import MenuList from "@material-ui/core/MenuList";
-import Popper from "@material-ui/core/Popper";
-import { drawerWidth, drawerClosedWidth } from "./AppWrapStyles";
-import Typography from "@material-ui/core/Typography";
+import React, { useEffect, useState } from 'react'
+import ListItem from '@material-ui/core/ListItem'
+import List from '@material-ui/core/List'
+import Collapse from '@material-ui/core/Collapse'
+import ListItemText from '@material-ui/core/ListItemText'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import { makeStyles } from '@material-ui/core/styles'
+import classNames from 'classnames'
+import { Link, useLocation } from 'react-router-dom'
+import ExpandLess from '@material-ui/icons/ExpandLess'
+import ExpandMore from '@material-ui/icons/ExpandMore'
 
-const popperWidth = 200;
+import PropTypes from 'prop-types'
+import MenuItem from '@material-ui/core/MenuItem'
+import Paper from '@material-ui/core/Paper'
+import MenuList from '@material-ui/core/MenuList'
+import Popper from '@material-ui/core/Popper'
+import { drawerWidth, drawerClosedWidth } from './AppWrapStyles'
+import Typography from '@material-ui/core/Typography'
+
+const popperWidth = 200
 const useStyles = makeStyles(theme => ({
   menuColor: {
     color: theme.palette.grey[500]
@@ -31,7 +30,7 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.grey[900]
   },
   divider: {
-    backgroundColor: "#9D9C9D"
+    backgroundColor: '#9D9C9D'
   },
   active: {
     borderLeft: `solid 3px ${theme.palette.primary.main}`,
@@ -43,19 +42,19 @@ const useStyles = makeStyles(theme => ({
     zIndex: 1500
   },
   popperTitle: {
-    display: "flex",
-    alignItems: "center",
+    display: 'flex',
+    alignItems: 'center',
     minHeight: 40,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginLeft: theme.spacing(2)
   },
   popperArrow: {
-    position: "absolute",
+    position: 'absolute',
     left: -5,
-    top: "50%",
-    borderTop: "5px solid transparent",
-    borderBottom: "5px solid transparent",
-    borderRight: "5px solid white",
+    top: '50%',
+    borderTop: '5px solid transparent',
+    borderBottom: '5px solid transparent',
+    borderRight: '5px solid white',
     zIndex: 1500
   },
   menuList: {
@@ -64,12 +63,12 @@ const useStyles = makeStyles(theme => ({
   menuItem: {
     fontSize: 14
   }
-}));
+}))
 
 const enumTheme = {
-  DARK: "dark",
-  LIGHT: "light"
-};
+  DARK: 'dark',
+  LIGHT: 'light'
+}
 
 const MenuItems = ({
   items,
@@ -79,32 +78,32 @@ const MenuItems = ({
   onMenuItemClick,
   expanded
 }) => {
-  const classes = useStyles();
-  const location = useLocation();
-  const [openSubmenu, setOpenSubmenu] = useState("");
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [popperLabel, setPopperLabel] = useState("");
+  const classes = useStyles()
+  const location = useLocation()
+  const [openSubmenu, setOpenSubmenu] = useState('')
+  const [anchorEl, setAnchorEl] = useState(null)
+  const [popperLabel, setPopperLabel] = useState('')
 
-  const handleClosePopper = () => setAnchorEl(null);
+  const handleClosePopper = () => setAnchorEl(null)
 
   const handleGroupClick = label => () => {
-    handleClosePopper();
-    onMenuItemClick(label);
-    setOpenSubmenu(openSubmenu === label ? "" : label);
-  };
+    handleClosePopper()
+    onMenuItemClick(label)
+    setOpenSubmenu(openSubmenu === label ? '' : label)
+  }
 
   const handleOpenPopper = (event, label) => {
-    setPopperLabel(label);
-    if (anchorEl !== event.currentTarget) setAnchorEl(event.currentTarget);
-  };
+    setPopperLabel(label)
+    if (anchorEl !== event.currentTarget) setAnchorEl(event.currentTarget)
+  }
 
   useEffect(() => {
-    if (!popperOpen) handleClosePopper();
-  }, [popperOpen]);
+    if (!popperOpen) handleClosePopper()
+  }, [popperOpen])
 
   useEffect(() => {
-    if (!expanded) setOpenSubmenu("");
-  }, [expanded]);
+    if (!expanded) setOpenSubmenu('')
+  }, [expanded])
 
   const renderPopper = item => {
     return (
@@ -113,7 +112,7 @@ const MenuItems = ({
           classes.popper,
           menuItemsClasses && menuItemsClasses.popper
         )}
-        placement="right"
+        placement='right'
         anchorEl={anchorEl}
         open={popperOpen && Boolean(anchorEl)}
         onClose={handleClosePopper}
@@ -124,7 +123,7 @@ const MenuItems = ({
               classes.popperArrow,
               menuItemsClasses && menuItemsClasses.popperArrow
             )}
-          ></div>
+          />
           {item.label === popperLabel ? (
             <Typography
               className={classNames(
@@ -140,8 +139,8 @@ const MenuItems = ({
             : null}
         </Paper>
       </Popper>
-    );
-  };
+    )
+  }
 
   const renderMenuItem = item => {
     return (
@@ -158,12 +157,12 @@ const MenuItems = ({
               >
                 {i.label}
               </MenuItem>
-            );
+            )
           })}
         </MenuList>
       </div>
-    );
-  };
+    )
+  }
 
   const renderItem = (item, key) => {
     if (item.group) {
@@ -200,39 +199,39 @@ const MenuItems = ({
               }}
             />
             {openSubmenu === item.label ? (
-              <ExpandLess color="inherit" />
+              <ExpandLess color='inherit' />
             ) : (
-              <ExpandMore color="inherit" />
+              <ExpandMore color='inherit' />
             )}
           </ListItem>
           <Collapse
             in={!popperOpen ? openSubmenu === item.label : false}
-            timeout="auto"
+            timeout='auto'
             unmountOnExit
           >
-            <List component="div" disablePadding>
+            <List component='div' disablePadding>
               {item.items.map(renderListItem, true)}
             </List>
           </Collapse>
           {renderPopper(item)}
         </div>
-      );
+      )
     }
 
-    return renderListItem(item, key);
-  };
+    return renderListItem(item, key)
+  }
 
   const renderListItem = (item, key, isSubMenu) => {
     const active =
-      `/${location.pathname.split("/")[1]}` === item.pathname.split("?")[0] ||
-      location.pathname === item.pathname;
+      `/${location.pathname.split('/')[1]}` === item.pathname.split('?')[0] ||
+      location.pathname === item.pathname
 
-    let activeColor = classes.menuColorActive;
+    let activeColor = classes.menuColorActive
     if (themeName === enumTheme.LIGHT) {
-      activeColor = classes.menuColorActiveLight;
+      activeColor = classes.menuColorActiveLight
     }
     if (menuItemsClasses) {
-      activeColor = menuItemsClasses.menuColorActive;
+      activeColor = menuItemsClasses.menuColorActive
     }
 
     return (
@@ -274,15 +273,15 @@ const MenuItems = ({
         </ListItem>
         {renderPopper(item)}
       </React.Fragment>
-    );
-  };
-  return <div>{items.map(renderItem)}</div>;
-};
+    )
+  }
+  return <div>{items.map(renderItem)}</div>
+}
 
 MenuItems.defaultProps = {
   items: [],
   themeName: enumTheme.DARK
-};
+}
 
 MenuItems.propTypes = {
   /** Array of elements to be rendered in the menu */
@@ -296,6 +295,6 @@ MenuItems.propTypes = {
   ),
   /** The themeName that will be used */
   themeName: PropTypes.string
-};
+}
 
-export default MenuItems;
+export default MenuItems

@@ -1,35 +1,35 @@
-import React from "react";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from "@material-ui/core/FormControl";
-import Input from "@material-ui/core/Input";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import MaskedInput from "react-text-mask";
+import React from 'react'
+import InputLabel from '@material-ui/core/InputLabel'
+import FormControl from '@material-ui/core/FormControl'
+import Input from '@material-ui/core/Input'
+import FormHelperText from '@material-ui/core/FormHelperText'
+import MaskedInput from 'react-text-mask'
 
-function TextMaskCustom(props) {
-  const { inputRef, mask, ...other } = props;
+function TextMaskCustom (props) {
+  const { inputRef, mask, ...other } = props
   return (
     <MaskedInput
       {...other}
       ref={ref => {
-        inputRef(ref ? ref.inputElement : null);
+        inputRef(ref ? ref.inputElement : null)
       }}
       mask={mask}
     />
-  );
+  )
 }
 
-export default function MaskedField(props) {
+export default function MaskedField (props) {
   const {
     input: { name, onChange, value, onBlur },
     meta,
     mask,
     label,
     ...rest
-  } = props;
+  } = props
 
   const showError =
     ((meta.submitError && !meta.dirtySinceLastSubmit) || meta.error) &&
-    meta.touched;
+    meta.touched
 
   return (
     <FormControl error={meta.error && meta.touched} fullWidth>
@@ -40,7 +40,7 @@ export default function MaskedField(props) {
         name={name}
         error={showError}
         value={value}
-        aria-describedby="helper-text"
+        aria-describedby='helper-text'
         onChange={onChange}
         inputProps={{
           mask: mask
@@ -48,10 +48,10 @@ export default function MaskedField(props) {
         inputComponent={TextMaskCustom}
       />
       {showError ? (
-        <FormHelperText error={showError} id="helper-text">
+        <FormHelperText error={showError} id='helper-text'>
           {meta.error}
         </FormHelperText>
       ) : null}
     </FormControl>
-  );
+  )
 }

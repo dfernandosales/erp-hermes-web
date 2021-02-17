@@ -1,10 +1,10 @@
-import React from "react";
-import RichText from "../Common/RichText";
+import React from 'react'
+import RichText from '../Common/RichText'
 
-export default function CustomRichText({ input, ...props }) {
+export default function CustomRichText ({ input, ...props }) {
   if (!input) {
-    console.warn("You shold pass this component to a Fild");
-    return null;
+    console.warn('You shold pass this component to a Fild')
+    return null
   }
 
   return (
@@ -15,5 +15,5 @@ export default function CustomRichText({ input, ...props }) {
       onBlur={input.onBlur}
       value={input.value}
     />
-  );
+  )
 }

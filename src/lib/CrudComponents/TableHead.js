@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import TableSortLabel from "@material-ui/core/TableSortLabel";
-import { withRouter } from "react-router-dom";
-import IconButton from "@material-ui/core/IconButton";
-import DownloadIcon from "@material-ui/icons/CloudDownload";
-import Tooltip from "@material-ui/core/Tooltip";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useState, useEffect } from 'react'
+import TableCell from '@material-ui/core/TableCell'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+import TableSortLabel from '@material-ui/core/TableSortLabel'
+import { withRouter } from 'react-router-dom'
+import IconButton from '@material-ui/core/IconButton'
+import DownloadIcon from '@material-ui/icons/CloudDownload'
+import Tooltip from '@material-ui/core/Tooltip'
+import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles({
   textBold: {
-    fontWeight: "bold"
+    fontWeight: 'bold'
   }
-});
+})
 
 const EnhancedTableHead = ({
   hideDownloadIcon,
@@ -26,20 +26,20 @@ const EnhancedTableHead = ({
   hideColumns = {},
   hideEmptyColumn
 }) => {
-  const [field, setField] = useState(defaultOrder);
-  const [direction, setDirection] = useState("asc");
-  const classes = useStyles();
+  const [field, setField] = useState(defaultOrder)
+  const [direction, setDirection] = useState('asc')
+  const classes = useStyles()
 
   const getFieldDirection = ({ location: { search } }) => {
-    const searchParams = new URLSearchParams(search);
-    const order = searchParams.get("order");
+    const searchParams = new URLSearchParams(search)
+    const order = searchParams.get('order')
     if (!order) {
-      return;
+      return
     }
-    const [field, direction = "asc"] = order.split(" ");
-    setField(field);
-    setDirection(direction);
-  };
+    const [field, direction = 'asc'] = order.split(' ')
+    setField(field)
+    setDirection(direction)
+  }
 
   useEffect(() => {
     getFieldDirection({
@@ -51,18 +51,18 @@ const EnhancedTableHead = ({
       above,
       hideColumns,
       hideEmptyColumn
-    });
-  }, [location.search]);
+    })
+  }, [location.search])
 
   const onRequestSort = newField => {
-    const searchParams = new URLSearchParams(location.search);
-    let newDirection = "asc";
+    const searchParams = new URLSearchParams(location.search)
+    let newDirection = 'asc'
     if (field === newField) {
-      newDirection = direction === "desc" ? "asc" : "desc";
+      newDirection = direction === 'desc' ? 'asc' : 'desc'
     }
-    searchParams.set("order", `${newField} ${newDirection}`);
-    history.push(`${location.pathname}?${searchParams.toString()}`);
-  };
+    searchParams.set('order', `${newField} ${newDirection}`)
+    history.push(`${location.pathname}?${searchParams.toString()}`)
+  }
 
   return (
     <TableHead>
@@ -70,7 +70,7 @@ const EnhancedTableHead = ({
       <TableRow>
         {columns.map(({ label, source, noOrder, numeric, align }) => {
           if (hideColumns[source] && hideColumns[source]()) {
-            return null;
+            return null
           }
 
           if (noOrder) {
@@ -78,7 +78,7 @@ const EnhancedTableHead = ({
               <TableCell align={align} key={source}>
                 {label}
               </TableCell>
-            );
+            )
           }
           return (
             <TableCell align={align} key={source} numeric={numeric}>
@@ -91,12 +91,12 @@ const EnhancedTableHead = ({
                 {label}
               </TableSortLabel>
             </TableCell>
-          );
+          )
         })}
-        <TableCell align="right">
+        <TableCell align='right'>
           {hideDownloadIcon ? null : (
-            <Tooltip title="Baixar lista" aria-label="Baixar lista">
-              <IconButton size="small" onClick={onDownloadClick}>
+            <Tooltip title='Baixar lista' aria-label='Baixar lista'>
+              <IconButton size='small' onClick={onDownloadClick}>
                 <DownloadIcon />
               </IconButton>
             </Tooltip>
@@ -104,7 +104,7 @@ const EnhancedTableHead = ({
         </TableCell>
       </TableRow>
     </TableHead>
-  );
-};
+  )
+}
 
-export default withRouter(EnhancedTableHead);
+export default withRouter(EnhancedTableHead)

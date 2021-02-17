@@ -1,40 +1,40 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Select from "react-select/creatable";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import CancelIcon from "@material-ui/icons/Cancel";
-import NoSsr from "@material-ui/core/NoSsr";
-import TextField from "@material-ui/core/TextField";
-import Paper from "@material-ui/core/Paper";
-import MenuItem from "@material-ui/core/MenuItem";
-import { emphasize } from "@material-ui/core/styles/colorManipulator";
-import Chip from "@material-ui/core/Chip";
-import classNames from "classnames";
-import Async from "react-select/async-creatable";
+import React from 'react'
+import PropTypes from 'prop-types'
+import Select from 'react-select/creatable'
+import { makeStyles, useTheme } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
+import CancelIcon from '@material-ui/icons/Cancel'
+import NoSsr from '@material-ui/core/NoSsr'
+import TextField from '@material-ui/core/TextField'
+import Paper from '@material-ui/core/Paper'
+import MenuItem from '@material-ui/core/MenuItem'
+import { emphasize } from '@material-ui/core/styles/colorManipulator'
+import Chip from '@material-ui/core/Chip'
+import classNames from 'classnames'
+import Async from 'react-select/async-creatable'
 
 const styles = theme => ({
   root: {
-    marginTop: "-4px"
+    marginTop: '-4px'
   },
   input: {
-    display: "flex",
+    display: 'flex',
     padding: 0,
-    height: "auto"
+    height: 'auto'
   },
   valueContainer: {
-    display: "flex",
-    flexWrap: "wrap",
+    display: 'flex',
+    flexWrap: 'wrap',
     flex: 1,
-    alignItems: "center",
-    overflow: "hidden"
+    alignItems: 'center',
+    overflow: 'hidden'
   },
   chip: {
     margin: `${theme.spacing(1 / 2)}px ${theme.spacing(1 / 4)}px`
   },
   chipFocused: {
     backgroundColor: emphasize(
-      theme.palette.type === "light"
+      theme.palette.type === 'light'
         ? theme.palette.grey[300]
         : theme.palette.grey[700],
       0.08
@@ -47,12 +47,12 @@ const styles = theme => ({
     fontSize: 16
   },
   placeholder: {
-    position: "absolute",
+    position: 'absolute',
     left: 2,
     fontSize: 16
   },
   paper: {
-    position: "absolute",
+    position: 'absolute',
     zIndex: 20,
     marginTop: theme.spacing(),
     left: 0,
@@ -62,24 +62,24 @@ const styles = theme => ({
     height: theme.spacing(2)
   },
   separator: {
-    alignSelf: "stretch",
-    backgroundColor: "hsl(0,0%,80%)",
-    width: "1px",
-    boxSizing: "border-box"
+    alignSelf: 'stretch',
+    backgroundColor: 'hsl(0,0%,80%)',
+    width: '1px',
+    boxSizing: 'border-box'
   }
-});
+})
 
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(styles)
 
 const NoOptionsMessage = props => (
   <Typography
-    color="textSecondary"
+    color='textSecondary'
     className={props.selectProps.classes.noOptionsMessage}
     {...props.innerProps}
   >
     {props.children}
   </Typography>
-);
+)
 
 const MultiValue = props => (
   <Chip
@@ -92,18 +92,18 @@ const MultiValue = props => (
     onDelete={props.removeProps.onClick}
     deleteIcon={<CancelIcon {...props.removeProps} />}
   />
-);
+)
 
-function inputComponent({ inputRef, ...props }) {
-  return <div ref={inputRef} {...props} />;
+function inputComponent ({ inputRef, ...props }) {
+  return <div ref={inputRef} {...props} />
 }
 
-function Control(props) {
-  const obj = props.getValue()[0];
+function Control (props) {
+  const obj = props.getValue()[0]
   return (
     <TextField
       fullWidth
-      value={obj ? obj.label : ""}
+      value={obj ? obj.label : ''}
       InputProps={{
         inputComponent,
         inputProps: {
@@ -115,15 +115,15 @@ function Control(props) {
       }}
       {...props.selectProps.textFieldProps}
     />
-  );
+  )
 }
 
-function Option(props) {
+function Option (props) {
   return (
     <MenuItem
       buttonRef={props.innerRef}
       selected={props.isFocused}
-      component="div"
+      component='div'
       style={{
         fontWeight: props.isSelected ? 500 : 400
       }}
@@ -131,22 +131,22 @@ function Option(props) {
     >
       {props.children}
     </MenuItem>
-  );
+  )
 }
 
-function Placeholder(props) {
+function Placeholder (props) {
   return (
     <Typography
-      color="textSecondary"
+      color='textSecondary'
       className={props.selectProps.classes.placeholder}
       {...props.innerProps}
     >
       {props.children}
     </Typography>
-  );
+  )
 }
 
-function SingleValue(props) {
+function SingleValue (props) {
   return (
     <Typography
       className={props.selectProps.classes.singleValue}
@@ -154,18 +154,18 @@ function SingleValue(props) {
     >
       {props.children}
     </Typography>
-  );
+  )
 }
 
-function ValueContainer(props) {
+function ValueContainer (props) {
   return (
     <div className={props.selectProps.classes.valueContainer}>
       {props.children}
     </div>
-  );
+  )
 }
 
-function Menu(props) {
+function Menu (props) {
   return (
     <Paper
       square
@@ -174,11 +174,11 @@ function Menu(props) {
     >
       {props.children}
     </Paper>
-  );
+  )
 }
 
-function IndicatorSeparator(props) {
-  return <span className={props.selectProps.classes.separator}></span>;
+function IndicatorSeparator (props) {
+  return <span className={props.selectProps.classes.separator} />
 }
 
 const components = {
@@ -191,7 +191,7 @@ const components = {
   Placeholder,
   SingleValue,
   ValueContainer
-};
+}
 
 const IntegrationReactSelectCreatable = ({
   isMulti,
@@ -207,29 +207,29 @@ const IntegrationReactSelectCreatable = ({
   onCreateOption,
   defaultOptions
 }) => {
-  const classes = useStyles();
-  const theme = useTheme();
+  const classes = useStyles()
+  const theme = useTheme()
   const selectStyles = {
     input: base => ({
       ...base,
       color: theme.palette.text.primary,
-      "& input": {
-        font: "inherit"
+      '& input': {
+        font: 'inherit'
       }
     })
-  };
+  }
 
-  const AutocompleteComponent = loadOptions ? Async : Select;
+  const AutocompleteComponent = loadOptions ? Async : Select
 
   const createOption = newValue => {
-    onCreateOption && onCreateOption(newValue);
-    const option = { label: newValue, value: newValue };
+    onCreateOption && onCreateOption(newValue)
+    const option = { label: newValue, value: newValue }
     if (isMulti) {
-      onChange([...value, option]);
+      onChange([...value, option])
     } else {
-      onChange(option);
+      onChange(option)
     }
-  };
+  }
 
   return (
     <div className={classes.root}>
@@ -249,20 +249,20 @@ const IntegrationReactSelectCreatable = ({
           isMulti={isMulti}
           onCreateOption={value => createOption(value)}
           isDisabled={disabled || false}
-          loadingMessage={() => "Carregando..."}
-          noOptionsMessage={() => "Sem opções"}
+          loadingMessage={() => 'Carregando...'}
+          noOptionsMessage={() => 'Sem opções'}
           formatCreateLabel={value => `Adicionar "${value}"`}
         />
       </NoSsr>
     </div>
-  );
-};
+  )
+}
 
 IntegrationReactSelectCreatable.defaultProps = {
-  placeholder: "",
+  placeholder: '',
   textFieldProps: {},
   defaultOptions: true
-};
+}
 
 IntegrationReactSelectCreatable.propTypes = {
   onChange: PropTypes.func,
@@ -277,6 +277,6 @@ IntegrationReactSelectCreatable.propTypes = {
   disabled: PropTypes.bool,
   onCreateOption: PropTypes.func,
   defaultOptions: PropTypes.bool
-};
+}
 
-export default IntegrationReactSelectCreatable;
+export default IntegrationReactSelectCreatable
