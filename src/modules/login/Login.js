@@ -21,7 +21,7 @@ export const handleLogin = ({ login, setToken = R.empty }) => async ({
     password,
   });
 
-  setToken(response.data.authentication.accessToken)
+  setToken(response.data.authentication.accessToken);
 
   if (response.ok) {
     return {
