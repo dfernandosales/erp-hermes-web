@@ -18,8 +18,7 @@ import { Email } from "../../Components";
 
 export const ROLES = [
   { label: "Administrador", value: "ADMIN" },
-  { label: "Usuário", value: "USER" },
-  { label: "Email", value: "EMAIL" },
+  { label: "Funcionario", value: "FUNC" },
 ];
 
 const formatRole = value => {
@@ -74,7 +73,7 @@ const UsuariosList = ({ ...props }) => {
   const listHook = useListRepository({
     repository: usuariosRepository,
     defaultSort: "name",
-    path: "usuarios",
+    path: "users",
   });
 
   const actions = getListActions(abilities, listHook, "usuarios");

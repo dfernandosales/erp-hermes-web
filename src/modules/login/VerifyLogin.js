@@ -6,9 +6,9 @@ const VerifyLogin = () => {
   const context = useContext(AuthContext);
 
   const verifyToken = useCallback(async () => {
-    const { user: usuario } = context;
-    if (usuario) {
-      const response = await api.ping(usuario.id);
+    const { user } = context;
+    if (user) {
+      const response = await api.ping(user.id);
       if (response.status === 401) {
         context.loggedin && context.logout();
       }

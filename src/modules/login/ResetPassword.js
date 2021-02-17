@@ -1,7 +1,7 @@
 import React from "react";
 import { RecoverPassword } from "../../lib/Login";
 import api from "../../services/api";
-import logo from "../../images/g10-logo.png";
+import logo from "../../images/hermes-logo.png";
 import { Grid } from "@material-ui/core";
 
 export const handleSubmit = (init, location) => async ({ username }) => {

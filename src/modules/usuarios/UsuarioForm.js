@@ -1,5 +1,5 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
+import { Grid, makeStyles } from "@material-ui/core";
 import { Field } from "react-final-form";
 import { CrudForm } from "../../lib/Components";
 import { Select, TextField } from "../../lib/Fields"
@@ -10,6 +10,15 @@ import { useAbility } from ".";
 import { Email } from "../../Components";
 import * as yup from "yup";
 import yupValidation from "../../lib/yupValidation";
+
+
+const useStyles = makeStyles(theme => ({
+  container: {
+    ["@media (min-height:800px)"]: {
+      marginTop: theme.spacing(3),
+    },
+  },
+}));
 
 const usuarioSchema = yup.object().shape({
   email: yup
@@ -30,6 +39,7 @@ const validate = yupValidation(usuarioSchema);
 
 const UsuarioForm = props => {
   const abilities = useAbility();
+  const classes = useStyles();
 
   const entityManager = useEntityManager({
     repository: usuariosRepository,
@@ -42,8 +52,8 @@ const UsuarioForm = props => {
       <CrudForm
         {...props}
         {...entityManager}
-        disableSubmit={cannotUpdate}
         validate={validate}
+        disableSubmit={cannotUpdate}
         withPaper
       >
         <Grid container spacing={2}>
@@ -54,6 +64,16 @@ const UsuarioForm = props => {
             <Email />
           </Grid>
           <Grid item sm={6} xs={12}>
+            <Field
+              type="password"
+              fullWidth
+              name="password"
+              label="Senha"
+              hideEmpty
+              component={TextField}
+            />
+          </Grid>
+          <Grid item sm={12} xs={12}>
             <Field
               fullWidth
               name="role"

@@ -3,7 +3,7 @@ import { createBasicRepository as createRepository } from "../../lib/Repository"
 import { query, paginate } from "../../lib/feathers";
 
 const usuariosRepository = createRepository({
-  path: "usuarios",
+  path: "users",
   restApi,
   queryTransform: {
     name: query.ilike("name"),

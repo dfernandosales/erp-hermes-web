@@ -8,15 +8,14 @@ export const restApi = create({
 const getApi = () => {
   return {
     setToken: token => restApi.setHeader("Authorization", `Bearer ${token}`),
-    ping: idUsuario => restApi.get(`/usuarios/${idUsuario}`),
+    ping: idUsuario => restApi.get(`/users/${idUsuario}`),
     login: credentials =>
       restApi.post("/authentication", {
-        strategy: "microsoft",
+        strategy: "local",
         ...credentials,
       }),
     logout: () => restApi.delete("/authentication"),
     resetPassword: data => restApi.post("/account", data),
-    getViagens: cpf => restApi.get("/viagens", { cpf }),
   };
 };
 
