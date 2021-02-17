@@ -3,20 +3,21 @@ import { fromPairs } from 'ramda'
 
 export const recoverValues = search => {
   return fromPairs(
-    [... new URLSearchParams(search).entries()].map(
-      ([key, value]) => [key, handleValue(value)]
-    )
+    [...new URLSearchParams(search).entries()].map(([key, value]) => [
+      key,
+      handleValue(value)
+    ])
   )
 }
 
-const handleValue = (value) => {
-  if (value === 'true') return true;
-  if (value === 'false') return false;
-  if (value === 'null') return null;
-  return value;
+const handleValue = value => {
+  if (value === 'true') return true
+  if (value === 'false') return false
+  if (value === 'null') return null
+  return value
 }
 
-export const makeUrl = ({location: {pathname, search}}, values, format) => {
+export const makeUrl = ({ location: { pathname, search } }, values, format) => {
   const formated = format ? format(values) : values
   const newParams = new URLSearchParams(formated)
   const params = new URLSearchParams(search)
@@ -27,8 +28,7 @@ export const makeUrl = ({location: {pathname, search}}, values, format) => {
   return `${pathname}?${newParams}`
 }
 
-const useFilter = ({format}) => {
-
+const useFilter = ({ format }) => {
   const history = useHistory()
 
   const onSubmit = values => history.push(makeUrl(history, values, format))

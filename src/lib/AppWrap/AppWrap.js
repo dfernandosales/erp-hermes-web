@@ -30,7 +30,7 @@ const enumTheme = {
   LIGHT: 'light'
 }
 
-const getReadable = (menuItem) => {
+const getReadable = menuItem => {
   if (menuItem.pathname) {
     const paths = menuItem.pathname.split('/')
     if (paths.length === 2) {
@@ -43,7 +43,7 @@ const getReadable = (menuItem) => {
   return {}
 }
 
-const getDafaultsReadableMap = (menuItems) => {
+const getDafaultsReadableMap = menuItems => {
   const readables = menuItems.map(menuItem => {
     if (menuItem.group) {
       const readable = getReadable(menuItem)
@@ -70,13 +70,13 @@ const AppWrap = ({
   hideBreadcrumb,
   userAvatarProps,
   theme: themeName,
-  customBar,
+  customBar
 }) => {
   const history = useHistory()
   const theme = useTheme()
   const [open, setOpen] = useState(true)
   const [hideMenu, setHideMenu] = useState(false)
-  const [width, setWidth] = useState(window.innerWidth);
+  const [width, setWidth] = useState(window.innerWidth)
   const classes = useStyles()
   const [popperOpen, setPopperOpen] = useState(false)
   const lightTheme = themeName === enumTheme.LIGHT
@@ -85,11 +85,11 @@ const AppWrap = ({
     if (window.innerWidth < theme.breakpoints.values.md) {
       setOpen(false)
     }
-    setWidth(window.innerWidth);
+    setWidth(window.innerWidth)
   }
 
   const handleMenuItemClick = label => {
-    if(!!label) setOpen(true)
+    if (label) setOpen(true)
   }
 
   const handleToggleDrawer = open => {
@@ -97,8 +97,8 @@ const AppWrap = ({
   }
 
   useEffect(() => {
-    setHideMenu(width < theme.breakpoints.values.sm && !open);
-  }, [open, width]);
+    setHideMenu(width < theme.breakpoints.values.sm && !open)
+  }, [open, width])
 
   useEffect(() => {
     setOpen(localStorage.toggleDrawer === '1')
@@ -116,7 +116,7 @@ const AppWrap = ({
     localStorage.setItem('toggleDrawer', !open ? '1' : '0')
   }
 
-  const buttonMenu = () =>
+  const buttonMenu = () => (
     <Tooltip
       title={open ? 'Retrair menu' : 'Expandir menu'}
       aria-label={open ? 'Retrair menu' : 'Expandir menu'}
@@ -124,35 +124,58 @@ const AppWrap = ({
       <IconButton
         aria-label='open drawer'
         onClick={toggleMenu}
-        className={classNames(classes.menuButton,
-        isPositionButtonMenuDrawer && classes.menuButtonInMenuDrawer,
-        appWrapClasses && appWrapClasses.menuButton)}
+        className={classNames(
+          classes.menuButton,
+          isPositionButtonMenuDrawer && classes.menuButtonInMenuDrawer,
+          appWrapClasses && appWrapClasses.menuButton
+        )}
       >
         <MenuIcon />
       </IconButton>
     </Tooltip>
-
+  )
 
   return (
     <div className={classes.root}>
       <div className={classes.appFrame}>
         <AppBar
-          className={classNames(classes.appBar, open && classes.appBarShift, hideMenu && classes.appBarHiddenMenu)}
+          className={classNames(
+            classes.appBar,
+            open && classes.appBarShift,
+            hideMenu && classes.appBarHiddenMenu
+          )}
           position='absolute'
         >
           <Toolbar disableGutters classes={{ root: classes.navBarRoot }}>
             <Grid container>
-              <Grid item xs className={classNames(classes.toolsLeft, isPositionButtonMenuDrawer && classes.toolsLeftWithButtonInDrawer, !hideMenu && classes.toolsLeftHideMenu)}>
+              <Grid
+                item
+                xs
+                className={classNames(
+                  classes.toolsLeft,
+                  isPositionButtonMenuDrawer &&
+                    classes.toolsLeftWithButtonInDrawer,
+                  !hideMenu && classes.toolsLeftHideMenu
+                )}
+              >
+                {!hideMenuButton && !isPositionButtonMenuDrawer && buttonMenu()}
 
-                {(!hideMenuButton && !isPositionButtonMenuDrawer) && buttonMenu()}
-
-                {!hideBreadcrumb &&
+                {!hideBreadcrumb && (
                   <Breadcrumb
                     history={history}
-                    pathReadableMap={R.mergeRight(getDafaultsReadableMap(menuItems), pathReadableMap)} />}
+                    pathReadableMap={R.mergeRight(
+                      getDafaultsReadableMap(menuItems),
+                      pathReadableMap
+                    )}
+                  />
+                )}
               </Grid>
 
-              {customBar && <Grid item xs className={classNames(classes.toolsRight)}>{customBar}</Grid>}
+              {customBar && (
+                <Grid item xs className={classNames(classes.toolsRight)}>
+                  {customBar}
+                </Grid>
+              )}
 
               <Grid item className={classNames(classes.toolsRight)}>
                 <UserAvatar onLogout={onLogout} {...userAvatarProps} />
@@ -161,7 +184,7 @@ const AppWrap = ({
           </Toolbar>
         </AppBar>
         <Drawer
-          onMouseOver={() => setPopperOpen(open ? false : true)}
+          onMouseOver={() => setPopperOpen(!open)}
           onMouseLeave={() => setPopperOpen(false)}
           variant='permanent'
           classes={{
@@ -183,26 +206,32 @@ const AppWrap = ({
                 appWrapClasses && appWrapClasses.drawerHeader
               )}
             >
-              {!open && isPositionButtonMenuDrawer && <div>
-                {isPositionButtonMenuDrawer && buttonMenu()}
-              </div>}
-              <div className={classNames(open ? classes.drawerLogo : isPositionButtonMenuDrawer ? classes.drawerLogoClosedWithButtonInDrawer : classes.drawerLogoClosed)}>
+              {!open && isPositionButtonMenuDrawer && (
+                <div>{isPositionButtonMenuDrawer && buttonMenu()}</div>
+              )}
+              <div
+                className={classNames(
+                  open
+                    ? classes.drawerLogo
+                    : isPositionButtonMenuDrawer
+                      ? classes.drawerLogoClosedWithButtonInDrawer
+                      : classes.drawerLogoClosed
+                )}
+              >
                 {logo}
               </div>
-              {open && isPositionButtonMenuDrawer && <div>
-                {buttonMenu()}
-              </div>}
+              {open && isPositionButtonMenuDrawer && <div>{buttonMenu()}</div>}
             </div>
             <Divider />
-            <List
-              disablePadding={true}>
+            <List disablePadding>
               <MenuItems
                 expanded={open}
                 popperOpen={popperOpen}
                 onMenuItemClick={handleMenuItemClick}
                 items={menuItems}
                 theme={themeName}
-                classes={menuItemsClasses} />
+                classes={menuItemsClasses}
+              />
             </List>
           </div>
         </Drawer>
@@ -252,7 +281,7 @@ AppWrap.propTypes = {
   /** Map of path names to readable names. See breadcrumbs for more info */
   pathReadableMap: PropTypes.object,
   /** Custom options to display after breadcrumbs */
-  customBar: PropTypes.any,
+  customBar: PropTypes.any
 }
 
 export default AppWrap

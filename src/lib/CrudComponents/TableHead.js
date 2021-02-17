@@ -11,8 +11,8 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles({
   textBold: {
-    fontWeight: 'bold',
-  },
+    fontWeight: 'bold'
+  }
 })
 
 const EnhancedTableHead = ({
@@ -24,7 +24,7 @@ const EnhancedTableHead = ({
   onDownloadClick,
   above,
   hideColumns = {},
-  hideEmptyColumn,
+  hideEmptyColumn
 }) => {
   const [field, setField] = useState(defaultOrder)
   const [direction, setDirection] = useState('asc')
@@ -50,7 +50,7 @@ const EnhancedTableHead = ({
       onDownloadClick,
       above,
       hideColumns,
-      hideEmptyColumn,
+      hideEmptyColumn
     })
   }, [location.search])
 
@@ -93,10 +93,10 @@ const EnhancedTableHead = ({
             </TableCell>
           )
         })}
-        <TableCell align="right">
+        <TableCell align='right'>
           {hideDownloadIcon ? null : (
-            <Tooltip title="Baixar lista" aria-label="Baixar lista">
-              <IconButton size="small" onClick={onDownloadClick}>
+            <Tooltip title='Baixar lista' aria-label='Baixar lista'>
+              <IconButton size='small' onClick={onDownloadClick}>
                 <DownloadIcon />
               </IconButton>
             </Tooltip>

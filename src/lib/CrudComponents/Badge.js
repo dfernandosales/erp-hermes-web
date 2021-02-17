@@ -31,29 +31,31 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-
 /**  Um Badge para uso geral */
-const SimpleBadge = ({content, label, primary, disabled}) => {
+const SimpleBadge = ({ content, label, primary, disabled }) => {
   const classes = useStyles()
   return (
     <div className={classes.container}>
-      <div className={classNames(classes.root, primary && classes.primary, disabled && classes.disabled)}>
-        <Typography variant="caption" color="inherit">
+      <div
+        className={classNames(
+          classes.root,
+          primary && classes.primary,
+          disabled && classes.disabled
+        )}
+      >
+        <Typography variant='caption' color='inherit'>
           {content}
         </Typography>
       </div>
-      <Typography variant="body2">
-        {label}
-      </Typography>
+      <Typography variant='body2'>{label}</Typography>
     </div>
   )
 }
 
-
 SimpleBadge.propTypes = {
   /** Número que aparece dentro do badge */
   content: PropTypes.number.isRequired,
-  /** Label para aparecer ao lado*/
+  /** Label para aparecer ao lado */
   label: PropTypes.string,
   /** Aplica a cor primário ao badge */
   primary: PropTypes.bool,
@@ -61,9 +63,7 @@ SimpleBadge.propTypes = {
   disabled: PropTypes.bool
 }
 
-
 const size = 18
-const borderRadius = size/2
-
+const borderRadius = size / 2
 
 export default SimpleBadge

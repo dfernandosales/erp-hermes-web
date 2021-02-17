@@ -1,36 +1,41 @@
-import React from 'react';
-import TablePagination from '@material-ui/core/TablePagination';
-import PaginationActions from './PaginationActions';
+import React from "react";
+import TablePagination from "@material-ui/core/TablePagination";
+import PaginationActions from "./PaginationActions";
 
 class Pagination extends React.Component {
   changePage = (event, page) => {
-    this.navigateWithParam('page', page)
-  }
+    this.navigateWithParam("page", page);
+  };
 
-  navigateWithParam = (param='', value=0) => {
-    const { location: {search, pathname}} = this.props;
+  navigateWithParam = (param = "", value = 0) => {
+    const {
+      location: { search, pathname }
+    } = this.props;
     const searchParams = new URLSearchParams(search);
     searchParams.set(param, value);
     this.props.history.push(`${pathname}?${searchParams.toString()}`);
-  }
+  };
 
-  changeRowsPerPage = ({target: {value}}) => {
-    this.navigateWithParam('rows', value)
-  }
+  changeRowsPerPage = ({ target: { value } }) => {
+    this.navigateWithParam("rows", value);
+  };
 
-  labelDisplayedRows = (page) => {
-    const {ofLabel = 'of'} = this.props
+  labelDisplayedRows = page => {
+    const { ofLabel = "of" } = this.props;
     return `${page.from}-${page.to} ${ofLabel} ${page.count}`;
-  }
+  };
 
   render() {
-    const { count, location: {search}, labelRowsPerPage} = this.props
-    const params = new URLSearchParams(search)
-    const page = Number(params.get('page')) || 0
-    const rowsPerPage =  Number(params.get('rows')) || 10
-    const needRender = (count / rowsPerPage) > 1
-    return (
-      needRender ? (
+    const {
+      count,
+      location: { search },
+      labelRowsPerPage
+    } = this.props;
+    const params = new URLSearchParams(search);
+    const page = Number(params.get("page")) || 0;
+    const rowsPerPage = Number(params.get("rows")) || 10;
+    const needRender = count / rowsPerPage > 1;
+    return needRender ? (
       <TablePagination
         ActionsComponent={PaginationActions}
         component="div"
@@ -41,12 +46,13 @@ class Pagination extends React.Component {
         onChangeRowsPerPage={this.changeRowsPerPage}
         page={page}
         rowsPerPage={rowsPerPage}
-        rowsPerPageOptions={[10,25,50]}
-        style={{width: '50px'}}
-      />) : ""
+        rowsPerPageOptions={[10, 25, 50]}
+        style={{ width: "50px" }}
+      />
+    ) : (
+      ""
     );
   }
 }
 
-
-export default Pagination
+export default Pagination;

@@ -10,7 +10,12 @@ const CustomRadioGroup = ({ onChange, input, options, ...props }) => {
   }
 
   return (
-    <RadioGroup name={input.name} value={input.value} onChange={handleChange} {...props}>
+    <RadioGroup
+      name={input.name}
+      value={input.value}
+      onChange={handleChange}
+      {...props}
+    >
       {options.map((option, index) => (
         <FormControlLabel
           key={index}

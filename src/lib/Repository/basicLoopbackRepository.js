@@ -15,17 +15,17 @@ export const handlerApiError = (
         ok: false,
         message: `Campo já foi cadastrado: ${JSON.parse(
           getErrorMessage(response)
-        ).join(', ')}`,
+        ).join(', ')}`
       }
     case response.problem === 'NETWORK_ERROR':
       return {
         ok: false,
-        message: 'Servidor não encontrado. Problema na conexão',
+        message: 'Servidor não encontrado. Problema na conexão'
       }
     default:
       return {
         ok: false,
-        message: getErrorMessage(response),
+        message: getErrorMessage(response)
       }
   }
 }
@@ -35,7 +35,7 @@ export default ({
   parentPath,
   relationType,
   queryTransform = {},
-  getErrorMessage = _getErrorMessage,
+  getErrorMessage = _getErrorMessage
 }) => {
   if (!restApi) {
     throw Error('faltou passar restApi para o repository')
@@ -54,10 +54,10 @@ export default ({
   }
 
   const createQueryString = (query, paginate, parentId) => {
-    const {sort, order, ...allQuery} = query ? query : {}
+    const { sort, order, ...allQuery } = query || {}
     const queryEntries = Object.entries({
       ...allQuery,
-      ...(relationType === 'query' && parentId ? { parentId } : {}),
+      ...(relationType === 'query' && parentId ? { parentId } : {})
     })
       .map(([key, value]) => {
         if (queryTransform[key]) {
@@ -74,8 +74,8 @@ export default ({
       }, [])
     const paginateEntries = Object.entries({
       ...paginate,
-      ...((sort && !order) && {sort}),
-      ...(order && {order})
+      ...(sort && !order && { sort }),
+      ...(order && { order })
     })
       .map(([key, value]) => {
         if (queryTransform[key]) {
@@ -102,7 +102,7 @@ export default ({
     }
     const queryEntries = Object.entries({
       ...query,
-      ...(relationType === 'query' && parentId ? { parentId } : {}),
+      ...(relationType === 'query' && parentId ? { parentId } : {})
     })
       .map(([key, value]) => {
         if (queryTransform[key]) {
@@ -130,30 +130,43 @@ export default ({
   const update = async (data, options) => {
     const response = handlerApiError(
       await restApi.patch(`${path}/${data.id}`, data, options),
-      getErrorMessage)
+      getErrorMessage
+    )
     if (response.ok) {
-      return getOne({id: data.id})
+      return getOne({ id: data.id })
     }
     return response
   }
 
   const getOne = ({ id, parentId, options }) => {
     if (parentId && relationType === 'path') {
-      return restApi.get(`${parentPath}/${parentId}/${path}/${id}`, {}, options)
+      return restApi.get(
+        `${parentPath}/${parentId}/${path}/${id}`,
+        {},
+        options
+      )
     }
     return restApi.get(`${path}/${id}`, {}, options)
   }
 
   const list = async ({ query, paginate, parentId, options } = {}) => {
     const queryString = createQueryString(query, paginate, parentId)
-    const response = await restApi.get(buildPath({ parentId }) + queryString, {}, options)
+    const response = await restApi.get(
+      buildPath({ parentId }) + queryString,
+      {},
+      options
+    )
     const responseCount = await restApi.get(
-      buildPath({ parentId }) + '/count' + createQueryStringCount(query, parentId), {}, options
+      buildPath({ parentId }) +
+        '/count' +
+        createQueryStringCount(query, parentId),
+      {},
+      options
     )
     return {
       ok: response.ok,
       data: response.data,
-      count: responseCount.ok ? responseCount.data.count : undefined,
+      count: responseCount.ok ? responseCount.data.count : undefined
     }
   }
 
@@ -164,7 +177,7 @@ export default ({
     const response = await restApi.delete(uri)
     return {
       ok: response.ok,
-      data: response.data,
+      data: response.data
     }
   }
 
@@ -173,6 +186,6 @@ export default ({
     remove,
     create,
     update,
-    getOne,
+    getOne
   }
 }

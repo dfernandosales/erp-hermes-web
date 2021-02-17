@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
-import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
+import PersonOutlineIcon from '@material-ui/icons/PersonOutline'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -31,7 +31,16 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const ListTile = ({ label, name, onNameClick, avatar, onAvatarClick, action, onActionClick, children }) => {
+const ListTile = ({
+  label,
+  name,
+  onNameClick,
+  avatar,
+  onAvatarClick,
+  action,
+  onActionClick,
+  children
+}) => {
   const classes = useStyles()
 
   const renderedAvatar = (avatar => {
@@ -40,8 +49,18 @@ const ListTile = ({ label, name, onNameClick, avatar, onAvatarClick, action, onA
         [classes.clickable]: typeof onAvatarClick === 'function'
       })
     }
-    if (avatar) return <Avatar src={avatar} onClick={onAvatarClick} classes={avatarClasses} />
-    return <PersonOutlineIcon fontSize='inherit' onClick={onAvatarClick} classes={avatarClasses} />
+    if (avatar) {
+      return (
+        <Avatar src={avatar} onClick={onAvatarClick} classes={avatarClasses} />
+      )
+    }
+    return (
+      <PersonOutlineIcon
+        fontSize='inherit'
+        onClick={onAvatarClick}
+        classes={avatarClasses}
+      />
+    )
   })(avatar)
 
   const onClickHelper = onClick => ({
@@ -75,14 +94,10 @@ const ListTile = ({ label, name, onNameClick, avatar, onAvatarClick, action, onA
               </Typography>
             )}
           </Grid>
-          <Grid item>
-            {renderedAvatar}
-          </Grid>
+          <Grid item>{renderedAvatar}</Grid>
         </Grid>
       </Grid>
-      <Grid item>
-        { children }
-      </Grid>
+      <Grid item>{children}</Grid>
     </Grid>
   )
 }

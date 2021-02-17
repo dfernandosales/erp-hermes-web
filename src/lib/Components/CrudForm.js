@@ -11,77 +11,76 @@ import classNames from 'classnames'
 import Snackbar from '../Common/Snackbar'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles'
-import { useHistory } from 'react-router-dom'
 
 export const PRISTINE_BEHAVIOR = {
   DISABLED_WHEN_DIRTY: pristine => !pristine,
   DISABLED_WHEN_NOT_DIRTY: pristine => pristine,
-  DEFAULT: pristine => false,
+  DEFAULT: () => false
 }
 
 const useStyles = makeStyles(theme => ({
   formContent: {
     paddingTop: 16,
     paddingBottom: 16,
-    width: '100%',
+    width: '100%'
   },
   buttonContent: {
-    width: '100%',
+    width: '100%'
   },
   buttonContainer: {
-    width: 160,
+    width: 160
   },
   root: {
     padding: 16,
-    marginBottom: 20,
+    marginBottom: 20
   },
   buttonWrapper: {
     margin: theme.spacing(),
-    position: 'relative',
+    position: 'relative'
   },
   buttonProgress: {
     position: 'absolute',
     top: '50%',
     right: 8,
     marginTop: -12,
-    marginLeft: -12,
+    marginLeft: -12
   },
   successButton: {
     backgroundColor: green[500],
     '&:hover': {
-      backgroundColor: green[500],
+      backgroundColor: green[500]
     },
     '&:active': {
       boxShadow: 'none',
-      backgroundColor: green[500],
-    },
+      backgroundColor: green[500]
+    }
   },
   errorButton: {
     backgroundColor: red[500],
     '&:hover': {
-      backgroundColor: red[500],
+      backgroundColor: red[500]
     },
     '&:active': {
       boxShadow: 'none',
-      backgroundColor: red[500],
-    },
+      backgroundColor: red[500]
+    }
   },
   leftIcon: {
-    marginRight: theme.spacing(),
+    marginRight: theme.spacing()
   },
   rightIcon: {
-    marginLeft: theme.spacing(),
+    marginLeft: theme.spacing()
   },
   iconSmall: {
-    fontSize: 20,
-  },
+    fontSize: 20
+  }
 }))
 
-function DefaultContainer(props) {
+function DefaultContainer (props) {
   return <div {...props} />
 }
 
-function CrudForm({
+function CrudForm ({
   children,
   clearMessage,
   status = 'edit',
@@ -98,10 +97,8 @@ function CrudForm({
   disableSubmit = false,
   onGoBack,
   hideGoBack = false,
-  hideSubmit = false,
-  ...props
+  hideSubmit = false
 }) {
-  const history = useHistory()
   const classes = useStyles()
   const Container = withPaper ? Paper : DefaultContainer
 
@@ -118,10 +115,10 @@ function CrudForm({
       case 'success':
         return [
           <CheckCircleIcon
-            key="successIcon"
+            key='successIcon'
             className={classNames(classes.leftIcon, classes.iconSmall)}
           />,
-          <span key="successLabel">Sucesso</span>,
+          <span key='successLabel'>Sucesso</span>
         ]
       case 'edit':
         return 'Salvar'
@@ -165,7 +162,7 @@ function CrudForm({
               return promise
             }}
           >
-            <Grid direction="column" container spacing={2}>
+            <Grid direction='column' container spacing={2}>
               <Grid item xs={12}>
                 <div className={classes.formContent}>
                   {typeof children === 'function'
@@ -174,13 +171,13 @@ function CrudForm({
                 </div>
               </Grid>
               <Grid item xs={12} className={classes.buttonContent}>
-                <Grid justify="flex-end" container spacing={2}>
+                <Grid justify='flex-end' container spacing={2}>
                   {!hideGoBack && (
                     <Grid item classes={{ item: classes.buttonContainer }}>
                       <Button
                         fullWidth
-                        type="button"
-                        variant="outlined"
+                        type='button'
+                        variant='outlined'
                         onClick={onGoBack}
                         disabled={submitting}
                       >
@@ -196,9 +193,9 @@ function CrudForm({
                     >
                       <Button
                         fullWidth
-                        variant="outlined"
-                        type="button"
-                        color="primary"
+                        variant='outlined'
+                        type='button'
+                        color='primary'
                         onClick={event => action.onClick(event, values)}
                         component={action.component}
                         disabled={
@@ -215,13 +212,13 @@ function CrudForm({
                   {!hideSubmit && (
                     <Grid item classes={{ item: classes.buttonContainer }}>
                       <Button
-                        data-testid="salvar"
+                        data-testid='salvar'
                         className={getButtonClass()}
                         fullWidth
-                        type="submit"
+                        type='submit'
                         disabled={submitting || disableSubmit}
-                        variant="contained"
-                        color="primary"
+                        variant='contained'
+                        color='primary'
                       >
                         {getButtonLabel(submitting)}
                       </Button>
@@ -248,7 +245,7 @@ CrudForm.propTypes = {
   /** If some Field needs to be required */
   validate: PropTypes.func,
   /** use createDecorator from final-form-calculate, a simple explanation is: "If field X changes, update field Y" */
-  decorators: PropTypes.array,
+  decorators: PropTypes.array
 }
 
 export default CrudForm

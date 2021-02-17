@@ -9,5 +9,5 @@ export { default as SimpleFormDialog } from './SimpleFormDialog'
 export { default as Snackbar } from './Snackbar'
 
 export const autocompleteHelpers = {
-  toOption,
+  toOption
 }

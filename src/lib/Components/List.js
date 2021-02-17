@@ -23,16 +23,16 @@ const useStyles = makeStyles(theme => ({
   fab: {
     position: 'fixed',
     right: theme.spacing(4),
-    bottom: theme.spacing(4),
+    bottom: theme.spacing(4)
   },
   table: {
     width: '100%',
     marginTop: theme.spacing(3),
-    overflowX: 'auto',
+    overflowX: 'auto'
   },
   container: {
-    maxHeight: '85vh',
-  },
+    maxHeight: '85vh'
+  }
 }))
 
 const List = ({
@@ -62,7 +62,7 @@ const List = ({
   emptyText = 'Sem Resultados.',
   fetchAllList,
   removedMessage,
-  removedItem,
+  removedItem
 }) => {
   const location = useLocation()
   const classes = useStyles()
@@ -79,7 +79,7 @@ const List = ({
         type,
         format,
         getOne,
-        key,
+        key
       } = value
       return {
         noOrder,
@@ -89,7 +89,7 @@ const List = ({
         format,
         label,
         source,
-        type,
+        type
       }
     })
 
@@ -101,14 +101,13 @@ const List = ({
     }, {})
   }
 
-  function flatObject(obj) {
+  function flatObject (obj) {
     const flatObject = {}
     const path = [] // current path
 
-    function dig(obj) {
-      if (obj !== Object(obj))
-        return (flatObject[path.join('.')] = obj) /*<- value*/
-      for (let key in obj) {
+    function dig (obj) {
+      if (obj !== Object(obj)) { return (flatObject[path.join('.')] = obj) } /* <- value */
+      for (const key in obj) {
         path.push(key)
         dig(obj[key])
         path.pop()
@@ -170,9 +169,9 @@ const List = ({
   const undoAction = () => {
     if (removedMessage && undoRemove && removedItem) {
       return [
-        <Button key="undo" color="secondary" size="small" onClick={undoRemove}>
+        <Button key='undo' color='secondary' size='small' onClick={undoRemove}>
           DESFAZER
-        </Button>,
+        </Button>
       ]
     }
     return []
@@ -204,8 +203,7 @@ const List = ({
             <TableHead
               hideDownloadIcon={hideDownloadIcon}
               onDownloadClick={() =>
-                onDownloadClick ? onDownloadClick() : downloadCsv()
-              }
+                onDownloadClick ? onDownloadClick() : downloadCsv()}
               defaultOrder={listOptions.defaultOrder}
               columns={fields}
             />
@@ -226,9 +224,9 @@ const List = ({
             <TableFooter>
               <TableRow>
                 <TableCell
-                  align="right"
+                  align='right'
                   colSpan={fields.length}
-                  className="pl-0"
+                  className='pl-0'
                 >
                   <Pagination
                     count={state.count}
@@ -249,10 +247,10 @@ const List = ({
         onClose={clearRemovedMessage}
       />
       {onClickNew && (
-        <Tooltip title="Adicionar registro" aria-label="Adicionar registro">
+        <Tooltip title='Adicionar registro' aria-label='Adicionar registro'>
           <Fab
-            color="primary"
-            aria-label="Add"
+            color='primary'
+            aria-label='Add'
             className={classes.fab}
             onClick={onClickNew}
           >
@@ -262,11 +260,11 @@ const List = ({
       )}
       <SimpleDialog
         open={!!openConfirmationDialog}
-        buttonLabel="Não"
+        buttonLabel='Não'
         handleClose={closeDialog}
         primaryAction={handleClickDeleteFConfirmation}
         title={titleDelete}
-        primaryActionButtonLabel="Sim"
+        primaryActionButtonLabel='Sim'
       />
     </Container>
   )
@@ -276,9 +274,9 @@ List.propTypes = {
   /** List Header (Fields and defaultOrder). */
   listOptions: PropTypes.shape({
     fields: PropTypes.shape({
-      cellName: PropTypes.object,
+      cellName: PropTypes.object
     }).isRequired,
-    defaultOrder: PropTypes.string,
+    defaultOrder: PropTypes.string
   }).isRequired,
   /** If true, the Download icon will be hidden */
   hideDownloadIcon: PropTypes.bool,
@@ -302,7 +300,7 @@ List.propTypes = {
   onClickRow: PropTypes.func,
   deleteItem: PropTypes.func,
   removedMessage: PropTypes.string,
-  removedItem: PropTypes.object,
+  removedItem: PropTypes.object
 }
 
 export default List

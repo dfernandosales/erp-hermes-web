@@ -42,7 +42,12 @@ const FilterActions = ({
         </Grid>
 
         <Grid item>
-          <Button style={{ width: 120 }} type='submit' disabled={fetching} color='primary'>
+          <Button
+            style={{ width: 120 }}
+            type='submit'
+            disabled={fetching}
+            color='primary'
+          >
             {fetching && <CircularProgress color='inherit' size={20} />}
             {labels.find}
           </Button>

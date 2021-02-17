@@ -14,37 +14,37 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: 16,
     direction: 'row',
     alignItems: 'center',
-    justify: 'flex-start',
+    justify: 'flex-start'
   },
   root: {
     padding: 16,
-    marginBottom: 20,
+    marginBottom: 20
   },
   buttonContent: {
-    width: '100%',
+    width: '100%'
   },
   buttonContainer: {
-    width: 160,
-  },
+    width: 160
+  }
 }))
 
 const LabelValue = ({ label, value }) => (
   <>
     {label && (
       <Typography
-        variant="caption"
+        variant='caption'
         style={{ display: 'inline-block', width: '100%' }}
       >
         {label}
       </Typography>
     )}
     <Typography
-      variant="body1"
+      variant='body1'
       style={{
         width: '100%',
         display: 'inline-block',
         wordWrap: 'break-word',
-        overflow: 'hidden',
+        overflow: 'hidden'
       }}
     >
       {value}
@@ -62,7 +62,13 @@ const goToEdit = history =>
     .slice(0, -1)
     .join('/')
 
-const ReadView = ({ config, item, onGoBack, edit = true, hideGoBack = false}) => {
+const ReadView = ({
+  config,
+  item,
+  onGoBack,
+  edit = true,
+  hideGoBack = false
+}) => {
   const history = useHistory()
   const classes = useStyles()
 
@@ -112,13 +118,13 @@ const ReadView = ({ config, item, onGoBack, edit = true, hideGoBack = false}) =>
           </React.Fragment>
         ))}
         <Grid item xs={12} className={classes.buttonContent}>
-          <Grid justify="flex-end" container spacing={2}>
+          <Grid justify='flex-end' container spacing={2}>
             {!hideGoBack && (
               <Grid item classes={{ item: classes.buttonContainer }}>
                 <Button
-                  type="button"
+                  type='button'
                   fullWidth
-                  variant="outlined"
+                  variant='outlined'
                   onClick={handleGoBack}
                 >
                   Voltar
@@ -129,8 +135,8 @@ const ReadView = ({ config, item, onGoBack, edit = true, hideGoBack = false}) =>
               <Grid item classes={{ item: classes.buttonContainer }}>
                 <Button
                   fullWidth
-                  variant="contained"
-                  color="primary"
+                  variant='contained'
+                  color='primary'
                   onClick={() => {
                     history.push('/' + goToEdit(history))
                   }}
@@ -150,7 +156,7 @@ ReadView.propTypes = {
   config: PropTypes.array,
   item: PropTypes.object,
   onGoBack: PropTypes.func,
-  edit: PropTypes.bool,
+  edit: PropTypes.bool
 }
 
 export default React.memo(ReadView)

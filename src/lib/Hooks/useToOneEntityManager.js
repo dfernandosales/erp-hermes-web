@@ -10,8 +10,8 @@ export default ({ repository, relationKey = '', initialData = {} }) => {
   const getItem = async () => {
     const response = await repository.list({
       query: {
-        [relationKey]: id,
-      },
+        [relationKey]: id
+      }
     })
     if (response.ok && response.data.length) {
       setItem(response.data[0])
@@ -54,6 +54,6 @@ export default ({ repository, relationKey = '', initialData = {} }) => {
     item,
     message,
     clearMessage,
-    isNew: !item,
+    isNew: !item
   }
 }

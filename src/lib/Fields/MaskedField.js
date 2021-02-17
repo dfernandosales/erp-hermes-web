@@ -5,56 +5,53 @@ import Input from '@material-ui/core/Input'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import MaskedInput from 'react-text-mask'
 
-function TextMaskCustom(props) {
-  const { inputRef, mask, ...other } = props;
+function TextMaskCustom (props) {
+  const { inputRef, mask, ...other } = props
   return (
     <MaskedInput
       {...other}
       ref={ref => {
-        inputRef(ref ? ref.inputElement : null);
+        inputRef(ref ? ref.inputElement : null)
       }}
       mask={mask}
     />
-  );
+  )
 }
 
-export default function MaskedField(props) {
+export default function MaskedField (props) {
   const {
-    input: {name, onChange, value, onBlur},
+    input: { name, onChange, value, onBlur },
     meta,
     mask,
     label,
     ...rest
-  } = props;
+  } = props
 
   const showError =
     ((meta.submitError && !meta.dirtySinceLastSubmit) || meta.error) &&
-    meta.touched;
+    meta.touched
 
   return (
-    <FormControl
-      error={meta.error && meta.touched}
-      fullWidth >
-      <InputLabel
-        htmlFor={name}
-      >
-        {label}
-      </InputLabel>
+    <FormControl error={meta.error && meta.touched} fullWidth>
+      <InputLabel htmlFor={name}>{label}</InputLabel>
       <Input
         {...rest}
         onBlur={onBlur}
         name={name}
         error={showError}
         value={value}
-        aria-describedby="helper-text"
+        aria-describedby='helper-text'
         onChange={onChange}
         inputProps={{
           mask: mask
         }}
         inputComponent={TextMaskCustom}
       />
-      {showError ? <FormHelperText error={showError} id="helper-text">{meta.error}</FormHelperText> : null}
-      </FormControl>
-  );
+      {showError ? (
+        <FormHelperText error={showError} id='helper-text'>
+          {meta.error}
+        </FormHelperText>
+      ) : null}
+    </FormControl>
+  )
 }
-

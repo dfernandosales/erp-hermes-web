@@ -23,13 +23,13 @@ const useStyles = makeStyles(theme => ({
   fab: {
     position: 'fixed',
     right: theme.spacing(4),
-    bottom: theme.spacing(4),
+    bottom: theme.spacing(4)
   },
   table: {
     width: '100%',
     marginTop: theme.spacing(3),
-    overflowX: 'auto',
-  },
+    overflowX: 'auto'
+  }
 }))
 
 const List = ({
@@ -48,7 +48,7 @@ const List = ({
   ofLabel = 'de',
   history,
   titleDelete = 'Excluir permanentemente esse registro?',
-  exportName = new Date().toString(),
+  exportName = new Date().toString()
 }) => {
   const location = useLocation()
   const createFields = () => {
@@ -65,7 +65,7 @@ const List = ({
           format,
           label,
           source,
-          type,
+          type
         }
       })
   }
@@ -101,7 +101,7 @@ const List = ({
         rowsPerPage,
         filter,
         order,
-        location,
+        location
       })
       setLoading(false)
       setList(list)
@@ -145,7 +145,7 @@ const List = ({
         filter,
         order,
         location,
-        rowsPerPage: 5000,
+        rowsPerPage: 5000
       })
       list.forEach(o => delete o.removed)
       const csv = createCsv(list, listOptions)
@@ -161,7 +161,7 @@ const List = ({
     if (deleteItem) {
       const {
         ok,
-        message = 'Registro removido. Deseja desfazer essa ação?',
+        message = 'Registro removido. Deseja desfazer essa ação?'
       } = await deleteItem(item, location)
       setRemovedMessage(message)
       if (ok) {
@@ -194,9 +194,9 @@ const List = ({
   const undoAction = () => {
     if (removedItem) {
       return [
-        <Button key="undo" color="secondary" size="small" onClick={handleUndo}>
+        <Button key='undo' color='secondary' size='small' onClick={handleUndo}>
           DESFAZER
-        </Button>,
+        </Button>
       ]
     }
     return []
@@ -243,7 +243,7 @@ const List = ({
           />
           <TableFooter>
             <TableRow>
-              <TableCell align="right" colSpan={fields.length} className="pl-0">
+              <TableCell align='right' colSpan={fields.length} className='pl-0'>
                 {getCount && (
                   <Pagination
                     count={count}
@@ -264,10 +264,10 @@ const List = ({
         onClose={handleSnackbarClose}
       />
       {onClickNew && (
-        <Tooltip title="Adicionar registro" aria-label="Adicionar registro">
+        <Tooltip title='Adicionar registro' aria-label='Adicionar registro'>
           <Fab
-            color="primary"
-            aria-label="Add"
+            color='primary'
+            aria-label='Add'
             className={classes.fab}
             onClick={onClickNew}
           >
@@ -277,23 +277,23 @@ const List = ({
       )}
       <SimpleDialog
         open={!!openConfirmationDialog}
-        buttonLabel="Não"
+        buttonLabel='Não'
         handleClose={closeDialog}
         primaryAction={handleClickDeleteFConfirmation}
         title={titleDelete}
-        primaryActionButtonLabel="Sim"
+        primaryActionButtonLabel='Sim'
       />
     </Container>
   )
 }
 
 List.propTypes = {
-  /** List Header (Fields and defaultOrder).*/
+  /** List Header (Fields and defaultOrder). */
   listOptions: PropTypes.shape({
     fields: PropTypes.shape({
-      cellName: PropTypes.object,
+      cellName: PropTypes.object
     }).isRequired,
-    defaultOrder: PropTypes.string,
+    defaultOrder: PropTypes.string
   }).isRequired,
   /** List Content */
   getPage: PropTypes.func.isRequired,
@@ -308,7 +308,7 @@ List.propTypes = {
   getCount: PropTypes.func,
   /** Deleta o item a nível lógico e retorna por callback o registro removido */
   deleteItem: PropTypes.func,
-  /** Desfaz a remoção do item a nível lógico*/
+  /** Desfaz a remoção do item a nível lógico */
   undo: PropTypes.func,
   /** Deleta o item a nível físico e retorna por callback o registro removido */
   deleteFitem: PropTypes.func,
@@ -317,7 +317,7 @@ List.propTypes = {
   /** Mostra um ícone de edit e retorna por callback o objeto clicado */
   onClickEdit: PropTypes.func,
   /** Mostra um ícone de visualização e retorna por callback o objeto clicado em modo visualização */
-  onClickView: PropTypes.func,
+  onClickView: PropTypes.func
 }
 
 export default List

@@ -12,7 +12,12 @@ const FilterActions = ({
   toggleDetailedFilter,
   showDetailedFilter
 }) => (
-  <Grid container justify='flex-start' alignItems='center' style={{ paddingLeft: 8 }}>
+  <Grid
+    container
+    justify='flex-start'
+    alignItems='center'
+    style={{ paddingLeft: 8 }}
+  >
     {toggleDetailedFilter && (
       <Grid item xs>
         <Typography
@@ -28,17 +33,21 @@ const FilterActions = ({
 
     <Grid item xs>
       <Grid container justify='flex-end' alignItems='center' spacing={1}>
-        
-        {labels.clear && 
+        {labels.clear && (
           <Grid item>
             <Button style={{ width: 120 }} type='button' onClick={onClear}>
               {labels.clear}
             </Button>
           </Grid>
-        }
+        )}
 
         <Grid item>
-          <Button style={{ width: 120 }} type='submit' disabled={fetching} color='primary'>
+          <Button
+            style={{ width: 120 }}
+            type='submit'
+            disabled={fetching}
+            color='primary'
+          >
             {fetching && <CircularProgress color='inherit' size={20} />}
             {labels.find}
           </Button>

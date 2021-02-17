@@ -6,7 +6,9 @@ import PropTypes from 'prop-types'
 import useFilter from './Hooks/useFilter'
 
 const Filter = ({ children, labels, formatFilters }) => {
-  const { initialValues, handleClear, handleSubmit } = useFilter({ formatFilters })
+  const { initialValues, handleClear, handleSubmit } = useFilter({
+    formatFilters
+  })
 
   const formClear = (event, form) => {
     form.reset(event)
@@ -29,7 +31,7 @@ const Filter = ({ children, labels, formatFilters }) => {
 }
 
 Filter.propTypes = {
-  /** Children elements that will be render inside the form*/
+  /** Children elements that will be render inside the form */
   children: PropTypes.object,
   /** Labels of the buttons  */
   labels: PropTypes.object

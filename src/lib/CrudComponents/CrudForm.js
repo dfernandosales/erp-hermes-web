@@ -1,23 +1,23 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import Grid from '@material-ui/core/Grid'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
-import {Form} from 'react-final-form';
-import green from '@material-ui/core/colors/green';
-import red from '@material-ui/core/colors/red';
+import { Form } from 'react-final-form'
+import green from '@material-ui/core/colors/green'
+import red from '@material-ui/core/colors/red'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import classNames from 'classnames'
 import Snackbar from '../Common/Snackbar'
 import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {makeStyles} from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 
 export const PRISTINE_BEHAVIOR = {
   DISABLED_WHEN_DIRTY: pristine => !pristine,
   DISABLED_WHEN_NOT_DIRTY: pristine => pristine,
   DEFAULT: pristine => false
-};
+}
 
 const useStyles = makeStyles(theme => ({
   formContent: {
@@ -37,50 +37,60 @@ const useStyles = makeStyles(theme => ({
   },
   buttonWrapper: {
     margin: theme.spacing(),
-    position: 'relative',
+    position: 'relative'
   },
   buttonProgress: {
     position: 'absolute',
     top: '50%',
     right: 8,
     marginTop: -12,
-    marginLeft: -12,
+    marginLeft: -12
   },
   successButton: {
     backgroundColor: green[500],
     '&:hover': {
-      backgroundColor: green[500],
+      backgroundColor: green[500]
     },
     '&:active': {
       boxShadow: 'none',
-      backgroundColor: green[500],
-    },
+      backgroundColor: green[500]
+    }
   },
   errorButton: {
     backgroundColor: red[500],
     '&:hover': {
-      backgroundColor: red[500],
+      backgroundColor: red[500]
     },
     '&:active': {
       boxShadow: 'none',
-      backgroundColor: red[500],
-    },
+      backgroundColor: red[500]
+    }
   },
   leftIcon: {
-    marginRight: theme.spacing(),
+    marginRight: theme.spacing()
   },
   rightIcon: {
-    marginLeft: theme.spacing(),
+    marginLeft: theme.spacing()
   },
   iconSmall: {
-    fontSize: 20,
+    fontSize: 20
   }
 }))
 
-function CrudForm({children, validate, getItem, withPaper, onSubmit, decorators, customActions=[], formProps, ...props}) {
+function CrudForm ({
+  children,
+  validate,
+  getItem,
+  withPaper,
+  onSubmit,
+  decorators,
+  customActions = [],
+  formProps,
+  ...props
+}) {
   const history = useHistory()
   const classes = useStyles()
-  const Container = withPaper ? Paper : (props => <div {...props}/>)
+  const Container = withPaper ? Paper : props => <div {...props} />
   const [item, setItem] = useState()
   const [formState, setFormState] = useState({
     status: 'edit',
@@ -94,7 +104,7 @@ function CrudForm({children, validate, getItem, withPaper, onSubmit, decorators,
     }
   }
 
-  const handleSubmit = async (data) => {
+  const handleSubmit = async data => {
     if (onSubmit) {
       const result = await onSubmit(data)
       setItem(data)
@@ -103,12 +113,16 @@ function CrudForm({children, validate, getItem, withPaper, onSubmit, decorators,
           status: result.ok ? 'success' : 'error',
           message: result.message
         })
-        setTimeout(() => setFormState({
-          status: 'edit',
-          ...formState
-        }), 4000)
+        setTimeout(
+          () =>
+            setFormState({
+              status: 'edit',
+              ...formState
+            }),
+          4000
+        )
       }
-   }
+    }
   }
 
   const handleSnackbarClose = () => {
@@ -119,10 +133,10 @@ function CrudForm({children, validate, getItem, withPaper, onSubmit, decorators,
   }
 
   useEffect(() => {
-      _getItem()
+    _getItem()
   }, [history.location.pathname])
 
-  const getButtonLabel = (submitting) => {
+  const getButtonLabel = submitting => {
     if (submitting) {
       return (
         <div>
@@ -133,18 +147,19 @@ function CrudForm({children, validate, getItem, withPaper, onSubmit, decorators,
     }
     switch (formState.status) {
       case 'success':
-        return (
-          [
-            <CheckCircleIcon key='successIcon' className={classNames(classes.leftIcon, classes.iconSmall)}/>,
-            <span key='successLabel'>Sucesso</span>
-
-          ]
-        )
+        return [
+          <CheckCircleIcon
+            key='successIcon'
+            className={classNames(classes.leftIcon, classes.iconSmall)}
+          />,
+          <span key='successLabel'>Sucesso</span>
+        ]
       case 'edit':
         return 'Salvar'
       case 'error':
         return 'Oops, algo errado'
-      default: throw Error('Unexpected formState')
+      default:
+        throw Error('Unexpected formState')
     }
   }
 
@@ -156,58 +171,90 @@ function CrudForm({children, validate, getItem, withPaper, onSubmit, decorators,
         return classes.button
       case 'error':
         return classes.errorButton
-      default: throw Error('Unexpected formState')
+      default:
+        throw Error('Unexpected formState')
     }
   }
 
   return (
     <Container className={classes.root}>
-      <Form onSubmit={handleSubmit} validate={validate} initialValues={item} decorators={decorators} {...formProps}>
-        {
-          ({handleSubmit, submitting, pristine, values, ...rest}) => (
-            <form onSubmit={handleSubmit} >
-              <Grid direction='column' container spacing={2}>
-                <Grid item>
-                  <div className={classes.formContent}>
-                    { typeof children === 'function' ? children({values, ...rest}) : children}
-                  </div>
-                </Grid>
-                <Grid item xs={12} className={classes.buttonContent}>
-                  <Grid justify='flex-end' container spacing={2}>
-                    <Grid item classes={{item: classes.buttonContainer}}>
-                      <Button fullWidth type='button' variant='outlined' onClick={() => {
-                          const goBack = props.history.location.pathname.split("/").filter(p => !!p).slice(0,-1).join("/")
-                          history.push('/' + goBack)
-                        }}>
-                        Voltar
-                      </Button>
-                    </Grid>
-                    {
-                      customActions.map((action) => (
-                        <Grid item key={action.label} classes={{item: classes.buttonContainer}}>
-                          <Button fullWidth variant='outlined' type='button' color='primary' onClick={action.onClick} component={action.component} disabled={action.pristine ? action.pristine(pristine) : PRISTINE_BEHAVIOR.DEFAULT(pristine)} {...action.props}>
-                            {action.label} {action.icon}
-                          </Button>
-                        </Grid>
-                      ))
-                    }
-                    <Grid item classes={{item: classes.buttonContainer}}>
+      <Form
+        onSubmit={handleSubmit}
+        validate={validate}
+        initialValues={item}
+        decorators={decorators}
+        {...formProps}
+      >
+        {({ handleSubmit, submitting, pristine, values, ...rest }) => (
+          <form onSubmit={handleSubmit}>
+            <Grid direction='column' container spacing={2}>
+              <Grid item>
+                <div className={classes.formContent}>
+                  {typeof children === 'function'
+                    ? children({ values, ...rest })
+                    : children}
+                </div>
+              </Grid>
+              <Grid item xs={12} className={classes.buttonContent}>
+                <Grid justify='flex-end' container spacing={2}>
+                  <Grid item classes={{ item: classes.buttonContainer }}>
+                    <Button
+                      fullWidth
+                      type='button'
+                      variant='outlined'
+                      onClick={() => {
+                        const goBack = props.history.location.pathname
+                          .split('/')
+                          .filter(p => !!p)
+                          .slice(0, -1)
+                          .join('/')
+                        history.push('/' + goBack)
+                      }}
+                    >
+                      Voltar
+                    </Button>
+                  </Grid>
+                  {customActions.map(action => (
+                    <Grid
+                      item
+                      key={action.label}
+                      classes={{ item: classes.buttonContainer }}
+                    >
                       <Button
-                        className={getButtonClass()}
                         fullWidth
-                        type='submit'
-                        disabled={submitting}
-                        variant='contained'
-                        color='primary'>
-                        {getButtonLabel(submitting)}
+                        variant='outlined'
+                        type='button'
+                        color='primary'
+                        onClick={action.onClick}
+                        component={action.component}
+                        disabled={
+                          action.pristine
+                            ? action.pristine(pristine)
+                            : PRISTINE_BEHAVIOR.DEFAULT(pristine)
+                        }
+                        {...action.props}
+                      >
+                        {action.label} {action.icon}
                       </Button>
                     </Grid>
+                  ))}
+                  <Grid item classes={{ item: classes.buttonContainer }}>
+                    <Button
+                      className={getButtonClass()}
+                      fullWidth
+                      type='submit'
+                      disabled={submitting}
+                      variant='contained'
+                      color='primary'
+                    >
+                      {getButtonLabel(submitting)}
+                    </Button>
                   </Grid>
                 </Grid>
               </Grid>
-            </form>
-          )
-        }
+            </Grid>
+          </form>
+        )}
       </Form>
       <Snackbar message={formState.message} onClose={handleSnackbarClose} />
     </Container>

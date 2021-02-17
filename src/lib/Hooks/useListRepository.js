@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useLocation, useHistory, useParams } from 'react-router-dom'
 import * as R from 'ramda'
-import axios from 'axios';
+import axios from 'axios'
 
 export const fetchListPure = ({
   location,
@@ -14,13 +14,13 @@ export const fetchListPure = ({
   const params = new URLSearchParams(location.search)
   const { page = 0, rows = 10, sort = defaultSort, ...allQuery } = R.fromPairs([
     ...params.entries(),
-    ...query,
+    ...query
   ])
   return repository.list({
     parentId,
     paginate: {
       limit: +rows,
-      skip: rows * page,
+      skip: rows * page
     },
     query: {
       ...allQuery,
@@ -35,17 +35,17 @@ export const fetchAllListPure = ({
   repository,
   defaultSort,
   query = [],
-  parentId,
+  parentId
 }) => {
   const params = new URLSearchParams(location.search)
   const { sort = defaultSort, ...allQuery } = R.fromPairs([
     ...params.entries(),
-    ...query,
+    ...query
   ])
   return repository.list({
     parentId,
     paginate: {
-      limit: 10000,
+      limit: 10000
     },
     query: {
       ...allQuery,
@@ -61,24 +61,28 @@ export const removePure = async ({
   getId = _getId,
   item,
   parentId,
-  forceRemove = false,
+  forceRemove = false
 }) => {
   const response = await repository.remove({
     id: getId(item),
-    parentId,
+    parentId
   })
   if (response.ok) {
     return {
       message: forceRemove
         ? 'Registro removido.'
         : 'Registro removido. Deseja desfazer essa ação?',
-      ok: true,
+      ok: true
     }
   }
   return {
-    message: R.pathOr("Não foi possível remover o registro", ['message'], response.data),
+    message: R.pathOr(
+      'Não foi possível remover o registro',
+      ['message'],
+      response.data
+    ),
     ok: false,
-    data: response.data,
+    data: response.data
   }
 }
 
@@ -89,7 +93,7 @@ export const useListRepository = ({
   query,
   path,
   cancelPreviousRequest = false,
-  forceRemove = false,
+  forceRemove = false
 }) => {
   const location = useLocation()
   const params = useParams()
@@ -100,7 +104,7 @@ export const useListRepository = ({
   })
   const [removedState, setRemovedState] = useState({
     removedMessage: '',
-    item: undefined,
+    item: undefined
   })
 
   const fetchAllList = () =>
@@ -109,10 +113,10 @@ export const useListRepository = ({
       repository,
       location,
       defaultSort,
-      query,
+      query
     })
 
-  const fetchList = async ({cancelToken} = {}) => {
+  const fetchList = async ({ cancelToken } = {}) => {
     setState({ ...state, loading: true })
     const response = await fetchListPure({
       parentId: params.id,
@@ -127,16 +131,16 @@ export const useListRepository = ({
         ...state,
         list: response.data,
         count: response.count,
-        loading: false,
+        loading: false
       })
     }
     setState({
       ...state,
-      loading: false,
+      loading: false
     })
   }
   const saveSession = (key, value) =>
-    sessionStorage.listCache = JSON.stringify({[key]: value})
+    (sessionStorage.listCache = JSON.stringify({ [key]: value }))
   const onClickNew = () => {
     saveSession(`/${path}`, history.location.search)
     history.push(`/${path}/new`)
@@ -155,17 +159,17 @@ export const useListRepository = ({
       repository,
       item,
       parentId: params.id,
-      forceRemove,
+      forceRemove
     })
     if (response.ok) {
-      await fetchList();
+      await fetchList()
       setRemovedState({
         removedMessage: response.message,
-        item,
+        item
       })
     } else {
       setRemovedState({
-        removedMessage: response.message,
+        removedMessage: response.message
       })
     }
     return response
@@ -173,19 +177,22 @@ export const useListRepository = ({
 
   const undoRemove = async () => {
     setRemovedState({
-      removedMessage: "",
-    });
-    const response = await repository.update({
-      id: getId(removedState.item),
-      deletedAt: null,
-    }, {
-      parentId: params.id
+      removedMessage: ''
     })
+    const response = await repository.update(
+      {
+        id: getId(removedState.item),
+        deletedAt: null
+      },
+      {
+        parentId: params.id
+      }
+    )
     if (response.ok) {
       fetchList()
     } else {
       setRemovedState({
-        removedMessage: response.message,
+        removedMessage: response.message
       })
     }
   }
@@ -193,15 +200,15 @@ export const useListRepository = ({
   const clearRemovedMessage = () => {
     setRemovedState({
       removedMessage: '',
-      removedItem: undefined,
+      removedItem: undefined
     })
   }
 
   useEffect(() => {
     if (cancelPreviousRequest) {
-      const source = axios.CancelToken.source();
-      fetchList({cancelToken: source.token})
-      return () => source.cancel();
+      const source = axios.CancelToken.source()
+      fetchList({ cancelToken: source.token })
+      return () => source.cancel()
     } else {
       fetchList()
     }
@@ -218,6 +225,6 @@ export const useListRepository = ({
     removedMessage: removedState.removedMessage,
     undoRemove,
     clearRemovedMessage,
-    fetchAllList,
+    fetchAllList
   }
 }

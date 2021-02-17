@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import ListItem from '@material-ui/core/ListItem'
 import List from '@material-ui/core/List'
 import Collapse from '@material-ui/core/Collapse'
@@ -6,11 +6,10 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import { makeStyles } from '@material-ui/core/styles'
 import classNames from 'classnames'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
-import { useState } from 'react'
-import { useLocation } from 'react-router-dom'
+
 import PropTypes from 'prop-types'
 import MenuItem from '@material-ui/core/MenuItem'
 import Paper from '@material-ui/core/Paper'
@@ -47,7 +46,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     minHeight: 40,
     fontWeight: 'bold',
-    marginLeft: theme.spacing(2),
+    marginLeft: theme.spacing(2)
   },
   popperArrow: {
     position: 'absolute',
@@ -71,7 +70,14 @@ const enumTheme = {
   LIGHT: 'light'
 }
 
-const MenuItems = ({ items, classes: menuItemsClasses, theme: themeName, popperOpen, onMenuItemClick, expanded }) => {
+const MenuItems = ({
+  items,
+  classes: menuItemsClasses,
+  theme: themeName,
+  popperOpen,
+  onMenuItemClick,
+  expanded
+}) => {
   const classes = useStyles()
   const location = useLocation()
   const [openSubmenu, setOpenSubmenu] = useState('')
@@ -102,29 +108,36 @@ const MenuItems = ({ items, classes: menuItemsClasses, theme: themeName, popperO
   const renderPopper = item => {
     return (
       <Popper
-        className={
-          classNames(
-            classes.popper,
-            menuItemsClasses && menuItemsClasses.popper
-          )}
+        className={classNames(
+          classes.popper,
+          menuItemsClasses && menuItemsClasses.popper
+        )}
         placement='right'
         anchorEl={anchorEl}
         open={popperOpen && Boolean(anchorEl)}
-        onClose={handleClosePopper}>
-
+        onClose={handleClosePopper}
+      >
         <Paper>
-          <div className={classNames(classes.popperArrow,
-            menuItemsClasses && menuItemsClasses.popperArrow
-          )}></div>
-          {item.label === popperLabel ?
-            <Typography className={classNames(
-              classes.popperTitle,
-              menuItemsClasses && menuItemsClasses.popperTitle
-            )}>{item.label}</Typography> : null
-          }
-          {item.group && popperLabel === item.label ? renderMenuItem(item) : null}
+          <div
+            className={classNames(
+              classes.popperArrow,
+              menuItemsClasses && menuItemsClasses.popperArrow
+            )}
+          />
+          {item.label === popperLabel ? (
+            <Typography
+              className={classNames(
+                classes.popperTitle,
+                menuItemsClasses && menuItemsClasses.popperTitle
+              )}
+            >
+              {item.label}
+            </Typography>
+          ) : null}
+          {item.group && popperLabel === item.label
+            ? renderMenuItem(item)
+            : null}
         </Paper>
-
       </Popper>
     )
   }
@@ -133,14 +146,18 @@ const MenuItems = ({ items, classes: menuItemsClasses, theme: themeName, popperO
     return (
       <div className={classes.menuList}>
         <MenuList>
-          {item.items.map((i) => {
+          {item.items.map(i => {
             return (
               <MenuItem
                 className={classes.menuItem}
                 key={i.label}
                 onClick={handleClosePopper}
                 component={Link}
-                to={i.pathname}>{i.label}</MenuItem>)
+                to={i.pathname}
+              >
+                {i.label}
+              </MenuItem>
+            )
           })}
         </MenuList>
       </div>
@@ -152,29 +169,46 @@ const MenuItems = ({ items, classes: menuItemsClasses, theme: themeName, popperO
       return (
         <div
           key={item.label}
-          className={
-            classNames(
-              classes.menuColor,
-              menuItemsClasses && menuItemsClasses.menuColor
-            )}>
+          className={classNames(
+            classes.menuColor,
+            menuItemsClasses && menuItemsClasses.menuColor
+          )}
+        >
           <ListItem
             button
             onClick={!popperOpen ? handleGroupClick(item.label) : null}
-            onMouseOver={(event => handleOpenPopper(event, item.label))}
+            onMouseOver={event => handleOpenPopper(event, item.label)}
           >
             {item.icon && (
               <ListItemIcon
                 classes={{
-                  root: menuItemsClasses ? menuItemsClasses.menuColor : classes.menuColor
-                }}>
+                  root: menuItemsClasses
+                    ? menuItemsClasses.menuColor
+                    : classes.menuColor
+                }}
+              >
                 <item.icon />
               </ListItemIcon>
             )}
             <ListItemText
-              primary={item.label} classes={{ primary: menuItemsClasses ? menuItemsClasses.menuColor : classes.menuColor }} />
-            {openSubmenu === item.label ? <ExpandLess color='inherit' /> : <ExpandMore color='inherit' />}
+              primary={item.label}
+              classes={{
+                primary: menuItemsClasses
+                  ? menuItemsClasses.menuColor
+                  : classes.menuColor
+              }}
+            />
+            {openSubmenu === item.label ? (
+              <ExpandLess color='inherit' />
+            ) : (
+              <ExpandMore color='inherit' />
+            )}
           </ListItem>
-          <Collapse in={!popperOpen ? openSubmenu === item.label : false} timeout='auto' unmountOnExit>
+          <Collapse
+            in={!popperOpen ? openSubmenu === item.label : false}
+            timeout='auto'
+            unmountOnExit
+          >
             <List component='div' disablePadding>
               {item.items.map(renderListItem, true)}
             </List>
@@ -207,7 +241,9 @@ const MenuItems = ({ items, classes: menuItemsClasses, theme: themeName, popperO
           style={isSubMenu ? { paddingLeft: 28 } : null}
           button
           classes={{
-            root: active && (menuItemsClasses ? menuItemsClasses.active : classes.active)
+            root:
+              active &&
+              (menuItemsClasses ? menuItemsClasses.active : classes.active)
           }}
           component={Link}
           to={item.pathname}
@@ -218,9 +254,7 @@ const MenuItems = ({ items, classes: menuItemsClasses, theme: themeName, popperO
               classes={{
                 root: classNames(
                   menuItemsClasses && menuItemsClasses.menuColor,
-                  active
-                    ? activeColor
-                    : classes.menuColor
+                  active ? activeColor : classes.menuColor
                 )
               }}
             >
@@ -232,14 +266,13 @@ const MenuItems = ({ items, classes: menuItemsClasses, theme: themeName, popperO
             classes={{
               primary: classNames(
                 menuItemsClasses && menuItemsClasses.menuColor,
-                active ? activeColor : classes.menuColor,
+                active ? activeColor : classes.menuColor
               )
             }}
           />
         </ListItem>
         {renderPopper(item)}
       </React.Fragment>
-
     )
   }
   return <div>{items.map(renderItem)}</div>

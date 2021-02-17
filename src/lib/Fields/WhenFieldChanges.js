@@ -1,16 +1,12 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import { OnChange } from 'react-final-form-listeners'
-import {Field} from 'react-final-form';
+import { Field } from 'react-final-form'
 
-export default function WhenFieldChanges({ field, becomes, set, to }) {
+export default function WhenFieldChanges ({ field, set, to }) {
   return (
     <Field name={set} subscription={{}}>
-      {(
-        { input: { onChange: change } }
-      ) => (
-        <OnChange name={field}>
-          {value => change(to(value))}
-        </OnChange>
+      {({ input: { onChange: change } }) => (
+        <OnChange name={field}>{value => change(to(value))}</OnChange>
       )}
     </Field>
   )

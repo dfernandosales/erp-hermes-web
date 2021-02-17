@@ -8,7 +8,7 @@ const defaultLabels = {
   simpleFilter: 'Simple',
   detailedFilter: 'Detailed',
   clear: 'Clear',
-  find: 'Find',
+  find: 'Find'
 }
 
 const Filter = ({
@@ -18,7 +18,7 @@ const Filter = ({
   onClear,
   onSubmit,
   validate,
-  detailedFilter,
+  detailedFilter
 }) => {
   const [showDetailed, setShowDetailed] = useState(false)
   const formClear = (event, form) => {
@@ -64,10 +64,10 @@ const Filter = ({
 }
 
 Filter.propTypes = {
-  /** Children elements that will be render inside the form*/
+  /** Children elements that will be render inside the form */
   children: PropTypes.object,
   /** Labels of the buttons  */
-  labels: PropTypes.object,
+  labels: PropTypes.object
 }
 
 export default Filter

@@ -1,11 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import React from 'react'
+import PropTypes from 'prop-types'
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
 import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
 
-const PaginationActions = React.forwardRef(function PaginationActions(props, ref) {
+const PaginationActions = React.forwardRef(function PaginationActions (
+  props,
+  ref
+) {
   const {
     backIconButtonProps,
     count,
@@ -14,15 +17,15 @@ const PaginationActions = React.forwardRef(function PaginationActions(props, ref
     page,
     rowsPerPage,
     ...other
-  } = props;
+  } = props
 
   const handleBackButtonClick = event => {
-    onChangePage(event, page - 1);
-  };
+    onChangePage(event, page - 1)
+  }
 
   const handleNextButtonClick = event => {
-    onChangePage(event, page + 1);
-  };
+    onChangePage(event, page + 1)
+  }
 
   return (
     <div ref={ref} {...other}>
@@ -31,7 +34,7 @@ const PaginationActions = React.forwardRef(function PaginationActions(props, ref
           <IconButton
             onClick={handleBackButtonClick}
             disabled={page === 0}
-            color="inherit"
+            color='inherit'
             {...backIconButtonProps}
           >
             <KeyboardArrowLeft />
@@ -43,7 +46,7 @@ const PaginationActions = React.forwardRef(function PaginationActions(props, ref
           <IconButton
             onClick={handleNextButtonClick}
             disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-            color="inherit"
+            color='inherit'
             {...nextIconButtonProps}
           >
             <KeyboardArrowRight />
@@ -51,8 +54,8 @@ const PaginationActions = React.forwardRef(function PaginationActions(props, ref
         </span>
       </Tooltip>
     </div>
-  );
-});
+  )
+})
 
 PaginationActions.propTypes = {
   backIconButtonProps: PropTypes.object,
@@ -60,7 +63,7 @@ PaginationActions.propTypes = {
   nextIconButtonProps: PropTypes.object,
   onChangePage: PropTypes.func.isRequired,
   page: PropTypes.number.isRequired,
-  rowsPerPage: PropTypes.number.isRequired,
-};
+  rowsPerPage: PropTypes.number.isRequired
+}
 
-export default PaginationActions;
+export default PaginationActions

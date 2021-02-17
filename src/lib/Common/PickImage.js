@@ -1,9 +1,9 @@
 import React from 'react'
 
-function readAsDataURL(file) {
+function readAsDataURL (file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
-    reader.onload = (event) => {
+    reader.onload = event => {
       resolve(event.target.result)
     }
     reader.onerror = event => {
@@ -25,26 +25,31 @@ const processFiles = files => {
   })
 }
 
-export default function PickImage({children, multiple, beforeOnChange, onChange, id, ...props}) {
+export default function PickImage ({
+  children,
+  multiple,
+  beforeOnChange,
+  onChange,
+  id,
+  ...props
+}) {
   return (
     <div>
       <input
-        accept="image/*"
+        accept='image/*'
         style={{ display: 'none' }}
         id={id}
         multiple={multiple}
-        onChange={(event) => {
-          beforeOnChange && beforeOnChange(event);
+        onChange={event => {
+          beforeOnChange && beforeOnChange(event)
 
-          Promise.all(processFiles([...event.target.files])).then(onChange) 
-          event.target.value = null;
+          Promise.all(processFiles([...event.target.files])).then(onChange)
+          event.target.value = null
         }}
-        type="file"
+        type='file'
         {...props}
       />
-      <label htmlFor={id}>
-        { children }
-      </label>
+      <label htmlFor={id}>{children}</label>
     </div>
-  );
+  )
 }

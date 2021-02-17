@@ -13,7 +13,13 @@ const UserAvatar = props => {
   }
 
   const username = R.path(['user', 'name'], context)
-  return <ListTile {...props} onActionClick={props.onActionClick || logout} name={username} />
+  return (
+    <ListTile
+      {...props}
+      onActionClick={props.onActionClick || logout}
+      name={username}
+    />
+  )
 }
 
 UserAvatar.propTypes = {

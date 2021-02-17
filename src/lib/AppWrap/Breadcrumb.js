@@ -19,21 +19,25 @@ const Breadcrumb = props => {
     setParts(parts)
   }, [props.history.location.pathname])
 
-  const navigate = (path) => {
+  const navigate = path => {
     props.history.push(`/${path}`)
   }
 
   const getLabel = (part, index) => {
     switch (true) {
       case part.isId:
-        if (index === 1) { return R.pathOr(part.pathPart, ['info', 'label'], props) }
+        if (index === 1) {
+          return R.pathOr(part.pathPart, ['info', 'label'], props)
+        }
         return part.pathPart
       case part.pathPart === 'new' || part.pathPart === 'new-child':
         return 'Novo'
       case part.pathPart === 'view':
         return 'Visualizar'
       default:
-        const key = Object.keys(props.pathReadableMap).find(key => key.split("?")[0] === part.pathPart);
+        const key = Object.keys(props.pathReadableMap).find(
+          key => key.split('?')[0] === part.pathPart
+        )
         if (props.pathReadableMap[key]) {
           return props.pathReadableMap[key]
         } else {
@@ -45,43 +49,43 @@ const Breadcrumb = props => {
   const renderPart = (part, index) => {
     return (
       <Typography
-        className={classNames(classes.part, part.isCurrentPath && classes.currentPath)}
+        className={classNames(
+          classes.part,
+          part.isCurrentPath && classes.currentPath
+        )}
         type={index === 0 ? 'subtitle1' : 'caption'}
         onClick={() => navigate(part.path)}
         key={part.pathPart}
       >
         {getLabel(part, index)}
         {!part.isFinalPath && <ArrowIcon className={classes.separator} />}
-      </Typography>)
+      </Typography>
+    )
   }
 
   return (
-    <div className={classNames(classes.root)}>
-      {
-        parts.map(renderPart)
-      }
-    </div>
+    <div className={classNames(classes.root)}>{parts.map(renderPart)}</div>
   )
 }
 Breadcrumb.propTypes = {
   /** Pathname source used to get the label, normally got from useHistory */
   history: PropsTypes.shape({
     location: PropsTypes.shape({
-      pathname: PropsTypes.string.isRequired,
+      pathname: PropsTypes.string.isRequired
     }).isRequired,
-    push: PropsTypes.func.isRequired,
+    push: PropsTypes.func.isRequired
   }).isRequired,
   /** Label to show at breadcrumb, it will only show when the identifier is
    * the second element on path
    */
   info: PropsTypes.shape({
-    label: PropsTypes.string,
+    label: PropsTypes.string
   }),
   /** Map a path name to readable name */
-  pathReadableMap: PropsTypes.object,
+  pathReadableMap: PropsTypes.object
 }
 Breadcrumb.defaultProps = {
-  pathReadableMap: {},
+  pathReadableMap: {}
 }
 
 export default Breadcrumb

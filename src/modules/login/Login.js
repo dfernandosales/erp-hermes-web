@@ -1,25 +1,24 @@
-import React, { useRef } from "react";
-import { withLogin } from "../../lib/Login";
-import api from "../../services/api";
-import * as R from "ramda";
-import logo from "../../images/hermes-logo.png";
-import { Grid } from "@material-ui/core";
-import LoginForm from "./LoginForm";
+import React, { useRef } from 'react'
+import { withLogin } from '../../lib/Login'
+import api from '../../services/api'
+import * as R from 'ramda'
+import logo from '../../images/hermes-logo.png'
+import { Grid } from '@material-ui/core'
+import LoginForm from './LoginForm'
 
-const Login = withLogin(LoginForm);
+const Login = withLogin(LoginForm)
 
 export const handleLogin = ({ login, setToken = R.empty }) => async ({
   email,
-  password,
+  password
 }) => {
-
   if (!email || !password) {
-    return;
+    return
   }
   const response = await login({
     email,
-    password,
-  });
+    password
+  })
 
   setToken(response.data.authentication.accessToken);
 
@@ -31,33 +30,33 @@ export const handleLogin = ({ login, setToken = R.empty }) => async ({
       name: response.data.user.name,
       role: response.data.user.role,
       token: response.data.authentication.accessToken
-    };
+    }
   } else {
     return {
       ok: false,
-      message: "Usuário e/ou senha inválidos!",
-    };
+      message: 'Usuário e/ou senha inválidos!'
+    }
   }
-};
+}
 
 const CustomLogin = ({ history }) => {
-  const loginRef = useRef();;
+  const loginRef = useRef()
   return (
     <Login
       logo={
         <Grid item xs={12}>
-          <Grid container direction="row" justify="center" alignItems="center">
-            <img alt="logo" src={logo} style={{ marginBottom: 20 }} />
+          <Grid container direction='row' justify='center' alignItems='center'>
+            <img alt='logo' src={logo} style={{ marginBottom: 20 }} />
           </Grid>
         </Grid>
       }
       history={history}
       ref={loginRef}
       onSubmit={handleLogin(api)}
-      requiredLabel="Obrigatório"
-      submitLabel="Entrar"
+      requiredLabel='Obrigatório'
+      submitLabel='Entrar'
     />
-  );
-};
+  )
+}
 
-export default CustomLogin;
+export default CustomLogin

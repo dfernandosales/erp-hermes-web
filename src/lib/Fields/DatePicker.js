@@ -1,22 +1,21 @@
 import React from 'react'
 import { DatePicker } from '@material-ui/pickers'
-//import 'moment/locale/pt'
+// import 'moment/locale/pt'
 
 const locale = {
-  pt: 'pt',
+  pt: 'pt'
 }
 
-export default function DatePickerField({ input, meta, ...props }) {
+export default function DatePickerField ({ input, meta, ...props }) {
   return (
     <DatePicker
       {...props}
       keyboard
       clearable
       locale={locale}
-      format="DD/MM/YYYY"
+      format='DD/MM/YYYY'
       mask={value =>
-        value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : []
-      }
+        value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : []}
       value={input.value || null}
       error={meta.touched && !!meta.error}
       onError={() => input.onChange(null)}
@@ -27,9 +26,9 @@ export default function DatePickerField({ input, meta, ...props }) {
       onBlur={input.onBlur}
       disableOpenOnEnter
       animateYearScrolling={false}
-      cancelLabel="Cancelar"
-      clearLabel="Limpar"
-      okLabel="OK"
+      cancelLabel='Cancelar'
+      clearLabel='Limpar'
+      okLabel='OK'
     />
   )
 }

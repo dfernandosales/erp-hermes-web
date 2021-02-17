@@ -1,20 +1,20 @@
 const yupValidation = schema => async data => {
   try {
-    const values = await schema.validate(data, { abortEarly: false });
+    const values = await schema.validate(data, { abortEarly: false })
     Object.keys(values).forEach(key => {
-      values[key] = undefined;
-    });
-    return values;
+      values[key] = undefined
+    })
+    return values
   } catch (err) {
-    let errors = err.inner.reduce(
+    const errors = err.inner.reduce(
       (formError, innerError) => ({
         ...formError,
-        [innerError.path]: innerError.message,
+        [innerError.path]: innerError.message
       }),
       {}
-    );
-    return errors;
+    )
+    return errors
   }
-};
+}
 
-export default yupValidation;
+export default yupValidation

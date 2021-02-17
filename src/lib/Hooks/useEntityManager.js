@@ -4,15 +4,22 @@ import * as R from 'ramda'
 
 const isNew = id => /new/.test(id)
 
-const defaultGetId = (data) => data.id
+const defaultGetId = data => data.id
 
 export const getIds = (id, childId) => ({
   id: childId || id,
-  parentId: childId ? id : undefined,
+  parentId: childId ? id : undefined
 })
 
-export const save = async ({ id, childId, repository, relationKey, data, ...options }) => {
-  const getId = options?.getId || defaultGetId;
+export const save = async ({
+  id,
+  childId,
+  repository,
+  relationKey,
+  data,
+  ...options
+}) => {
+  const getId = options?.getId || defaultGetId
   const ids = getIds(id, childId)
   id = ids.id
   const dataCopy = { ...data }
@@ -26,12 +33,22 @@ export const save = async ({ id, childId, repository, relationKey, data, ...opti
     return repository.create(dataCopy)
   }
   if (ids.parentId) {
-    return repository.update({ id: +id, ...dataCopy }, { parentId: ids.parentId, getId })
+    return repository.update(
+      { id: +id, ...dataCopy },
+      { parentId: ids.parentId, getId }
+    )
   }
   return repository.update({ id: +id, ...dataCopy }, { getId })
 }
 
-export default ({ repository, relationKey, handleError, goBackAfterSave, onGoBack, initialData = {} }) => {
+export default ({
+  repository,
+  relationKey,
+  handleError,
+  goBackAfterSave,
+  onGoBack,
+  initialData = {}
+}) => {
   const { id, childId } = useParams()
   const history = useHistory()
   const [message, setMessage] = useState('')
@@ -52,7 +69,7 @@ export default ({ repository, relationKey, handleError, goBackAfterSave, onGoBac
   const setError = message => setMessage(message)
 
   const onSubmit = async (data, options) => {
-    const getId = options?.getId || defaultGetId;
+    const getId = options?.getId || defaultGetId
     const response = await save({
       data,
       repository,
@@ -63,7 +80,10 @@ export default ({ repository, relationKey, handleError, goBackAfterSave, onGoBac
     })
     if (response.ok) {
       history.replace(
-        history.location.pathname.replace(/new$|new-child$/, getId(response.data))
+        history.location.pathname.replace(
+          /new$|new-child$/,
+          getId(response.data)
+        )
       )
     }
     if (response.ok) {
@@ -89,14 +109,13 @@ export default ({ repository, relationKey, handleError, goBackAfterSave, onGoBac
     if (onGoBack) {
       onGoBack()
       return
-    }    
+    }
     let pathname = history.location.pathname
-    if (pathname[pathname.length-1] === '/') 
-      pathname = pathname.substring(0, pathname.length-1)
+    if (pathname[pathname.length - 1] === '/') { pathname = pathname.substring(0, pathname.length - 1) }
     const path = /\/.+\//.exec(pathname)
-    const goBack = path[0].substring(0,path[0].length-1)
+    const goBack = path[0].substring(0, path[0].length - 1)
     if (sessionStorage.listCache) {
-      const listCache = JSON.parse(sessionStorage.listCache);
+      const listCache = JSON.parse(sessionStorage.listCache)
       if (!R.isNil(listCache[goBack])) {
         history.push(goBack + listCache[goBack])
         return
@@ -118,6 +137,6 @@ export default ({ repository, relationKey, handleError, goBackAfterSave, onGoBac
     clearMessage,
     isNew: isNew(getIds(id, childId).id),
     setError,
-    onGoBack: handleGoBack,
+    onGoBack: handleGoBack
   }
 }

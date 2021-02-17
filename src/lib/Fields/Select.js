@@ -13,7 +13,7 @@ const CustomSelect = ({
   label,
   meta,
   options,
-  emptyValue = {label: 'Selecione', value: null},
+  emptyValue = { label: 'Selecione', value: null },
   ...props
 }) => {
   if (!input || !meta) {
@@ -26,8 +26,10 @@ const CustomSelect = ({
   }
 
   return (
-    <FormControl style={{ width, height: meta.error && meta.touched ? 70 : 48 }}>
-      <InputLabel htmlFor="age-simple" error={meta.error && meta.touched}>
+    <FormControl
+      style={{ width, height: meta.error && meta.touched ? 70 : 48 }}
+    >
+      <InputLabel htmlFor='age-simple' error={meta.error && meta.touched}>
         {label}
       </InputLabel>
       <Select
@@ -55,7 +57,7 @@ const CustomSelect = ({
 
 CustomSelect.defaultProps = {
   width: '100%',
-  hideEmpty: false,
+  hideEmpty: false
 }
 
 export default CustomSelect

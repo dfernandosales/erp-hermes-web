@@ -103,14 +103,14 @@ const ApplicationStyles = theme => ({
       duration: theme.transitions.duration.leavingScreen
     })
   },
-  drawerHideMenu : {
+  drawerHideMenu: {
     width: 0.01,
     overflowX: 'hidden',
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
     }),
-    borderRight: 0,
+    borderRight: 0
   },
   drawerInner: {
     width: drawerWidth
@@ -164,7 +164,7 @@ const ApplicationStyles = theme => ({
     }
   },
   contentLight: {
-    backgroundColor: theme.palette.common.white,
+    backgroundColor: theme.palette.common.white
   },
   messageStyle: {
     background: theme.palette.primary.main,

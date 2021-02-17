@@ -1,14 +1,12 @@
-import * as R from 'ramda'
-
-const getCurrentId = (params) => {
+const getCurrentId = params => {
   if (params.childId) {
     return params.childId
   }
   return params.id
 }
 
-const getErrorMessage = (response) => R.path(['data', 'error', 'message'], response)
-
+const getErrorMessage = response =>
+  R.path(['data', 'error', 'message'], response)
 
 export const getWhereFilter = (where, filter, filtersConfig) => {
   const filterWhere = filter && filter.filter ? filter.filter : filter
@@ -24,18 +22,18 @@ export const getWhereFilter = (where, filter, filtersConfig) => {
 }
 
 const isSecondLevel = pathname => /\/\w+\/\d+\/\w+/i.test(pathname)
-export const getPage = async ({ api, where={}, location, ...params }) => {
-  const {rowsPerPage, page, order} = params
+export const getPage = async ({ api, where = {}, location, ...params }) => {
+  const { rowsPerPage, page, order } = params
   const options = {
     order: order,
     limit: rowsPerPage,
-    skip: rowsPerPage && page && (rowsPerPage * page),
-    offset: rowsPerPage && page && (rowsPerPage * page), //lb4
+    skip: rowsPerPage && page && rowsPerPage * page,
+    offset: rowsPerPage && page && rowsPerPage * page, // lb4
     where
   }
   let response
   if (isSecondLevel(location.pathname)) {
-    response = await api.getRelationList({location, ...options})
+    response = await api.getRelationList({ location, ...options })
   } else {
     response = await api.getList(options)
   }
@@ -48,13 +46,16 @@ export const getPage = async ({ api, where={}, location, ...params }) => {
   }
 }
 
-export const getCount = (api, fixedWhere, filtersConfig={}) => async ({ filter, location= {} }) => {
+export const getCount = (api, fixedWhere, filtersConfig = {}) => async ({
+  filter,
+  location = {}
+}) => {
   const options = {
     where: getWhereFilter(fixedWhere, filter, filtersConfig)
   }
   let response
   if (isSecondLevel(location.pathname)) {
-    response = await api.getRelationCount({filter: options, location})
+    response = await api.getRelationCount({ filter: options, location })
   } else {
     response = await api.getCount(options)
   }
@@ -64,10 +65,10 @@ export const getCount = (api, fixedWhere, filtersConfig={}) => async ({ filter, 
   return 0
 }
 
-export const handleDelete = (api) => async (item, location = {}) => {
-  let response;
+export const handleDelete = api => async (item, location = {}) => {
+  let response
   if (isSecondLevel(location.pathname)) {
-    response = await api.removeRelation(item.id, { location})
+    response = await api.removeRelation(item.id, { location })
   } else {
     response = await api.remove(item.id)
   }
@@ -84,8 +85,8 @@ export const handleDelete = (api) => async (item, location = {}) => {
   }
 }
 
-export const undo = (api) => async (item, location = {}) => {
-  let response;
+export const undo = api => async (item, location = {}) => {
+  let response
   if (isSecondLevel(location.pathname)) {
     response = await api.undoRemoveRelation(item.id, { location })
   } else {
@@ -94,10 +95,10 @@ export const undo = (api) => async (item, location = {}) => {
   return { ok: response.ok }
 }
 
-export const handleDeleteF = (api) => async (item, location = {}) => {
-  let response;
+export const handleDeleteF = api => async (item, location = {}) => {
+  let response
   if (isSecondLevel(location.pathname)) {
-    response = await api.deleteFRelation(item.id, { location})
+    response = await api.deleteFRelation(item.id, { location })
   } else {
     response = await api.deleteF(item.id)
   }
@@ -113,16 +114,24 @@ export const handleDeleteF = (api) => async (item, location = {}) => {
   }
 }
 
-export const ListApi = ({ api, getPageDecorator, children, filtersConfig = {}, where: fixedWhere, transformWhere }) => {
-
-  const getPageProxy = (filter) => {
-    const where = transformWhere ? transformWhere(getWhereFilter(fixedWhere, filter, filtersConfig)) : getWhereFilter(fixedWhere, filter, filtersConfig)
+export const ListApi = ({
+  api,
+  getPageDecorator,
+  children,
+  filtersConfig = {},
+  where: fixedWhere,
+  transformWhere
+}) => {
+  const getPageProxy = filter => {
+    const where = transformWhere
+      ? transformWhere(getWhereFilter(fixedWhere, filter, filtersConfig))
+      : getWhereFilter(fixedWhere, filter, filtersConfig)
     if (getPageDecorator) {
       return getPageDecorator({
-        getPage: () => getPage({...filter, where, api})
+        getPage: () => getPage({ ...filter, where, api })
       })
     }
-    return getPage({...filter, api, where})
+    return getPage({ ...filter, api, where })
   }
 
   return children({
@@ -132,10 +141,19 @@ export const ListApi = ({ api, getPageDecorator, children, filtersConfig = {}, w
     getPage: getPageProxy,
     getCount: getCount(api, fixedWhere, filtersConfig)
   })
-
 }
 
-export const FormApi = ({ api, initialData, children, format, submitDecorator, match, location, history, getItemDecorator }) => {
+export const FormApi = ({
+  api,
+  initialData,
+  children,
+  format,
+  submitDecorator,
+  match,
+  location,
+  history,
+  getItemDecorator
+}) => {
   const handlerApiError = response => {
     switch (true) {
       case response.status === 409:
@@ -170,7 +188,9 @@ export const FormApi = ({ api, initialData, children, format, submitDecorator, m
     if (/new/.test(id)) {
       const response = await api.create(formated)
       if (response.ok) {
-        history.replace(location.pathname.replace(/new$|new-child$/, response.data.id))
+        history.replace(
+          location.pathname.replace(/new$|new-child$/, response.data.id)
+        )
         return { ok: true, data: response.data }
       }
       return handlerApiError(response)
@@ -182,17 +202,17 @@ export const FormApi = ({ api, initialData, children, format, submitDecorator, m
     return handlerApiError(response)
   }
 
-  const getItem = async (filter) => {
+  const getItem = async filter => {
     const id = getCurrentId(match.params)
     if (/new/.test(id)) return initialData
     const response = await api.getOne(id, filter)
     if (response.ok) {
       return response.data
     }
-    //todo analisar quando der erro
+    // todo analisar quando der erro
   }
 
-  const getItemProxy = (filter) => {
+  const getItemProxy = filter => {
     if (getItemDecorator) {
       return getItemDecorator({ getItem, filter })
     }

@@ -13,16 +13,16 @@ import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles(() => ({
   withlink: {
-    cursor: 'pointer',
+    cursor: 'pointer'
   },
   actionButtons: {
     display: 'inline-block',
     wordBreak: 'break-word',
-    minWidth: '128px',
+    minWidth: '128px'
   },
   actionCell: {
-    width: '2rem',
-  },
+    width: '2rem'
+  }
 }))
 
 const EntityField = ({ id, getOne, fieldName, onClickRow }) => {
@@ -64,7 +64,7 @@ const renderCell = (item, onClickRow, classes, align) => field => {
       className={onClickRow ? classes.withlink : ''}
       onClick={() => onClickRow && onClickRow(item, field)}
       align={
-        !!field.align ? field.align : field.type === 'number' ? 'right' : 'left'
+        field.align ? field.align : field.type === 'number' ? 'right' : 'left'
       }
     >
       {format(item[field.source], item)}
@@ -75,7 +75,7 @@ const renderCell = (item, onClickRow, classes, align) => field => {
 const _actionsOptions = () => ({
   canView: true,
   canUpdate: true,
-  canRemove: true,
+  canRemove: true
 })
 export default ({
   list,
@@ -86,7 +86,7 @@ export default ({
   onClickRow,
   actionsOptions = _actionsOptions,
   emptyText,
-  loading,
+  loading
 }) => {
   const classes = useStyles()
   const history = useHistory()
@@ -103,17 +103,17 @@ export default ({
             return (
               <TableRow key={index} hover>
                 {fields.map(renderCell(item, onClickRow, classes))}
-                <TableCell align="right" className={classes.actionCell}>
+                <TableCell align='right' className={classes.actionCell}>
                   <div className={classes.actionButtons}>
                     {onClickView && options.canView && (
                       <Tooltip
                         style={{ marginRight: 10 }}
-                        title="Ver registro"
-                        aria-label="Ver registro"
+                        title='Ver registro'
+                        aria-label='Ver registro'
                       >
                         <IconButton
-                          size="small"
-                          aria-label="Ver"
+                          size='small'
+                          aria-label='Ver'
                           onClick={() => onClickView(item)}
                         >
                           <VisibilityIcon />
@@ -123,12 +123,12 @@ export default ({
                     {onClickEdit && options.canUpdate && (
                       <Tooltip
                         style={{ marginRight: 10 }}
-                        title="Editar registro"
-                        aria-label="Editar registro"
+                        title='Editar registro'
+                        aria-label='Editar registro'
                       >
                         <IconButton
-                          size="small"
-                          aria-label="Editar"
+                          size='small'
+                          aria-label='Editar'
                           onClick={() => onClickEdit(item)}
                         >
                           <EditIcon />
@@ -138,12 +138,12 @@ export default ({
                     {onClickDelete && options.canRemove && (
                       <Tooltip
                         style={{ marginRight: 10 }}
-                        title="Deletar registro"
-                        aria-label="Deletar registro"
+                        title='Deletar registro'
+                        aria-label='Deletar registro'
                       >
                         <IconButton
-                          size="small"
-                          aria-label="Deletar"
+                          size='small'
+                          aria-label='Deletar'
                           onClick={() => onClickDelete(item)}
                         >
                           <DeleteIcon />
@@ -156,14 +156,14 @@ export default ({
             )
           })
         : emptyText && !loading && page > 0
-        ? (params.set('page', page - 1),
-          history.push(`${location.pathname}?${params.toString()}`))
-        : emptyText &&
+          ? (params.set('page', page - 1),
+            history.push(`${location.pathname}?${params.toString()}`))
+          : emptyText &&
           !loading &&
           page === 0 && (
             <TableRow hover>
-              <TableCell align="center" colSpan={fields.length + 1}>
-                <Typography variant="body1">{emptyText}</Typography>
+              <TableCell align='center' colSpan={fields.length + 1}>
+                <Typography variant='body1'>{emptyText}</Typography>
               </TableCell>
             </TableRow>
           )}

@@ -1,5 +1,4 @@
-import { path, pathOr } from 'ramda'
-
+import { pathOr } from 'ramda'
 
 export const handlerApiError = response => {
   if (response.ok) {
@@ -10,15 +9,15 @@ export const handlerApiError = response => {
       return {
         ok: false,
         data: {
-          message: `Campo já foi cadastrado`,
-        },
+          message: 'Campo já foi cadastrado'
+        }
       }
     case response.problem === 'NETWORK_ERROR':
       return {
         ok: false,
         data: {
-          message: 'Servidor não encontrado. Problema na conexão',
-        },
+          message: 'Servidor não encontrado. Problema na conexão'
+        }
       }
     default:
       return response
@@ -32,8 +31,8 @@ export default ({
   queryTransform = {},
   listResponsePath = {
     pathData: ['data', 'data'],
-    pathCount: ['data', 'total'],
-  },
+    pathCount: ['data', 'total']
+  }
 }) => {
   if (!restApi) {
     throw Error('faltou passar restApi para o repository')
@@ -55,7 +54,7 @@ export default ({
     const newQuery = Object.entries({
       ...query,
       ...paginate,
-      ...(relationType === 'query' && parentId ? { parentId } : {}),
+      ...(relationType === 'query' && parentId ? { parentId } : {})
     })
       .map(([key, value]) => {
         if (queryTransform[key]) {
@@ -84,10 +83,12 @@ export default ({
     )
 
   const update = async (data, options) => {
-    const getId = options?.getId || (data => data.id);
+    const getId = options?.getId || (data => data.id)
     return handlerApiError(
       await restApi.patch(
-        `${buildPath({ parentId: options && options.parentId })}/${getId(data)}`,
+        `${buildPath({ parentId: options && options.parentId })}/${getId(
+          data
+        )}`,
         data,
         options
       )
@@ -96,7 +97,7 @@ export default ({
 
   const getOne = ({ id, parentId, query }) => {
     const queryString = createQueryString(query, {}, parentId)
-    return restApi.get(buildPath({ parentId })+ '/' + id + queryString)
+    return restApi.get(buildPath({ parentId }) + '/' + id + queryString)
   }
 
   const list = async ({ query, paginate, parentId } = {}) => {
@@ -105,7 +106,7 @@ export default ({
     return {
       ok: response.ok,
       data: pathOr({}, listResponsePath.pathData, response),
-      count: pathOr(undefined, listResponsePath.pathCount, response),
+      count: pathOr(undefined, listResponsePath.pathCount, response)
     }
   }
 
@@ -116,7 +117,7 @@ export default ({
     const response = await restApi.delete(uri)
     return {
       ok: response.ok,
-      data: response.ok ? undefined : response.data,
+      data: response.ok ? undefined : response.data
     }
   }
 
@@ -125,6 +126,6 @@ export default ({
     remove,
     create,
     update,
-    getOne,
+    getOne
   }
 }

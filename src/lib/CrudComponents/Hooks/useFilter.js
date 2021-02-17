@@ -1,6 +1,5 @@
 import { useHistory } from 'react-router-dom'
 import { toPairs, splitEvery } from 'ramda'
-import { useState, useEffect } from 'react'
 
 const recoverValues = search => {
   const searchParams = new URLSearchParams(search)
@@ -22,7 +21,7 @@ const getValue = (key, value, format) => {
   return value
 }
 
-const useFilter = ({formatFilters}) => {
+const useFilter = ({ formatFilters }) => {
   const history = useHistory()
 
   const createFilters = (format, values) =>
@@ -31,9 +30,13 @@ const useFilter = ({formatFilters}) => {
       .join(',')
 
   const handleSubmit = values => {
-    history.push(`${history.location.pathname}?filters=${createFilters(formatFilters, values)}`)
+    history.push(
+      `${history.location.pathname}?filters=${createFilters(
+        formatFilters,
+        values
+      )}`
+    )
   }
-
 
   const handleClear = () => {
     history.push(history.location.pathname)

@@ -1,7 +1,7 @@
 import React from 'react'
 import RichText from '../Common/RichText'
 
-export default function CustomRichText({input, ...props}) {
+export default function CustomRichText ({ input, ...props }) {
   if (!input) {
     console.warn('You shold pass this component to a Fild')
     return null
@@ -13,6 +13,7 @@ export default function CustomRichText({input, ...props}) {
       onChange={input.onChange}
       onFocus={input.onFocus}
       onBlur={input.onBlur}
-      value={input.value}/>
+      value={input.value}
+    />
   )
 }

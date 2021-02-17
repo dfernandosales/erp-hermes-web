@@ -8,28 +8,28 @@ import Badge from './Badge'
 const TabsContext = React.createContext({})
 
 const getTab = (tabs, pathname) => {
-  tabs.forEach((tab) => {
+  tabs.forEach(tab => {
     if (tab.value === undefined) {
       console.error('Tab must have a value property')
     }
   })
   const [tab = ''] = tabs
-    .map((tab) => (pathname.includes(tab.value) ? tab.value : null))
-    .filter((x) => !!x)
+    .map(tab => (pathname.includes(tab.value) ? tab.value : null))
+    .filter(x => !!x)
   return tab
 }
 
 export const useTabsNavigation = ({
   mainPath,
   tabs = [],
-  withPaper = true,
+  withPaper = true
 }) => {
   const history = useHistory()
   const location = useLocation()
   const params = useParams()
   const [value, setValue] = useState(getTab(tabs, location.pathname))
 
-  const onChange = (target) => {
+  const onChange = target => {
     const { id } = params
     const { pathname } = location
     if (target === 'newChild') {
@@ -39,7 +39,7 @@ export const useTabsNavigation = ({
   }
 
   const toNewChild = () => onChange('newChild')
-  const toEditChild = (item) =>
+  const toEditChild = item =>
     history.push(`${location.pathname}/${item.id}${location.search}`)
 
   useEffect(() => {
@@ -53,7 +53,7 @@ export const useTabsNavigation = ({
     toNewChild,
     mainPath,
     tabs,
-    withPaper,
+    withPaper
   }
 }
 
@@ -72,7 +72,7 @@ export const CrudRoute = ({ name = '', isForm, render, component }) => {
         mainPath: tabsContext.mainPath,
         name,
         isForm,
-        history,
+        history
       })}
       exact
       component={component}
@@ -88,7 +88,7 @@ export const CrudTabs = ({
   onChange,
   withPaper = true,
   tabs = [],
-  tabsProps,
+  tabsProps
 }) => {
   const location = useLocation()
   const Container = withPaper ? Paper : React.Fragment
@@ -97,7 +97,7 @@ export const CrudTabs = ({
       <Paper square>
         <div>
           <Tabs
-            indicatorColor="primary"
+            indicatorColor='primary'
             value={value}
             onChange={(_, value) => onChange(value)}
             {...tabsProps}

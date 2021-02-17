@@ -15,22 +15,22 @@ import Async from 'react-select/async'
 
 const styles = theme => ({
   root: {
-    marginTop: '-4px',
+    marginTop: '-4px'
   },
   input: {
     display: 'flex',
     padding: 0,
-    height: 'auto',
+    height: 'auto'
   },
   valueContainer: {
     display: 'flex',
     flexWrap: 'wrap',
     flex: 1,
     alignItems: 'center',
-    overflow: 'hidden',
+    overflow: 'hidden'
   },
   chip: {
-    margin: `2px ${theme.spacing(1 / 4)}px`,
+    margin: `2px ${theme.spacing(1 / 4)}px`
   },
   chipFocused: {
     backgroundColor: emphasize(
@@ -38,34 +38,34 @@ const styles = theme => ({
         ? theme.palette.grey[300]
         : theme.palette.grey[700],
       0.08
-    ),
+    )
   },
   noOptionsMessage: {
-    padding: `${theme.spacing()}px ${theme.spacing(2)}px`,
+    padding: `${theme.spacing()}px ${theme.spacing(2)}px`
   },
   singleValue: {
-    fontSize: 16,
+    fontSize: 16
   },
   placeholder: {
     position: 'absolute',
     left: 2,
-    fontSize: 16,
+    fontSize: 16
   },
   paper: {
     position: 'absolute',
     zIndex: 20,
     marginTop: theme.spacing(),
     left: 0,
-    right: 0,
+    right: 0
   },
   divider: {
-    height: theme.spacing(2),
+    height: theme.spacing(2)
   },
   separator: {
     alignSelf: 'stretch',
     backgroundColor: 'hsl(0,0%,80%)',
     width: '1px',
-    boxSizing: 'border-box',
+    boxSizing: 'border-box'
   },
   chipExpanded: {
     width: '100%'
@@ -74,7 +74,7 @@ const styles = theme => ({
     flexGrow: 1,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
+    whiteSpace: 'nowrap'
   }
 })
 
@@ -82,7 +82,7 @@ const useStyles = makeStyles(styles)
 
 const NoOptionsMessage = props => (
   <Typography
-    color="textSecondary"
+    color='textSecondary'
     className={props.selectProps.classes.noOptionsMessage}
     {...props.innerProps}
   >
@@ -94,27 +94,33 @@ const MultiValue = props => (
   <Chip
     tabIndex={-1}
     key={props.data.id}
-    classes={props.selectProps.isMultiExpanded ? {
-      label: props.selectProps.classes.chipLabel
-    }: {}}
-    label={<Typography variant="body2" noWrap>{props.children}</Typography>}
-    className={classNames(
-      props.selectProps.classes.chip, 
-      { 
-        [props.selectProps.classes.chipFocused]: props.isFocused,
-        [props.selectProps.classes.chipExpanded]: props.selectProps.isMultiExpanded,
-      },
-    )}
+    classes={
+      props.selectProps.isMultiExpanded
+        ? {
+            label: props.selectProps.classes.chipLabel
+          }
+        : {}
+    }
+    label={
+      <Typography variant='body2' noWrap>
+        {props.children}
+      </Typography>
+    }
+    className={classNames(props.selectProps.classes.chip, {
+      [props.selectProps.classes.chipFocused]: props.isFocused,
+      [props.selectProps.classes.chipExpanded]:
+        props.selectProps.isMultiExpanded
+    })}
     onDelete={props.removeProps.onClick}
-    deleteIcon={<CancelIcon {...props.removeProps}/>}
+    deleteIcon={<CancelIcon {...props.removeProps} />}
   />
 )
 
-function inputComponent({ inputRef, ...props }) {
+function inputComponent ({ inputRef, ...props }) {
   return <div ref={inputRef} {...props} />
 }
 
-function Control(props) {
+function Control (props) {
   const obj = props.getValue()[0]
   return (
     <TextField
@@ -126,22 +132,22 @@ function Control(props) {
           className: props.selectProps.classes.input,
           inputRef: props.innerRef,
           children: props.children,
-          ...props.innerProps,
-        },
+          ...props.innerProps
+        }
       }}
       {...props.selectProps.textFieldProps}
     />
   )
 }
 
-function Option(props) {
+function Option (props) {
   return (
     <MenuItem
       buttonRef={props.innerRef}
       selected={props.isFocused}
-      component="div"
+      component='div'
       style={{
-        fontWeight: props.isSelected ? 500 : 400,
+        fontWeight: props.isSelected ? 500 : 400
       }}
       {...props.innerProps}
     >
@@ -150,10 +156,10 @@ function Option(props) {
   )
 }
 
-function Placeholder(props) {
+function Placeholder (props) {
   return (
     <Typography
-      color="textSecondary"
+      color='textSecondary'
       className={props.selectProps.classes.placeholder}
       {...props.innerProps}
     >
@@ -162,7 +168,7 @@ function Placeholder(props) {
   )
 }
 
-function SingleValue(props) {
+function SingleValue (props) {
   return (
     <Typography
       className={props.selectProps.classes.singleValue}
@@ -173,7 +179,7 @@ function SingleValue(props) {
   )
 }
 
-function ValueContainer(props) {
+function ValueContainer (props) {
   return (
     <div className={props.selectProps.classes.valueContainer}>
       {props.children}
@@ -181,7 +187,7 @@ function ValueContainer(props) {
   )
 }
 
-function Menu(props) {
+function Menu (props) {
   return (
     <Paper
       square
@@ -193,8 +199,8 @@ function Menu(props) {
   )
 }
 
-function IndicatorSeparator(props) {
-  return <span className={props.selectProps.classes.separator}></span>
+function IndicatorSeparator (props) {
+  return <span className={props.selectProps.classes.separator} />
 }
 
 const components = {
@@ -206,7 +212,7 @@ const components = {
   Option,
   Placeholder,
   SingleValue,
-  ValueContainer,
+  ValueContainer
 }
 
 const IntegrationReactSelect = ({
@@ -221,7 +227,7 @@ const IntegrationReactSelect = ({
   autoFocus,
   textFieldProps,
   disabled,
-  defaultOptions,
+  defaultOptions
 }) => {
   const classes = useStyles()
   const theme = useTheme()
@@ -230,9 +236,9 @@ const IntegrationReactSelect = ({
       ...base,
       color: theme.palette.text.primary,
       '& input': {
-        font: 'inherit',
-      },
-    }),
+        font: 'inherit'
+      }
+    })
   }
   const AutocompleteComponent = loadOptions ? Async : Select
 
@@ -254,8 +260,8 @@ const IntegrationReactSelect = ({
           isMulti={isMulti}
           isMultiExpanded={isMultiExpanded}
           isDisabled={disabled || false}
-          loadingMessage={() => "Carregando..."}
-          noOptionsMessage={() => "Sem opções"}
+          loadingMessage={() => 'Carregando...'}
+          noOptionsMessage={() => 'Sem opções'}
         />
       </NoSsr>
     </div>
@@ -278,7 +284,7 @@ export const toOption = (labelKey, whitelist) => {
 
       id: obj.id,
       value: obj.id,
-      label: obj[labelKey],
+      label: obj[labelKey]
     })
   }
 
@@ -293,7 +299,7 @@ export const toOption = (labelKey, whitelist) => {
 
         id: obj.id,
         value: obj.id,
-        label: obj[labelKey],
+        label: obj[labelKey]
       }
     }
   }
@@ -301,14 +307,14 @@ export const toOption = (labelKey, whitelist) => {
   return obj => ({
     id: obj.id,
     value: obj.id,
-    label: obj[labelKey],
+    label: obj[labelKey]
   })
 }
 
 IntegrationReactSelect.defaultProps = {
   placeholder: '',
   textFieldProps: {},
-  defaultOptions: true,
+  defaultOptions: true
 }
 
 IntegrationReactSelect.propTypes = {
@@ -322,7 +328,7 @@ IntegrationReactSelect.propTypes = {
   label: PropTypes.string,
   autoFocus: PropTypes.bool,
   disabled: PropTypes.bool,
-  defaultOptions: PropTypes.bool,
+  defaultOptions: PropTypes.bool
 }
 
 export default IntegrationReactSelect
