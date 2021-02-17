@@ -2,8 +2,8 @@ import React from "react";
 import { Grid, makeStyles } from "@material-ui/core";
 import { Field } from "react-final-form";
 import { CrudForm } from "../../lib/Components";
-import { Select, TextField } from "../../lib/Fields"
-import { useEntityManager} from "../../lib/Hooks"
+import { Select, TextField } from "../../lib/Fields";
+import { useEntityManager } from "../../lib/Hooks";
 import usuariosRepository from "./usuariosRepository";
 import { ROLES } from "./UsuariosList";
 import { useAbility } from ".";
@@ -11,13 +11,12 @@ import { Email } from "../../Components";
 import * as yup from "yup";
 import yupValidation from "../../lib/yupValidation";
 
-
 const useStyles = makeStyles(theme => ({
   container: {
     ["@media (min-height:800px)"]: {
-      marginTop: theme.spacing(3),
-    },
-  },
+      marginTop: theme.spacing(3)
+    }
+  }
 }));
 
 const usuarioSchema = yup.object().shape({
@@ -32,7 +31,7 @@ const usuarioSchema = yup.object().shape({
     .notRequired()
     .when("isNew", (isNew, passwordSchema) =>
       isNew ? passwordSchema.required("Obrigatório") : passwordSchema
-    ),
+    )
 });
 
 const validate = yupValidation(usuarioSchema);
@@ -42,13 +41,13 @@ const UsuarioForm = props => {
   const classes = useStyles();
 
   const entityManager = useEntityManager({
-    repository: usuariosRepository,
+    repository: usuariosRepository
   });
   const cannotUpdate =
     abilities.cannot("update", "usuarios") && !entityManager.isNew;
 
   return (
-    <>
+    <Grid className={classes.container}>
       <CrudForm
         {...props}
         {...entityManager}
@@ -85,7 +84,7 @@ const UsuarioForm = props => {
           </Grid>
         </Grid>
       </CrudForm>
-    </>
+    </Grid>
   );
 };
 

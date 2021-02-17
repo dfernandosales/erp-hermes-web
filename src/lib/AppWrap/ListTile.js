@@ -1,11 +1,11 @@
-import React, { useContext } from 'react'
-import PropTypes from 'prop-types'
-import { makeStyles } from '@material-ui/core/styles'
-import classNames from 'classnames'
-import Avatar from '@material-ui/core/Avatar'
-import Typography from '@material-ui/core/Typography'
-import Grid from '@material-ui/core/Grid'
-import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
+import React, { useContext } from "react";
+import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core/styles";
+import classNames from "classnames";
+import Avatar from "@material-ui/core/Avatar";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,36 +19,54 @@ const useStyles = makeStyles(theme => ({
     fontSize: 40
   },
   clickable: {
-    cursor: 'pointer'
+    cursor: "pointer"
   },
   container: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center'
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center"
   },
   action: {
-    float: 'right'
+    float: "right"
   }
-}))
+}));
 
-const ListTile = ({ label, name, onNameClick, avatar, onAvatarClick, action, onActionClick, children }) => {
-  const classes = useStyles()
+const ListTile = ({
+  label,
+  name,
+  onNameClick,
+  avatar,
+  onAvatarClick,
+  action,
+  onActionClick,
+  children
+}) => {
+  const classes = useStyles();
 
   const renderedAvatar = (avatar => {
     const avatarClasses = {
       root: classNames(classes.icon, {
-        [classes.clickable]: typeof onAvatarClick === 'function'
+        [classes.clickable]: typeof onAvatarClick === "function"
       })
-    }
-    if (avatar) return <Avatar src={avatar} onClick={onAvatarClick} classes={avatarClasses} />
-    return <PersonOutlineIcon fontSize='inherit' onClick={onAvatarClick} classes={avatarClasses} />
-  })(avatar)
+    };
+    if (avatar)
+      return (
+        <Avatar src={avatar} onClick={onAvatarClick} classes={avatarClasses} />
+      );
+    return (
+      <PersonOutlineIcon
+        fontSize="inherit"
+        onClick={onAvatarClick}
+        classes={avatarClasses}
+      />
+    );
+  })(avatar);
 
   const onClickHelper = onClick => ({
     root: classNames({
-      [classes.clickable]: typeof onClick === 'function'
+      [classes.clickable]: typeof onClick === "function"
     })
-  })
+  });
 
   return (
     <Grid container className={classes.root} spacing={2}>
@@ -56,8 +74,8 @@ const ListTile = ({ label, name, onNameClick, avatar, onAvatarClick, action, onA
         <Grid container>
           <Grid item>
             <Typography
-              variant='body1'
-              color='inherit'
+              variant="body1"
+              color="inherit"
               onClick={onNameClick}
               classes={onClickHelper(onNameClick)}
             >
@@ -65,8 +83,8 @@ const ListTile = ({ label, name, onNameClick, avatar, onAvatarClick, action, onA
             </Typography>
             {action && (
               <Typography
-                variant='caption'
-                color='inherit'
+                variant="caption"
+                color="inherit"
                 onClick={onActionClick}
                 classes={onClickHelper(onActionClick)}
                 className={classes.action}
@@ -75,17 +93,13 @@ const ListTile = ({ label, name, onNameClick, avatar, onAvatarClick, action, onA
               </Typography>
             )}
           </Grid>
-          <Grid item>
-            {renderedAvatar}
-          </Grid>
+          <Grid item>{renderedAvatar}</Grid>
         </Grid>
       </Grid>
-      <Grid item>
-        { children }
-      </Grid>
+      <Grid item>{children}</Grid>
     </Grid>
-  )
-}
+  );
+};
 
 ListTile.propTypes = {
   label: PropTypes.string,
@@ -95,16 +109,16 @@ ListTile.propTypes = {
   onAvatarClick: PropTypes.func,
   action: PropTypes.node,
   onActionClick: PropTypes.func
-}
+};
 
 ListTile.defaultProps = {
-  label: 'Hello',
-  name: 'Unknown',
+  label: "Hello",
+  name: "Unknown",
   onNameClick: undefined,
   avatar: undefined,
   onAvatarClick: undefined,
   action: undefined,
   onActionClick: undefined
-}
+};
 
-export default ListTile
+export default ListTile;

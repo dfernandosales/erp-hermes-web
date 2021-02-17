@@ -9,7 +9,7 @@ export default function DatePickerField({ input, meta, ...props }) {
       keyboard
       clearable
       locale={{
-        pt: "pt",
+        pt: "pt"
       }}
       format="DD/MM/yyyy"
       mask={value =>

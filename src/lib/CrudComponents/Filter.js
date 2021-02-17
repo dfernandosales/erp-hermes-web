@@ -1,17 +1,19 @@
-import React from 'react'
-import { Form } from 'react-final-form'
-import Paper from '@material-ui/core/Paper'
-import FilterActions from './FilterActions'
-import PropTypes from 'prop-types'
-import useFilter from './Hooks/useFilter'
+import React from "react";
+import { Form } from "react-final-form";
+import Paper from "@material-ui/core/Paper";
+import FilterActions from "./FilterActions";
+import PropTypes from "prop-types";
+import useFilter from "./Hooks/useFilter";
 
 const Filter = ({ children, labels, formatFilters }) => {
-  const { initialValues, handleClear, handleSubmit } = useFilter({ formatFilters })
+  const { initialValues, handleClear, handleSubmit } = useFilter({
+    formatFilters
+  });
 
   const formClear = (event, form) => {
-    form.reset(event)
-    handleClear(event)
-  }
+    form.reset(event);
+    handleClear(event);
+  };
 
   return (
     <Form onSubmit={handleSubmit} initialValues={initialValues}>
@@ -25,14 +27,14 @@ const Filter = ({ children, labels, formatFilters }) => {
         </Paper>
       )}
     </Form>
-  )
-}
+  );
+};
 
 Filter.propTypes = {
   /** Children elements that will be render inside the form*/
   children: PropTypes.object,
   /** Labels of the buttons  */
   labels: PropTypes.object
-}
+};
 
-export default Filter
+export default Filter;

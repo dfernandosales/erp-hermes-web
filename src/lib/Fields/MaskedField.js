@@ -1,9 +1,9 @@
-import React from 'react'
-import InputLabel from '@material-ui/core/InputLabel'
-import FormControl from '@material-ui/core/FormControl'
-import Input from '@material-ui/core/Input'
-import FormHelperText from '@material-ui/core/FormHelperText'
-import MaskedInput from 'react-text-mask'
+import React from "react";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
+import Input from "@material-ui/core/Input";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import MaskedInput from "react-text-mask";
 
 function TextMaskCustom(props) {
   const { inputRef, mask, ...other } = props;
@@ -20,7 +20,7 @@ function TextMaskCustom(props) {
 
 export default function MaskedField(props) {
   const {
-    input: {name, onChange, value, onBlur},
+    input: { name, onChange, value, onBlur },
     meta,
     mask,
     label,
@@ -32,14 +32,8 @@ export default function MaskedField(props) {
     meta.touched;
 
   return (
-    <FormControl
-      error={meta.error && meta.touched}
-      fullWidth >
-      <InputLabel
-        htmlFor={name}
-      >
-        {label}
-      </InputLabel>
+    <FormControl error={meta.error && meta.touched} fullWidth>
+      <InputLabel htmlFor={name}>{label}</InputLabel>
       <Input
         {...rest}
         onBlur={onBlur}
@@ -53,8 +47,11 @@ export default function MaskedField(props) {
         }}
         inputComponent={TextMaskCustom}
       />
-      {showError ? <FormHelperText error={showError} id="helper-text">{meta.error}</FormHelperText> : null}
-      </FormControl>
+      {showError ? (
+        <FormHelperText error={showError} id="helper-text">
+          {meta.error}
+        </FormHelperText>
+      ) : null}
+    </FormControl>
   );
 }
-

@@ -1,10 +1,10 @@
-import React from 'react'
-import { DateTimePicker } from '@material-ui/pickers'
+import React from "react";
+import { DateTimePicker } from "@material-ui/pickers";
 //import 'moment/locale/pt'
 
 const locale = {
-  pt: 'pt',
-}
+  pt: "pt"
+};
 
 export default function DateTimePickerField({ input, meta, ...props }) {
   return (
@@ -19,20 +19,20 @@ export default function DateTimePickerField({ input, meta, ...props }) {
           ? [
               /\d/,
               /\d/,
-              '/',
+              "/",
               /\d/,
               /\d/,
-              '/',
+              "/",
               /\d/,
               /\d/,
               /\d/,
               /\d/,
-              ' ',
+              " ",
               /\d/,
               /\d/,
-              ':',
+              ":",
               /\d/,
-              /\d/,
+              /\d/
             ]
           : []
       }
@@ -41,7 +41,7 @@ export default function DateTimePickerField({ input, meta, ...props }) {
       onError={() => input.onChange(null)}
       helperText={meta.touched && meta.error}
       onChange={date => {
-        input.onChange(date ? date.toISOString() : undefined)
+        input.onChange(date ? date.toISOString() : undefined);
       }}
       disableOpenOnEnter
       animateYearScrolling={false}
@@ -50,5 +50,5 @@ export default function DateTimePickerField({ input, meta, ...props }) {
       clearLabel="Limpar"
       okLabel="OK"
     />
-  )
+  );
 }

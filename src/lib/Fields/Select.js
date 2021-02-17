@@ -1,9 +1,9 @@
-import React from 'react'
-import InputLabel from '@material-ui/core/InputLabel'
-import MenuItem from '@material-ui/core/MenuItem'
-import FormHelperText from '@material-ui/core/FormHelperText'
-import FormControl from '@material-ui/core/FormControl'
-import Select from '@material-ui/core/Select'
+import React from "react";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 
 const CustomSelect = ({
   input,
@@ -13,20 +13,22 @@ const CustomSelect = ({
   label,
   meta,
   options,
-  emptyValue = {label: 'Selecione', value: null},
+  emptyValue = { label: "Selecione", value: null },
   ...props
 }) => {
   if (!input || !meta) {
-    throw Error('Sorry my friend. Did you forget field from final form?')
+    throw Error("Sorry my friend. Did you forget field from final form?");
   }
 
   const handleChange = event => {
-    onChange && onChange(event)
-    input.onChange(event)
-  }
+    onChange && onChange(event);
+    input.onChange(event);
+  };
 
   return (
-    <FormControl style={{ width, height: meta.error && meta.touched ? 70 : 48 }}>
+    <FormControl
+      style={{ width, height: meta.error && meta.touched ? 70 : 48 }}
+    >
       <InputLabel htmlFor="age-simple" error={meta.error && meta.touched}>
         {label}
       </InputLabel>
@@ -50,12 +52,12 @@ const CustomSelect = ({
       </Select>
       <FormHelperText error>{meta.touched && meta.error}</FormHelperText>
     </FormControl>
-  )
-}
+  );
+};
 
 CustomSelect.defaultProps = {
-  width: '100%',
-  hideEmpty: false,
-}
+  width: "100%",
+  hideEmpty: false
+};
 
-export default CustomSelect
+export default CustomSelect;

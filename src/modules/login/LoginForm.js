@@ -1,7 +1,7 @@
 import React from "react";
 import { TextField } from "final-form-material-ui";
 import { Field, Form as FinalForm } from "react-final-form";
-import { Button, Paper, Grid, withStyles, Typography } from "@material-ui/core";
+import { Button, Paper, Grid, withStyles } from "@material-ui/core";
 import { Snackbar } from "../../lib/Common";
 
 const styles = () => ({
@@ -10,7 +10,7 @@ const styles = () => ({
     justifyContent: "center",
     alignItems: "center",
     height: "100vh",
-    backgroundColor: "#52c8fa",
+    backgroundColor: "#52c8fa"
   },
   paper: {
     display: "flex",
@@ -18,8 +18,8 @@ const styles = () => ({
     alignItems: "center",
     padding: 20,
     width: 496,
-    height: 512,
-  },
+    height: 512
+  }
 });
 
 const LoginForm = ({
@@ -27,12 +27,12 @@ const LoginForm = ({
   onSubmit,
   errorMessage,
   handleSnackBarClose,
-  classes,
+  classes
 }) => {
   const validate = values => {
     return {
       email: values.email ? undefined : "Obrigatório",
-      password: values.password ? undefined : "Obrigatório",
+      password: values.password ? undefined : "Obrigatório"
     };
   };
 

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useCallback } from "react";
-import {AuthContext  } from "../../lib/Login";
+import { AuthContext } from "../../lib/Login";
 import api from "../../services/api";
 
 const VerifyLogin = () => {

@@ -1,52 +1,52 @@
-import React, { useState, useEffect } from 'react'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableRow from '@material-ui/core/TableRow'
-import IconButton from '@material-ui/core/IconButton'
-import EditIcon from '@material-ui/icons/Edit'
-import VisibilityIcon from '@material-ui/icons/Visibility'
-import DeleteIcon from '@material-ui/icons/Delete'
-import Tooltip from '@material-ui/core/Tooltip'
-import { makeStyles } from '@material-ui/core/styles'
-import { Typography } from '@material-ui/core'
-import { useHistory } from 'react-router-dom'
+import React, { useState, useEffect } from "react";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableRow from "@material-ui/core/TableRow";
+import IconButton from "@material-ui/core/IconButton";
+import EditIcon from "@material-ui/icons/Edit";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Tooltip from "@material-ui/core/Tooltip";
+import { makeStyles } from "@material-ui/core/styles";
+import { Typography } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   withlink: {
-    cursor: 'pointer',
+    cursor: "pointer"
   },
   actionButtons: {
-    display: 'inline-block',
-    wordBreak: 'break-word',
-    minWidth: '128px',
+    display: "inline-block",
+    wordBreak: "break-word",
+    minWidth: "128px"
   },
   actionCell: {
-    width: '2rem',
-  },
-}))
+    width: "2rem"
+  }
+}));
 
 const EntityField = ({ id, getOne, fieldName, onClickRow }) => {
-  const [entity, setEntity] = useState(null)
+  const [entity, setEntity] = useState(null);
 
   const getEntity = async () => {
-    const response = await getOne(id, { fields: { nome: true } })
+    const response = await getOne(id, { fields: { nome: true } });
     if (response.ok) {
-      setEntity(response.data)
+      setEntity(response.data);
     }
-  }
+  };
   useEffect(() => {
-    getEntity()
-  }, [id])
+    getEntity();
+  }, [id]);
 
   return (
     <TableCell key={id} onClick={onClickRow}>
       {entity && entity[fieldName]}
     </TableCell>
-  )
-}
+  );
+};
 
 const renderCell = (item, onClickRow, classes, align) => field => {
-  const { format = x => x } = field
+  const { format = x => x } = field;
   if (field.getOne) {
     return (
       <EntityField
@@ -56,27 +56,27 @@ const renderCell = (item, onClickRow, classes, align) => field => {
         id={item[field.source]}
         fieldName={field.key}
       />
-    )
+    );
   }
   return (
     <TableCell
       key={field.source}
-      className={onClickRow ? classes.withlink : ''}
+      className={onClickRow ? classes.withlink : ""}
       onClick={() => onClickRow && onClickRow(item, field)}
       align={
-        !!field.align ? field.align : field.type === 'number' ? 'right' : 'left'
+        field.align ? field.align : field.type === "number" ? "right" : "left"
       }
     >
       {format(item[field.source], item)}
     </TableCell>
-  )
-}
+  );
+};
 
 const _actionsOptions = () => ({
   canView: true,
   canUpdate: true,
-  canRemove: true,
-})
+  canRemove: true
+});
 export default ({
   list,
   fields,
@@ -86,20 +86,20 @@ export default ({
   onClickRow,
   actionsOptions = _actionsOptions,
   emptyText,
-  loading,
+  loading
 }) => {
-  const classes = useStyles()
-  const history = useHistory()
-  const { location } = history
+  const classes = useStyles();
+  const history = useHistory();
+  const { location } = history;
 
-  const params = new URLSearchParams(location.search)
-  const page = +params.get('page') || 0
+  const params = new URLSearchParams(location.search);
+  const page = +params.get("page") || 0;
 
   return (
     <TableBody>
       {list.length
         ? list.map((item, index) => {
-            const options = actionsOptions(item)
+            const options = actionsOptions(item);
             return (
               <TableRow key={index} hover>
                 {fields.map(renderCell(item, onClickRow, classes))}
@@ -153,10 +153,10 @@ export default ({
                   </div>
                 </TableCell>
               </TableRow>
-            )
+            );
           })
         : emptyText && !loading && page > 0
-        ? (params.set('page', page - 1),
+        ? (params.set("page", page - 1),
           history.push(`${location.pathname}?${params.toString()}`))
         : emptyText &&
           !loading &&
@@ -168,5 +168,5 @@ export default ({
             </TableRow>
           )}
     </TableBody>
-  )
-}
+  );
+};

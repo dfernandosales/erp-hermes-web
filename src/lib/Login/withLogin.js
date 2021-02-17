@@ -1,76 +1,68 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import LoginForm from './LoginForm'
-import {Redirect} from 'react-router-dom'
-import {AuthContext} from './Auth'
-import {validate, handleSubmit} from './LoginLib'
+import React from "react";
+import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
+import { AuthContext } from "./Auth";
+import { validate, handleSubmit } from "./LoginLib";
 
-const withLogin = (LoginComponent) => {
-
+const withLogin = LoginComponent => {
   return class LoginContainer extends React.Component {
     static propTypes = {
       doLogin: PropTypes.func,
-      onSubmit: PropTypes.func.isRequired,//(credentials: {username, password}) => Promise
+      onSubmit: PropTypes.func.isRequired, //(credentials: {username, password}) => Promise
       requiredLabel: PropTypes.string,
       redirectPath: PropTypes.string,
       loggedin: PropTypes.bool,
       recoverPasswordLabel: PropTypes.string
-    }
-    static contextType = AuthContext
+    };
+    static contextType = AuthContext;
     state = {
-      errorMessage: ''
-    }
+      errorMessage: ""
+    };
 
-    handleSubmit = async (credentials) => {
+    handleSubmit = async credentials => {
       const result = await handleSubmit({
         credentials,
         onSubmit: this.props.onSubmit,
         handleUserLogin: this.context.handleUserLogin,
-        console,
-      })
+        console
+      });
       if (result && result.error) {
         this.setState({
           errorMessage: result.error
-        })
-        return
+        });
+        return;
       }
-      return result
-
-    }
+      return result;
+    };
 
     handleRecoverPasswordClick = () => {
       if (!this.props.history) {
-        return console.warn('History not found. Try to pass password to login component')
+        return console.warn(
+          "History not found. Try to pass password to login component"
+        );
       }
-      this.props.history.push('/recuperar-senha')
-    }
+      this.props.history.push("/recuperar-senha");
+    };
 
     handleSnackbarClose = (event, reason) => {
-      if (reason === 'clickaway') {
-        return
+      if (reason === "clickaway") {
+        return;
       }
       this.setState({
-        errorMessage: ''
-      })
-    }
+        errorMessage: ""
+      });
+    };
 
     render() {
-      const {
-        screen: Screen,
-        redirectPath,
-        classes,
-        ...rest
-      } = this.props
-      const {loggedin} = this.context
+      const { screen: Screen, redirectPath, ...rest } = this.props;
+      const { loggedin } = this.context;
 
       if (Screen) {
-        return (
-          <Screen handleLogin={this.login} />
-        )
+        return <Screen handleLogin={this.login} />;
       }
 
       if (loggedin) {
-        return <Redirect to={redirectPath || '/'} />
+        return <Redirect to={redirectPath || "/"} />;
       }
 
       return (
@@ -82,11 +74,11 @@ const withLogin = (LoginComponent) => {
           onPasswordRecoverLick={this.handleRecoverPasswordClick}
           errorMessage={this.state.errorMessage}
           requiredLabel={this.props.requiredLabel}
-          onSubmit={this.handleSubmit}/>
-      )
+          onSubmit={this.handleSubmit}
+        />
+      );
     }
-  }
-}
+  };
+};
 
-export default withLogin
-
+export default withLogin;

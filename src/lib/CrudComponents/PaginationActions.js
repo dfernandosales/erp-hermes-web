@@ -1,11 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import IconButton from '@material-ui/core/IconButton'
-import Tooltip from '@material-ui/core/Tooltip'
+import React from "react";
+import PropTypes from "prop-types";
+import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
+import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
+import IconButton from "@material-ui/core/IconButton";
+import Tooltip from "@material-ui/core/Tooltip";
 
-const PaginationActions = React.forwardRef(function PaginationActions(props, ref) {
+const PaginationActions = React.forwardRef(function PaginationActions(
+  props,
+  ref
+) {
   const {
     backIconButtonProps,
     count,
@@ -26,7 +29,7 @@ const PaginationActions = React.forwardRef(function PaginationActions(props, ref
 
   return (
     <div ref={ref} {...other}>
-      <Tooltip title='Página Anterior' aria-label='Página Anterior'>
+      <Tooltip title="Página Anterior" aria-label="Página Anterior">
         <span>
           <IconButton
             onClick={handleBackButtonClick}
@@ -38,7 +41,7 @@ const PaginationActions = React.forwardRef(function PaginationActions(props, ref
           </IconButton>
         </span>
       </Tooltip>
-      <Tooltip title='Próxima página' aria-label='Próxima página'>
+      <Tooltip title="Próxima página" aria-label="Próxima página">
         <span>
           <IconButton
             onClick={handleNextButtonClick}
@@ -60,7 +63,7 @@ PaginationActions.propTypes = {
   nextIconButtonProps: PropTypes.object,
   onChangePage: PropTypes.func.isRequired,
   page: PropTypes.number.isRequired,
-  rowsPerPage: PropTypes.number.isRequired,
+  rowsPerPage: PropTypes.number.isRequired
 };
 
 export default PaginationActions;

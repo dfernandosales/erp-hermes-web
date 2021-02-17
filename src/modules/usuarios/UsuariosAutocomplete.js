@@ -8,11 +8,11 @@ export const loadUsuarios = async inputValue => {
   const response = await usuariosRepository.list({
     query: {
       name: inputValue,
-      order: "name desc",
+      order: "name desc"
     },
     paginate: {
-      limit: 10,
-    },
+      limit: 10
+    }
   });
   if (response.ok) {
     return response.data.map(toOption("name"));

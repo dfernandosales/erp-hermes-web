@@ -1,14 +1,14 @@
-import React from 'react'
-import TextField from '@material-ui/core/TextField'
+import React from "react";
+import TextField from "@material-ui/core/TextField";
 
 const CustomTextField = ({ input, onChange, meta, ...props }) => {
   if (!input || !meta) {
-    throw Error('Sorry my friend. Did you forget field from final form?')
+    throw Error("Sorry my friend. Did you forget field from final form?");
   }
   const handleChange = event => {
-    onChange && onChange(event)
-    input.onChange(event)
-  }
+    onChange && onChange(event);
+    input.onChange(event);
+  };
   return (
     <TextField
       {...input}
@@ -17,7 +17,7 @@ const CustomTextField = ({ input, onChange, meta, ...props }) => {
       helperText={meta.touched && meta.error}
       onChange={handleChange}
     />
-  )
-}
+  );
+};
 
-export default CustomTextField
+export default CustomTextField;

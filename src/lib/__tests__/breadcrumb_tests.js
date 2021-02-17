@@ -1,80 +1,80 @@
-import { getBreadcrumbConfig } from '../AppWrap/BreadCrumbUtils'
+import { getBreadcrumbConfig } from "../AppWrap/BreadCrumbUtils";
 
-it('extract path config from simple pathname', () => {
-  const pathname = '/pagina-principal'
+it("extract path config from simple pathname", () => {
+  const pathname = "/pagina-principal";
 
-  const result = getBreadcrumbConfig(pathname)
+  const result = getBreadcrumbConfig(pathname);
 
   expect(result).toStrictEqual([
     {
       isCurrentPath: true,
       isFinalPath: true,
       isNew: false,
-      path: 'pagina-principal',
-      pathPart: 'pagina-principal',
-    },
-  ])
-})
+      path: "pagina-principal",
+      pathPart: "pagina-principal"
+    }
+  ]);
+});
 
-it('should extract path config from identified pathname', () => {
-  const pathname = '/products/9'
+it("should extract path config from identified pathname", () => {
+  const pathname = "/products/9";
 
-  const result = getBreadcrumbConfig(pathname)
+  const result = getBreadcrumbConfig(pathname);
 
   expect(result).toStrictEqual([
     {
       isCurrentPath: true,
       isFinalPath: false,
       isNew: false,
-      path: 'products',
-      pathPart: 'products',
+      path: "products",
+      pathPart: "products"
     },
     {
       isFinalPath: true,
       isId: true,
       isNew: false,
-      path: 'products/9',
-      pathPart: '9',
-    },
-  ])
-})
+      path: "products/9",
+      pathPart: "9"
+    }
+  ]);
+});
 
-it('should extract path config from long pathname', () => {
-  const pathname = '/a/b/c/d/e'
+it("should extract path config from long pathname", () => {
+  const pathname = "/a/b/c/d/e";
 
-  const result = getBreadcrumbConfig(pathname)
+  const result = getBreadcrumbConfig(pathname);
 
   expect(result).toStrictEqual([
     {
       isFinalPath: false,
       isNew: false,
-      path: 'a',
-      pathPart: 'a',
+      path: "a",
+      pathPart: "a"
     },
     {
       isFinalPath: false,
       isNew: false,
-      path: 'a/b',
-      pathPart: 'b',
+      path: "a/b",
+      pathPart: "b"
     },
     {
       isFinalPath: false,
       isNew: false,
-      path: 'a/b/c',
-      pathPart: 'c',
+      path: "a/b/c",
+      pathPart: "c"
     },
     {
       isFinalPath: false,
       isNew: false,
-      path: 'a/b/c/d',
-      pathPart: 'd',
+      path: "a/b/c/d",
+      pathPart: "d"
     },
     {
       isCurrentPath: true,
       isFinalPath: true,
       isNew: false,
-      path: 'a/b/c/d/e',
-      pathPart: 'e',
-    },
-  ])
-})
+      path: "a/b/c/d/e",
+      pathPart: "e"
+    }
+  ]);
+});

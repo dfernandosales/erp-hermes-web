@@ -1,75 +1,75 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Select from 'react-select/creatable'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
-import Typography from '@material-ui/core/Typography'
-import CancelIcon from '@material-ui/icons/Cancel'
-import NoSsr from '@material-ui/core/NoSsr'
-import TextField from '@material-ui/core/TextField'
-import Paper from '@material-ui/core/Paper'
-import MenuItem from '@material-ui/core/MenuItem'
-import { emphasize } from '@material-ui/core/styles/colorManipulator'
-import Chip from '@material-ui/core/Chip'
-import classNames from 'classnames'
-import Async from 'react-select/async-creatable'
+import React from "react";
+import PropTypes from "prop-types";
+import Select from "react-select/creatable";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import CancelIcon from "@material-ui/icons/Cancel";
+import NoSsr from "@material-ui/core/NoSsr";
+import TextField from "@material-ui/core/TextField";
+import Paper from "@material-ui/core/Paper";
+import MenuItem from "@material-ui/core/MenuItem";
+import { emphasize } from "@material-ui/core/styles/colorManipulator";
+import Chip from "@material-ui/core/Chip";
+import classNames from "classnames";
+import Async from "react-select/async-creatable";
 
 const styles = theme => ({
   root: {
-    marginTop: '-4px',
+    marginTop: "-4px"
   },
   input: {
-    display: 'flex',
+    display: "flex",
     padding: 0,
-    height: 'auto',
+    height: "auto"
   },
   valueContainer: {
-    display: 'flex',
-    flexWrap: 'wrap',
+    display: "flex",
+    flexWrap: "wrap",
     flex: 1,
-    alignItems: 'center',
-    overflow: 'hidden',
+    alignItems: "center",
+    overflow: "hidden"
   },
   chip: {
-    margin: `${theme.spacing(1 / 2)}px ${theme.spacing(1 / 4)}px`,
+    margin: `${theme.spacing(1 / 2)}px ${theme.spacing(1 / 4)}px`
   },
   chipFocused: {
     backgroundColor: emphasize(
-      theme.palette.type === 'light'
+      theme.palette.type === "light"
         ? theme.palette.grey[300]
         : theme.palette.grey[700],
       0.08
-    ),
+    )
   },
   noOptionsMessage: {
-    padding: `${theme.spacing()}px ${theme.spacing(2)}px`,
+    padding: `${theme.spacing()}px ${theme.spacing(2)}px`
   },
   singleValue: {
-    fontSize: 16,
+    fontSize: 16
   },
   placeholder: {
-    position: 'absolute',
+    position: "absolute",
     left: 2,
-    fontSize: 16,
+    fontSize: 16
   },
   paper: {
-    position: 'absolute',
+    position: "absolute",
     zIndex: 20,
     marginTop: theme.spacing(),
     left: 0,
-    right: 0,
+    right: 0
   },
   divider: {
-    height: theme.spacing(2),
+    height: theme.spacing(2)
   },
   separator: {
-    alignSelf: 'stretch',
-    backgroundColor: 'hsl(0,0%,80%)',
-    width: '1px',
-    boxSizing: 'border-box',
-  },
-})
+    alignSelf: "stretch",
+    backgroundColor: "hsl(0,0%,80%)",
+    width: "1px",
+    boxSizing: "border-box"
+  }
+});
 
-const useStyles = makeStyles(styles)
+const useStyles = makeStyles(styles);
 
 const NoOptionsMessage = props => (
   <Typography
@@ -79,7 +79,7 @@ const NoOptionsMessage = props => (
   >
     {props.children}
   </Typography>
-)
+);
 
 const MultiValue = props => (
   <Chip
@@ -87,35 +87,35 @@ const MultiValue = props => (
     key={props.data.id}
     label={props.children}
     className={classNames(props.selectProps.classes.chip, {
-      [props.selectProps.classes.chipFocused]: props.isFocused,
+      [props.selectProps.classes.chipFocused]: props.isFocused
     })}
     onDelete={props.removeProps.onClick}
     deleteIcon={<CancelIcon {...props.removeProps} />}
   />
-)
+);
 
 function inputComponent({ inputRef, ...props }) {
-  return <div ref={inputRef} {...props} />
+  return <div ref={inputRef} {...props} />;
 }
 
 function Control(props) {
-  const obj = props.getValue()[0]
+  const obj = props.getValue()[0];
   return (
     <TextField
       fullWidth
-      value={obj ? obj.label : ''}
+      value={obj ? obj.label : ""}
       InputProps={{
         inputComponent,
         inputProps: {
           className: props.selectProps.classes.input,
           inputRef: props.innerRef,
           children: props.children,
-          ...props.innerProps,
-        },
+          ...props.innerProps
+        }
       }}
       {...props.selectProps.textFieldProps}
     />
-  )
+  );
 }
 
 function Option(props) {
@@ -125,13 +125,13 @@ function Option(props) {
       selected={props.isFocused}
       component="div"
       style={{
-        fontWeight: props.isSelected ? 500 : 400,
+        fontWeight: props.isSelected ? 500 : 400
       }}
       {...props.innerProps}
     >
       {props.children}
     </MenuItem>
-  )
+  );
 }
 
 function Placeholder(props) {
@@ -143,7 +143,7 @@ function Placeholder(props) {
     >
       {props.children}
     </Typography>
-  )
+  );
 }
 
 function SingleValue(props) {
@@ -154,7 +154,7 @@ function SingleValue(props) {
     >
       {props.children}
     </Typography>
-  )
+  );
 }
 
 function ValueContainer(props) {
@@ -162,7 +162,7 @@ function ValueContainer(props) {
     <div className={props.selectProps.classes.valueContainer}>
       {props.children}
     </div>
-  )
+  );
 }
 
 function Menu(props) {
@@ -174,11 +174,11 @@ function Menu(props) {
     >
       {props.children}
     </Paper>
-  )
+  );
 }
 
 function IndicatorSeparator(props) {
-  return <span className={props.selectProps.classes.separator}></span>
+  return <span className={props.selectProps.classes.separator}></span>;
 }
 
 const components = {
@@ -190,8 +190,8 @@ const components = {
   Option,
   Placeholder,
   SingleValue,
-  ValueContainer,
-}
+  ValueContainer
+};
 
 const IntegrationReactSelectCreatable = ({
   isMulti,
@@ -205,31 +205,31 @@ const IntegrationReactSelectCreatable = ({
   textFieldProps,
   disabled,
   onCreateOption,
-  defaultOptions,
+  defaultOptions
 }) => {
-  const classes = useStyles()
-  const theme = useTheme()
+  const classes = useStyles();
+  const theme = useTheme();
   const selectStyles = {
     input: base => ({
       ...base,
       color: theme.palette.text.primary,
-      '& input': {
-        font: 'inherit',
-      },
-    }),
-  }
+      "& input": {
+        font: "inherit"
+      }
+    })
+  };
 
-  const AutocompleteComponent = loadOptions ? Async : Select
+  const AutocompleteComponent = loadOptions ? Async : Select;
 
-  const createOption = (newValue) => {
-    onCreateOption && onCreateOption(newValue)
-    const option = {label: newValue, value: newValue}
+  const createOption = newValue => {
+    onCreateOption && onCreateOption(newValue);
+    const option = { label: newValue, value: newValue };
     if (isMulti) {
-      onChange([...value, option])
+      onChange([...value, option]);
     } else {
-      onChange(option)
+      onChange(option);
     }
-  }
+  };
 
   return (
     <div className={classes.root}>
@@ -247,22 +247,22 @@ const IntegrationReactSelectCreatable = ({
           placeholder={placeholder}
           isClearable
           isMulti={isMulti}
-          onCreateOption={(value) => createOption(value)}
+          onCreateOption={value => createOption(value)}
           isDisabled={disabled || false}
           loadingMessage={() => "Carregando..."}
           noOptionsMessage={() => "Sem opções"}
-          formatCreateLabel={(value) => `Adicionar "${value}"`}
+          formatCreateLabel={value => `Adicionar "${value}"`}
         />
       </NoSsr>
     </div>
-  )
-}
+  );
+};
 
 IntegrationReactSelectCreatable.defaultProps = {
-  placeholder: '',
+  placeholder: "",
   textFieldProps: {},
-  defaultOptions: true,
-}
+  defaultOptions: true
+};
 
 IntegrationReactSelectCreatable.propTypes = {
   onChange: PropTypes.func,
@@ -276,7 +276,7 @@ IntegrationReactSelectCreatable.propTypes = {
   autoFocus: PropTypes.bool,
   disabled: PropTypes.bool,
   onCreateOption: PropTypes.func,
-  defaultOptions: PropTypes.bool,
-}
+  defaultOptions: PropTypes.bool
+};
 
-export default IntegrationReactSelectCreatable
+export default IntegrationReactSelectCreatable;

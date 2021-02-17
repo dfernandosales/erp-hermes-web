@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
-import { Form } from 'react-final-form'
-import { Paper, Grid, Collapse } from '@material-ui/core'
-import FilterActions from './FilterActions'
-import PropTypes from 'prop-types'
+import React, { useState } from "react";
+import { Form } from "react-final-form";
+import { Paper, Grid, Collapse } from "@material-ui/core";
+import FilterActions from "./FilterActions";
+import PropTypes from "prop-types";
 
 const defaultLabels = {
-  simpleFilter: 'Simple',
-  detailedFilter: 'Detailed',
-  clear: 'Clear',
-  find: 'Find',
-}
+  simpleFilter: "Simple",
+  detailedFilter: "Detailed",
+  clear: "Clear",
+  find: "Find"
+};
 
 const Filter = ({
   children,
@@ -18,20 +18,20 @@ const Filter = ({
   onClear,
   onSubmit,
   validate,
-  detailedFilter,
+  detailedFilter
 }) => {
-  const [showDetailed, setShowDetailed] = useState(false)
+  const [showDetailed, setShowDetailed] = useState(false);
   const formClear = (event, form) => {
     // form.reset(event)
-    onClear(event)
-  }
+    onClear(event);
+  };
   const renderDetailedFilter = () => (
     <Collapse in={showDetailed}>{detailedFilter}</Collapse>
-  )
+  );
 
   const toggleDetailedFilter = () => {
-    setShowDetailed(!showDetailed)
-  }
+    setShowDetailed(!showDetailed);
+  };
 
   return (
     <Form onSubmit={onSubmit} initialValues={initialValues} validate={validate}>
@@ -60,14 +60,14 @@ const Filter = ({
         </Paper>
       )}
     </Form>
-  )
-}
+  );
+};
 
 Filter.propTypes = {
   /** Children elements that will be render inside the form*/
   children: PropTypes.object,
   /** Labels of the buttons  */
-  labels: PropTypes.object,
-}
+  labels: PropTypes.object
+};
 
-export default Filter
+export default Filter;

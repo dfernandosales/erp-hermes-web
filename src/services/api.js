@@ -2,7 +2,7 @@ import config from "../config";
 import { create } from "apisauce";
 
 export const restApi = create({
-  baseURL: config.baseURL,
+  baseURL: config.baseURL
 });
 
 const getApi = () => {
@@ -12,10 +12,10 @@ const getApi = () => {
     login: credentials =>
       restApi.post("/authentication", {
         strategy: "local",
-        ...credentials,
+        ...credentials
       }),
     logout: () => restApi.delete("/authentication"),
-    resetPassword: data => restApi.post("/account", data),
+    resetPassword: data => restApi.post("/account", data)
   };
 };
 

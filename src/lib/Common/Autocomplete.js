@@ -1,84 +1,84 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Select from 'react-select'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
-import Typography from '@material-ui/core/Typography'
-import CancelIcon from '@material-ui/icons/Cancel'
-import NoSsr from '@material-ui/core/NoSsr'
-import TextField from '@material-ui/core/TextField'
-import Paper from '@material-ui/core/Paper'
-import MenuItem from '@material-ui/core/MenuItem'
-import { emphasize } from '@material-ui/core/styles/colorManipulator'
-import Chip from '@material-ui/core/Chip'
-import classNames from 'classnames'
-import Async from 'react-select/async'
+import React from "react";
+import PropTypes from "prop-types";
+import Select from "react-select";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import CancelIcon from "@material-ui/icons/Cancel";
+import NoSsr from "@material-ui/core/NoSsr";
+import TextField from "@material-ui/core/TextField";
+import Paper from "@material-ui/core/Paper";
+import MenuItem from "@material-ui/core/MenuItem";
+import { emphasize } from "@material-ui/core/styles/colorManipulator";
+import Chip from "@material-ui/core/Chip";
+import classNames from "classnames";
+import Async from "react-select/async";
 
 const styles = theme => ({
   root: {
-    marginTop: '-4px',
+    marginTop: "-4px"
   },
   input: {
-    display: 'flex',
+    display: "flex",
     padding: 0,
-    height: 'auto',
+    height: "auto"
   },
   valueContainer: {
-    display: 'flex',
-    flexWrap: 'wrap',
+    display: "flex",
+    flexWrap: "wrap",
     flex: 1,
-    alignItems: 'center',
-    overflow: 'hidden',
+    alignItems: "center",
+    overflow: "hidden"
   },
   chip: {
-    margin: `2px ${theme.spacing(1 / 4)}px`,
+    margin: `2px ${theme.spacing(1 / 4)}px`
   },
   chipFocused: {
     backgroundColor: emphasize(
-      theme.palette.type === 'light'
+      theme.palette.type === "light"
         ? theme.palette.grey[300]
         : theme.palette.grey[700],
       0.08
-    ),
+    )
   },
   noOptionsMessage: {
-    padding: `${theme.spacing()}px ${theme.spacing(2)}px`,
+    padding: `${theme.spacing()}px ${theme.spacing(2)}px`
   },
   singleValue: {
-    fontSize: 16,
+    fontSize: 16
   },
   placeholder: {
-    position: 'absolute',
+    position: "absolute",
     left: 2,
-    fontSize: 16,
+    fontSize: 16
   },
   paper: {
-    position: 'absolute',
+    position: "absolute",
     zIndex: 20,
     marginTop: theme.spacing(),
     left: 0,
-    right: 0,
+    right: 0
   },
   divider: {
-    height: theme.spacing(2),
+    height: theme.spacing(2)
   },
   separator: {
-    alignSelf: 'stretch',
-    backgroundColor: 'hsl(0,0%,80%)',
-    width: '1px',
-    boxSizing: 'border-box',
+    alignSelf: "stretch",
+    backgroundColor: "hsl(0,0%,80%)",
+    width: "1px",
+    boxSizing: "border-box"
   },
   chipExpanded: {
-    width: '100%'
+    width: "100%"
   },
   chipLabel: {
     flexGrow: 1,
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap"
   }
-})
+});
 
-const useStyles = makeStyles(styles)
+const useStyles = makeStyles(styles);
 
 const NoOptionsMessage = props => (
   <Typography
@@ -88,50 +88,56 @@ const NoOptionsMessage = props => (
   >
     {props.children}
   </Typography>
-)
+);
 
 const MultiValue = props => (
   <Chip
     tabIndex={-1}
     key={props.data.id}
-    classes={props.selectProps.isMultiExpanded ? {
-      label: props.selectProps.classes.chipLabel
-    }: {}}
-    label={<Typography variant="body2" noWrap>{props.children}</Typography>}
-    className={classNames(
-      props.selectProps.classes.chip, 
-      { 
-        [props.selectProps.classes.chipFocused]: props.isFocused,
-        [props.selectProps.classes.chipExpanded]: props.selectProps.isMultiExpanded,
-      },
-    )}
+    classes={
+      props.selectProps.isMultiExpanded
+        ? {
+            label: props.selectProps.classes.chipLabel
+          }
+        : {}
+    }
+    label={
+      <Typography variant="body2" noWrap>
+        {props.children}
+      </Typography>
+    }
+    className={classNames(props.selectProps.classes.chip, {
+      [props.selectProps.classes.chipFocused]: props.isFocused,
+      [props.selectProps.classes.chipExpanded]:
+        props.selectProps.isMultiExpanded
+    })}
     onDelete={props.removeProps.onClick}
-    deleteIcon={<CancelIcon {...props.removeProps}/>}
+    deleteIcon={<CancelIcon {...props.removeProps} />}
   />
-)
+);
 
 function inputComponent({ inputRef, ...props }) {
-  return <div ref={inputRef} {...props} />
+  return <div ref={inputRef} {...props} />;
 }
 
 function Control(props) {
-  const obj = props.getValue()[0]
+  const obj = props.getValue()[0];
   return (
     <TextField
       fullWidth
-      value={obj ? obj.label : ''}
+      value={obj ? obj.label : ""}
       InputProps={{
         inputComponent,
         inputProps: {
           className: props.selectProps.classes.input,
           inputRef: props.innerRef,
           children: props.children,
-          ...props.innerProps,
-        },
+          ...props.innerProps
+        }
       }}
       {...props.selectProps.textFieldProps}
     />
-  )
+  );
 }
 
 function Option(props) {
@@ -141,13 +147,13 @@ function Option(props) {
       selected={props.isFocused}
       component="div"
       style={{
-        fontWeight: props.isSelected ? 500 : 400,
+        fontWeight: props.isSelected ? 500 : 400
       }}
       {...props.innerProps}
     >
       {props.children}
     </MenuItem>
-  )
+  );
 }
 
 function Placeholder(props) {
@@ -159,7 +165,7 @@ function Placeholder(props) {
     >
       {props.children}
     </Typography>
-  )
+  );
 }
 
 function SingleValue(props) {
@@ -170,7 +176,7 @@ function SingleValue(props) {
     >
       {props.children}
     </Typography>
-  )
+  );
 }
 
 function ValueContainer(props) {
@@ -178,7 +184,7 @@ function ValueContainer(props) {
     <div className={props.selectProps.classes.valueContainer}>
       {props.children}
     </div>
-  )
+  );
 }
 
 function Menu(props) {
@@ -190,11 +196,11 @@ function Menu(props) {
     >
       {props.children}
     </Paper>
-  )
+  );
 }
 
 function IndicatorSeparator(props) {
-  return <span className={props.selectProps.classes.separator}></span>
+  return <span className={props.selectProps.classes.separator}></span>;
 }
 
 const components = {
@@ -206,8 +212,8 @@ const components = {
   Option,
   Placeholder,
   SingleValue,
-  ValueContainer,
-}
+  ValueContainer
+};
 
 const IntegrationReactSelect = ({
   isMulti,
@@ -221,20 +227,20 @@ const IntegrationReactSelect = ({
   autoFocus,
   textFieldProps,
   disabled,
-  defaultOptions,
+  defaultOptions
 }) => {
-  const classes = useStyles()
-  const theme = useTheme()
+  const classes = useStyles();
+  const theme = useTheme();
   const selectStyles = {
     input: base => ({
       ...base,
       color: theme.palette.text.primary,
-      '& input': {
-        font: 'inherit',
-      },
-    }),
-  }
-  const AutocompleteComponent = loadOptions ? Async : Select
+      "& input": {
+        font: "inherit"
+      }
+    })
+  };
+  const AutocompleteComponent = loadOptions ? Async : Select;
 
   return (
     <div className={classes.root}>
@@ -259,57 +265,57 @@ const IntegrationReactSelect = ({
         />
       </NoSsr>
     </div>
-  )
-}
+  );
+};
 
 /// builds an object to use with Autocomplete components
 /// @labelKey prop to autocomplete
 /// @whitelist prop or props to keep on the object
 export const toOption = (labelKey, whitelist) => {
-  if (typeof labelKey !== 'string') {
+  if (typeof labelKey !== "string") {
     throw new Error(
       `labelKey: expected 'string' but received '${typeof labelKey}'`
-    )
+    );
   }
 
-  if (typeof whitelist === 'string') {
+  if (typeof whitelist === "string") {
     return obj => ({
       [whitelist]: obj[whitelist],
 
       id: obj.id,
       value: obj.id,
-      label: obj[labelKey],
-    })
+      label: obj[labelKey]
+    });
   }
 
   if (Array.isArray(whitelist)) {
     return obj => {
-      const ret = {}
+      const ret = {};
 
-      for (const key of whitelist) ret[key] = obj[key]
+      for (const key of whitelist) ret[key] = obj[key];
 
       return {
         ...ret,
 
         id: obj.id,
         value: obj.id,
-        label: obj[labelKey],
-      }
-    }
+        label: obj[labelKey]
+      };
+    };
   }
 
   return obj => ({
     id: obj.id,
     value: obj.id,
-    label: obj[labelKey],
-  })
-}
+    label: obj[labelKey]
+  });
+};
 
 IntegrationReactSelect.defaultProps = {
-  placeholder: '',
+  placeholder: "",
   textFieldProps: {},
-  defaultOptions: true,
-}
+  defaultOptions: true
+};
 
 IntegrationReactSelect.propTypes = {
   onChange: PropTypes.func,
@@ -322,7 +328,7 @@ IntegrationReactSelect.propTypes = {
   label: PropTypes.string,
   autoFocus: PropTypes.bool,
   disabled: PropTypes.bool,
-  defaultOptions: PropTypes.bool,
-}
+  defaultOptions: PropTypes.bool
+};
 
-export default IntegrationReactSelect
+export default IntegrationReactSelect;

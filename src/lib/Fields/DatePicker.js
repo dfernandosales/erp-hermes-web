@@ -1,10 +1,10 @@
-import React from 'react'
-import { DatePicker } from '@material-ui/pickers'
+import React from "react";
+import { DatePicker } from "@material-ui/pickers";
 //import 'moment/locale/pt'
 
 const locale = {
-  pt: 'pt',
-}
+  pt: "pt"
+};
 
 export default function DatePickerField({ input, meta, ...props }) {
   return (
@@ -15,14 +15,14 @@ export default function DatePickerField({ input, meta, ...props }) {
       locale={locale}
       format="DD/MM/YYYY"
       mask={value =>
-        value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : []
+        value ? [/\d/, /\d/, "/", /\d/, /\d/, "/", /\d/, /\d/, /\d/, /\d/] : []
       }
       value={input.value || null}
       error={meta.touched && !!meta.error}
       onError={() => input.onChange(null)}
       helperText={meta.touched && meta.error}
       onChange={date => {
-        input.onChange(date ? date.toISOString() : undefined)
+        input.onChange(date ? date.toISOString() : undefined);
       }}
       onBlur={input.onBlur}
       disableOpenOnEnter
@@ -31,5 +31,5 @@ export default function DatePickerField({ input, meta, ...props }) {
       clearLabel="Limpar"
       okLabel="OK"
     />
-  )
+  );
 }

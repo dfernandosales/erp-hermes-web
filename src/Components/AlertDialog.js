@@ -13,7 +13,7 @@ export default function AlertDialog({
   message = "Este é um alerta! Faça alguma coisa",
   closeButtonText = "Cancelar",
   primaryButtonText = "Confirmar",
-  primaryAction,
+  primaryAction
 }) {
   return (
     <Dialog open={open} onClose={handleClose}>

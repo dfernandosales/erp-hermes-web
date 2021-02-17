@@ -1,10 +1,10 @@
-export { default as AppWrap } from './AppWrap'
-export { default as RouteByMenu } from './AppWrap/RouteByMenu'
-export * from './CrudComponents'
-export * from './Api'
-export * from './Common'
-export * from './Login'
-export * from './Fields'
-export * from './Components'
-export * from './Repository'
-export * from './Hooks'
+export { default as AppWrap } from "./AppWrap";
+export { default as RouteByMenu } from "./AppWrap/RouteByMenu";
+export * from "./CrudComponents";
+export * from "./Api";
+export * from "./Common";
+export * from "./Login";
+export * from "./Fields";
+export * from "./Components";
+export * from "./Repository";
+export * from "./Hooks";

@@ -8,8 +8,8 @@ const usuariosRepository = createRepository({
   queryTransform: {
     name: query.ilike("name"),
     email: query.ilike("email"),
-    ...paginate,
-  },
+    ...paginate
+  }
 });
 
 export default usuariosRepository;

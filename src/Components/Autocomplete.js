@@ -21,8 +21,8 @@ const Autocomplete = ({
         const response = await repository.getOne({
           id: input.value,
           options: {
-            cancelToken: source.token,
-          },
+            cancelToken: source.token
+          }
         });
         if (response.ok) {
           if (labelFormat) {
@@ -56,7 +56,7 @@ const Autocomplete = ({
       textFieldProps={{
         onBlur: input.onBlur,
         helperText: touched && meta.error,
-        error: meta.error && touched,
+        error: meta.error && touched
       }}
       helperText={touched && meta.error}
       loadOptions={loadOptions}

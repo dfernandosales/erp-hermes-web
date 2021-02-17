@@ -7,12 +7,12 @@ import { Grid } from "@material-ui/core";
 export const handleSubmit = recoverPassword => async ({ username }) => {
   const response = await recoverPassword({
     action: "resetSend",
-    email: username,
+    email: username
   });
   if (response.ok) {
     return Promise.resolve({
       ok: true,
-      message: "E-mail enviado, verifique sua caixa de entrada",
+      message: "E-mail enviado, verifique sua caixa de entrada"
     });
   }
   return { ok: false, message: "E-mail inválido" };
@@ -36,6 +36,5 @@ export default function CustomRecoverPassword({ history }) {
       onBackClick={() => history.goBack()}
       onSubmit={handleSubmit(api.resetPassword)}
     />
-
   );
 }

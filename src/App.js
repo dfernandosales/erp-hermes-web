@@ -6,12 +6,12 @@ import moment from "moment";
 import "moment/locale/pt-br";
 import api from "./services/api";
 import { Home } from "./HomeNavigation";
-import { Auth as AuthProvider, loginRoutes, PrivateRoute } from "./lib/Login"
+import { Auth as AuthProvider, loginRoutes, PrivateRoute } from "./lib/Login";
 import {
   Login,
   ResetPassword,
   RecoverPassword,
-  VerifyLogin,
+  VerifyLogin
 } from "./modules/login";
 import MomentUtils from "@date-io/moment";
 import { AbilityContext, abilityFor } from "./modules/usuarios";
@@ -22,16 +22,16 @@ const styles = () => ({
   "@global": {
     "*::-webkit-scrollbar": {
       height: "0.6em",
-      width: "0.6em",
+      width: "0.6em"
     },
     "*::-webkit-scrollbar-track": {
-      "-webkit-box-shadow": "inset 0 0 6px rgba(0,0,0,0.00)",
+      "-webkit-box-shadow": "inset 0 0 6px rgba(0,0,0,0.00)"
     },
     "*::-webkit-scrollbar-thumb": {
       backgroundColor: "rgba(0,0,0,.1)",
-      outline: "1px solid slategrey",
-    },
-  },
+      outline: "1px solid slategrey"
+    }
+  }
 });
 
 function App() {

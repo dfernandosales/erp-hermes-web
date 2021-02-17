@@ -2,24 +2,15 @@ import React, { useContext, useRef } from "react";
 import IdleTimer from "react-idle-timer";
 import { AppWrap, RouteByMenu } from "./lib/AppWrap";
 import { AuthContext } from "./lib/Login";
-import { makeStyles } from "@material-ui/core/styles";
 import { UsuariosList, UsuarioForm } from "./modules/usuarios";
-import { Switch, Redirect, Route } from "react-router-dom";
+import { Switch, Redirect } from "react-router-dom";
 import * as R from "ramda";
 import Person from "@material-ui/icons/Person";
 import api from "./services/api";
 import { useAbility } from "./modules/usuarios";
-import logo from "./images/hermes-logo-horizontal.png";
-
 
 const TEMPO_PING_5_MIN = 1000 * 60 * 5;
 const TEMPO_INATIVIDADE_20_MIN = 1000 * 60 * 20;
-
-const useStyles = makeStyles(() => ({
-  logo: {
-    maxWidth: "100%",
-  },
-}));
 
 const allMenuItems = [
   {
@@ -27,12 +18,11 @@ const allMenuItems = [
     pathname: "/users",
     icon: Person,
     list: UsuariosList,
-    form: UsuarioForm,
-  },
+    form: UsuarioForm
+  }
 ];
 
 export const Home = () => {
-  const classes = useStyles();
   const authContext = useContext(AuthContext);
   const usuario = authContext.user;
 
@@ -72,7 +62,7 @@ export const Home = () => {
       <AppWrap
         userAvatarProps={{
           action: "Sair",
-          label: "Olá,",
+          label: "Olá,"
         }}
         menuItems={menuItems}
       >

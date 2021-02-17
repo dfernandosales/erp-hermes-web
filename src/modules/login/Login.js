@@ -10,18 +10,17 @@ const Login = withLogin(LoginForm);
 
 export const handleLogin = ({ login, setToken = R.empty }) => async ({
   email,
-  password,
+  password
 }) => {
-
   if (!email || !password) {
     return;
   }
   const response = await login({
     email,
-    password,
+    password
   });
 
-  setToken(response.data.authentication.accessToken)
+  setToken(response.data.authentication.accessToken);
 
   if (response.ok) {
     return {
@@ -35,13 +34,13 @@ export const handleLogin = ({ login, setToken = R.empty }) => async ({
   } else {
     return {
       ok: false,
-      message: "Usuário e/ou senha inválidos!",
+      message: "Usuário e/ou senha inválidos!"
     };
   }
 };
 
 const CustomLogin = ({ history }) => {
-  const loginRef = useRef();;
+  const loginRef = useRef();
   return (
     <Login
       logo={

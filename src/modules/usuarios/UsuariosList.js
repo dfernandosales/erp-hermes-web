@@ -1,14 +1,7 @@
 import React from "react";
-import {
-  Select,
-  
-
-  TextField,
-} from "../../lib/Fields";
-import { List,
-  Filter} from "../../lib/Components"
-  import { useFilter,
-    useListRepository} from "../../lib/Hooks"
+import { Select, TextField } from "../../lib/Fields";
+import { List, Filter } from "../../lib/Components";
+import { useFilter, useListRepository } from "../../lib/Hooks";
 import { Field } from "react-final-form";
 import Grid from "@material-ui/core/Grid";
 import usuariosRepository from "./usuariosRepository";
@@ -18,7 +11,7 @@ import { Email } from "../../Components";
 
 export const ROLES = [
   { label: "Administrador", value: "ADMIN" },
-  { label: "Funcionario", value: "FUNC" },
+  { label: "Funcionario", value: "FUNC" }
 ];
 
 const formatRole = value => {
@@ -58,22 +51,22 @@ const UsuariosList = ({ ...props }) => {
     defaultOrder: "name",
     fields: {
       name: {
-        label: "Nome",
+        label: "Nome"
       },
       email: {
-        label: "E-mail",
+        label: "E-mail"
       },
       role: {
         label: "Cargo",
-        format: role => formatRole(role),
-      },
-    },
+        format: role => formatRole(role)
+      }
+    }
   };
 
   const listHook = useListRepository({
     repository: usuariosRepository,
     defaultSort: "name",
-    path: "users",
+    path: "users"
   });
 
   const actions = getListActions(abilities, listHook, "usuarios");

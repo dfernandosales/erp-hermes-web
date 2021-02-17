@@ -9,7 +9,7 @@ const yupValidation = schema => async data => {
     let errors = err.inner.reduce(
       (formError, innerError) => ({
         ...formError,
-        [innerError.path]: innerError.message,
+        [innerError.path]: innerError.message
       }),
       {}
     );
