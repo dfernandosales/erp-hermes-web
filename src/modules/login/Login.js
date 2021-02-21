@@ -19,10 +19,9 @@ export const handleLogin = ({ login, setToken = R.empty }) => async ({
     email,
     password
   })
-
-  setToken(response.data.authentication.accessToken)
-
+  
   if (response.ok) {
+    setToken(response.data.authentication.accessToken);
     return {
       ok: true,
       id: response.data.user.id,
