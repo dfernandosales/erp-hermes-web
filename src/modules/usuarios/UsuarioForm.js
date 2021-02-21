@@ -23,6 +23,7 @@ const usuarioSchema = yup.object().shape({
   email: yup
     .string()
     .email('Email Inválido')
+    .matches('@hermes.com.br', 'O email deve ser do formato nome_funcionario@hermes.com.br.')
     .required('Obrigatório'),
   name: yup.string().required('Obrigatório'),
   role: yup.string().required('Obrigatório'),

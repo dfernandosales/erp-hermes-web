@@ -10,9 +10,10 @@ export default usuario => {
     if (usuario.role?.includes('ADMIN')) {
       can('manage', 'all')
     }
-    if (usuario.role?.includes('USER')) {
-      cannot('manage', 'all')
-      can('read', 'viagens')
+    if (usuario.role?.includes('FUNC')) {
+      cannot('manage', 'usuarios')
+      //Colocar aqui as permissoes para o usuario tipo FUNC como descritas no documento
+      // can('read', 'quartos')
     }
   })
 }

@@ -14,6 +14,7 @@ const TEMPO_INATIVIDADE_20_MIN = 1000 * 60 * 20
 const allMenuItems = [
   {
     label: 'Usuarios',
+    name: 'usuarios',
     pathname: '/users',
     icon: Person,
     list: UsuariosList,
