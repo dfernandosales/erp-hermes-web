@@ -40,7 +40,11 @@ const CategoriaQuartoForm = props => {
     >
       <Grid container spacing={2}>
         <Grid item sm={6} xs={12}>
-          <Field fullWidth name='nome' label='Nome Categoria' component={TextField} />
+          <Field
+            fullWidth name='nome'
+            label='Nome Categoria'
+            component={TextField}
+          />
         </Grid>
         <Grid item sm={6} xs={12}>
           <Field

@@ -9,6 +9,8 @@ import Person from '@material-ui/icons/Person'
 import api from './services/api'
 import CategoriaQuartoList from './modules/categoria-quarto/CategoriaQuartoList'
 import CategoriaQuartoForm from './modules/categoria-quarto/CategoriaQuartoForm'
+import QuartoList from './modules/quarto/QuartoList'
+import QuartoForm from './modules/quarto/QuartoForm'
 
 const TEMPO_PING_5_MIN = 1000 * 60 * 5
 const TEMPO_INATIVIDADE_20_MIN = 1000 * 60 * 20
@@ -29,6 +31,14 @@ const allMenuItems = [
     icon: Person,
     list: CategoriaQuartoList,
     form: CategoriaQuartoForm
+  },
+  {
+    label: 'Quarto',
+    name: 'quarto',
+    pathname: '/quarto',
+    icon: Person,
+    list: QuartoList,
+    form: QuartoForm
   }
 ]
 
