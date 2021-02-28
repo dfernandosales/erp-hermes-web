@@ -2,7 +2,7 @@ import React from 'react'
 import { Grid, makeStyles, Typography } from '@material-ui/core'
 import { Field } from 'react-final-form'
 import { CrudForm } from '../../lib/Components'
-import { Select, TextField } from '../../lib/Fields'
+import { MaskedField, Select, TextField } from '../../lib/Fields'
 import { DatePicker } from '../../Components'
 import { useEntityManager } from '../../lib/Hooks'
 import hospedeRepository from './hospedeRepository'
@@ -10,6 +10,7 @@ import * as yup from 'yup'
 import yupValidation from '../../lib/yupValidation'
 import { SEXOS, ESTCIVIL } from './HospedeList'
 import EstadoAutocomplete from '../estado/EstadoAutoComplete'
+import { cpfRegex, telRegex } from '../../utils/regex'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -80,7 +81,8 @@ const HospedeForm = props => {
           <Field 
             fullWidth name='cpf' 
             label='CPF' 
-            component={TextField} 
+            component={MaskedField}
+            mask={cpfRegex} 
           />
         </Grid>
         <Grid item sm={4} xs={12}>
@@ -124,12 +126,13 @@ const HospedeForm = props => {
           <Field 
             fullWidth name='telefone' 
             label='Telefone' 
-            component={TextField} 
+            component={MaskedField}
+            mask={telRegex} 
           />
         </Grid>
       </Grid>
       <Grid container spacing={2}>
-        <Grid item sm={4} xs={12}>
+        <Grid item sm={7} xs={12}>
           <Field
             fullWidth
             name='rua'

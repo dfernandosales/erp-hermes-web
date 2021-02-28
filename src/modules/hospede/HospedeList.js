@@ -1,22 +1,24 @@
 import React from 'react'
-import { TextField } from '../../lib/Fields'
+import { MaskedField, TextField } from '../../lib/Fields'
 import { List, Filter } from '../../lib/Components'
 import { useFilter, useListRepository } from '../../lib/Hooks'
 import { Field } from 'react-final-form'
 import Grid from '@material-ui/core/Grid'
 import hospedeRepository from './hospedeRepository'
+import { formatCpf } from '../../utils/Utils'
+import { cpfRegex } from '../../utils/regex'
 
 export const SEXOS = [
-  { label: 'Masculino', value: 'MASC' },
-  { label: 'Femino', value: 'FEM' },
+  { label: 'Masculino', value: 'MASCULINO' },
+  { label: 'Femino', value: 'FEMININO' },
   { label: 'Outros', value: 'OUTROS' }
 ]
 
 export const ESTCIVIL = [
-  { label: 'Casado', value: 'CAS' },
-  { label: 'Solteiro', value: 'SOL' },
+  { label: 'Casado', value: 'CASADO' },
+  { label: 'Solteiro', value: 'SOLTEIRO' },
   { label: 'Viúvo', value: 'VIUVO' },
-  { label: 'Divorciado', value: 'DIV' }
+  { label: 'Divorciado', value: 'DIVORCIADO' }
 ]
 
 const HospedeFilter = () => {
@@ -28,7 +30,7 @@ const HospedeFilter = () => {
           <Field name='nomeCompleto' label='Nome Completo' fullWidth component={TextField} />
         </Grid>
         <Grid item sm={4} xs={12}>
-          <Field name='cpf' label='CPF' fullWidth component={TextField} />
+          <Field name='cpf' label='CPF' fullWidth component={MaskedField} mask={cpfRegex} />
         </Grid>
       </Grid>
     </Filter>
@@ -43,6 +45,7 @@ const HospedeList = ({ ...props }) => {
       },
       cpf: {
         label: 'CPF',
+        format: cpf => formatCpf(cpf)
       },
       telefone: {
         label: 'Telefone'
