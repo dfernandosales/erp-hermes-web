@@ -1,5 +1,5 @@
-import React from 'react'
-import { Grid, makeStyles } from '@material-ui/core'
+import React, { useState } from 'react'
+import { Button, Grid, makeStyles, Modal, Typography } from '@material-ui/core'
 import { Field } from 'react-final-form'
 import { CrudForm } from '../../lib/Components'
 import { Select, TextField } from '../../lib/Fields'
@@ -10,13 +10,38 @@ import { useAbility } from '.'
 import { Email } from '../../Components'
 import * as yup from 'yup'
 import yupValidation from '../../lib/yupValidation'
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
 const useStyles = makeStyles(theme => ({
   container: {
     '@media (min-height:800px)': {
       marginTop: theme.spacing(3)
     }
-  }
+  },
+  textoHistorico: {
+    marginRight: 8,
+  },
+  negrito: {
+    fontWeight: "bold",
+  },
+  paddingAll: {
+    padding: "5px"
+  },
+  status: {
+    paddingLeft: "10px"
+  },
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    position: 'absolute',
+    width: 800,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
 }))
 
 const usuarioSchema = yup.object().shape({
@@ -38,6 +63,7 @@ const usuarioSchema = yup.object().shape({
 const validate = yupValidation(usuarioSchema)
 
 const UsuarioForm = props => {
+  const [open, setOpen] = useState(false)
   const abilities = useAbility()
   const classes = useStyles()
 
@@ -47,8 +73,30 @@ const UsuarioForm = props => {
   const cannotUpdate =
     abilities.cannot('update', 'usuarios') && !entityManager.isNew
 
+  const renderContent = () => {
+    return (
+      <Typography className={classes.paddingAll}>
+        <li>
+          Esse formulario eh resposavel por criar um usario que tera acesso ao sistema.
+        </li>
+        <li>
+          Lembre-se de escolher corretamente o cargo do usuario.
+        </li>
+        <li>
+          A senha tem um formato padrao para todo usuario (primeiros 3 digitos do cpf+nome) . 
+        </li>
+      </Typography>
+    )
+  }
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
-    <Grid className={classes.container}>
+    <Grid className={classes.container}> 
       <CrudForm
         {...props}
         {...entityManager}
@@ -57,6 +105,14 @@ const UsuarioForm = props => {
         withPaper
       >
         <Grid container spacing={2}>
+          <Grid item sm={12} xs={12} >
+            <Grid container sm={12} xs={12} justify='space-between'>
+            <Typography variant="h6">
+                Cadastro de usuarios
+              </Typography>
+              <Button onClick={() => handleOpen()}><HelpOutlineIcon /></Button>
+            </Grid>
+          </Grid>
           <Grid item sm={12} xs={12}>
             <Field fullWidth name='name' label='Nome' component={TextField} />
           </Grid>
@@ -85,6 +141,19 @@ const UsuarioForm = props => {
           </Grid>
         </Grid>
       </CrudForm>
+      <Modal
+        className={classes.modal}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        open={open}
+        onClose={handleClose}
+        fullWidth={true}
+      >
+        <div className={classes.paper}>
+          <h2 >Ajuda</h2>
+          {renderContent()}
+        </div>
+      </Modal>
     </Grid>
   )
 }
