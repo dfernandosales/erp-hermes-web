@@ -6,11 +6,17 @@ import { UsuariosList, UsuarioForm, useAbility } from './modules/usuarios'
 import { Switch, Redirect } from 'react-router-dom'
 import * as R from 'ramda'
 import Person from '@material-ui/icons/Person'
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd'
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import api from './services/api'
 import CategoriaQuartoList from './modules/categoria-quarto/CategoriaQuartoList'
 import CategoriaQuartoForm from './modules/categoria-quarto/CategoriaQuartoForm'
 import QuartoList from './modules/quarto/QuartoList'
 import QuartoForm from './modules/quarto/QuartoForm'
+import FuncionarioList from './modules/funcionario/FuncionarioList'
+import FuncionarioForm from './modules/funcionario/FuncionarioForm'
+import HospedeList from './modules/hospede/HospedeList'
+import HospedeForm from './modules/hospede/HospedeForm'
 
 const TEMPO_PING_5_MIN = 1000 * 60 * 5
 const TEMPO_INATIVIDADE_20_MIN = 1000 * 60 * 20
@@ -39,6 +45,21 @@ const allMenuItems = [
     icon: Person,
     list: QuartoList,
     form: QuartoForm
+  },
+    label: 'Funcionario',
+    name: 'funcionario',
+    pathname: '/funcionario',
+    icon: AssignmentIndIcon,
+    list: FuncionarioList,
+    form: FuncionarioForm,
+  },
+  {
+    label: 'Hospede',
+    name: 'hospede',
+    pathname: '/hospede',
+    icon: PeopleAltIcon,
+    list: HospedeList,
+    form: HospedeForm,
   }
 ]
 
