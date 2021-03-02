@@ -11,6 +11,8 @@ import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import api from './services/api'
 import CategoriaQuartoList from './modules/categoria-quarto/CategoriaQuartoList'
 import CategoriaQuartoForm from './modules/categoria-quarto/CategoriaQuartoForm'
+import QuartoList from './modules/quarto/QuartoList'
+import QuartoForm from './modules/quarto/QuartoForm'
 import FuncionarioList from './modules/funcionario/FuncionarioList'
 import FuncionarioForm from './modules/funcionario/FuncionarioForm'
 import HospedeList from './modules/hospede/HospedeList'
@@ -37,6 +39,13 @@ const allMenuItems = [
     form: CategoriaQuartoForm
   },
   {
+    label: 'Quarto',
+    name: 'quarto',
+    pathname: '/quarto',
+    icon: Person,
+    list: QuartoList,
+    form: QuartoForm
+  },
     label: 'Funcionario',
     name: 'funcionario',
     pathname: '/funcionario',
