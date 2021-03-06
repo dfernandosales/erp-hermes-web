@@ -46,6 +46,7 @@ const allMenuItems = [
     list: QuartoList,
     form: QuartoForm
   },
+  {
     label: 'Funcionario',
     name: 'funcionario',
     pathname: '/funcionario',
