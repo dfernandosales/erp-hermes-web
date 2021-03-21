@@ -38,7 +38,6 @@ const ItemQuartoList = ({ ...props }) => {
     path: 'item-quarto'
   })
 
-  console.log(listHook.state)
   return (
     <>
       <ItemQuartoFilter />

@@ -1,26 +1,25 @@
 import React from 'react'
 import { List } from '../../lib/Components'
+import { autocompleteHelpers } from '../../lib/Common'
 import { useListRepository } from '../../lib/Hooks'
-import categoriaitemQuartoRepository from './categoriaitemQuartoRepository'
+import reservaHospedeRepository from './reservaHospedeRepository'
 
 
-const CategoriaItemQuartoList = ({ ...props }) => {
+const ReservaHospedeList = ({ ...props }) => {
   const listOptions = {
     fields: {
-      item: {
-        label: 'Nome do item',
-        format: item => item.nome
+      hospede: {
+        label: 'Nome Hospede',
+        format: hospede => hospede.nomeCompleto
       },
-      quantidade: {
-        label: 'Quantidade',
-      },
+     
     }
   }
 
   const listHook = useListRepository({
-    repository: categoriaitemQuartoRepository,
-    path: 'categoria-item-quarto',
-    query: [["categoriaQuartoId", props.match.params.id]],
+    repository: reservaHospedeRepository,
+    path: 'reserva-hospede',
+    query: [["reservaId", props.match.params.id]],
     forceRemove: true,
   })
 
@@ -43,4 +42,4 @@ const CategoriaItemQuartoList = ({ ...props }) => {
   )
 }
 
-export default CategoriaItemQuartoList
+export default ReservaHospedeList

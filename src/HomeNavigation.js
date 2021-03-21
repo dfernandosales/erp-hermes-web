@@ -10,7 +10,6 @@ import AssignmentIndIcon from '@material-ui/icons/AssignmentInd'
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import api from './services/api'
 import CategoriaQuartoList from './modules/categoria-quarto/CategoriaQuartoList'
-import CategoriaQuartoForm from './modules/categoria-quarto/CategoriaQuartoForm'
 import QuartoList from './modules/quarto/QuartoList'
 import QuartoForm from './modules/quarto/QuartoForm'
 import FuncionarioList from './modules/funcionario/FuncionarioList'
@@ -22,7 +21,10 @@ import ItemQuartoForm from './modules/item-quarto/ItemQuartoForm'
 import HotelIcon from '@material-ui/icons/Hotel';
 import CategoriaQuartoTabsForm from './modules/categoria-quarto/CategoriaQuartoTabsForm'
 import CategoriaItemQuartoForm from './modules/categoria-item-quarto/CategoriaItemQuartoForm'
-import CategoriaItemQuartoList from './modules/categoria-item-quarto/CategoriaItemQuartoList'
+import ReservaList from './modules/reserva/ReservaList'
+import ReservaFormTabs from './modules/reserva/ReservaFormTabs'
+import OcupacaoChart from './modules/ocupacao/OcupacaoChart'
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 
 const TEMPO_PING_5_MIN = 1000 * 60 * 5
 const TEMPO_INATIVIDADE_20_MIN = 1000 * 60 * 20
@@ -37,6 +39,12 @@ const allMenuItems = [
     checkAbility: true,
     items: [
       {
+        label: 'Ocupacao',
+        name: 'ocupacao',
+        pathname: '/ocupacao',
+        list: OcupacaoChart
+      },
+      {
         label: 'Quarto',
         name: 'quarto',
         pathname: '/quarto',
@@ -50,6 +58,7 @@ const allMenuItems = [
         list: CategoriaQuartoList,
         form: CategoriaQuartoTabsForm
       },
+     
       {
         label: 'Item Quarto',
         name: 'item-quarto',
@@ -58,6 +67,14 @@ const allMenuItems = [
         form: ItemQuartoForm,
       }
     ]
+  },
+  {
+    label: 'Resserva',
+    name: 'reserva',
+    icon: AssignmentTurnedInIcon,
+    pathname: '/reserva',
+    list: ReservaList,
+    form: ReservaFormTabs
   },
   {
     label: 'Usuarios',
