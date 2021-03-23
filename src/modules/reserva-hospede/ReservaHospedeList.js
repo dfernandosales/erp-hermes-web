@@ -20,22 +20,17 @@ const ReservaHospedeList = ({ ...props }) => {
     repository: reservaHospedeRepository,
     path: 'reserva-hospede',
     query: [["reservaId", props.match.params.id]],
-    forceRemove: true,
   })
-
-  listHook.onClickEdit = props.onClickEdit;
-  listHook.onClickNew = props.onClickNew;
-  listHook.onClickView = null;
-
+  
   delete listHook.undoRemove;
-  listHook.deleteFItem = listHook.removeItem;
-  delete listHook.removeItem;
 
   return (
     <>
       <List
         {...listHook}
         hideDownloadIcon
+        onClickView={null}
+        onClickEdit={null}
         listOptions={listOptions}
       />
     </>

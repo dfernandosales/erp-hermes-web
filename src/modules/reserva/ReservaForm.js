@@ -1,9 +1,8 @@
 import React from 'react'
-import { Grid, makeStyles } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import { Field } from 'react-final-form'
 import { DatePicker } from '../../Components'
 import { CrudForm } from '../../lib/Components'
-import { TextField } from '../../lib/Fields'
 import { useEntityManager } from '../../lib/Hooks'
 import categoriaQuartoRepository from './reservaRepository'
 import * as yup from 'yup'
@@ -14,7 +13,7 @@ const categoriaQuartoSchema = yup.object().shape({
 
 const validate = yupValidation(categoriaQuartoSchema)
 
-const CategoriaQuartoForm = props => {
+const ReservaForm = props => {
 
   const entityManager = useEntityManager({
     repository: categoriaQuartoRepository,
@@ -32,7 +31,7 @@ const CategoriaQuartoForm = props => {
         <Grid item sm={6} xs={12}>
           <Field
             fullWidth
-            name='dataInicoReserva'
+            name='dataInicioReserva'
             label='Data Checkin'
             component={DatePicker}
           />
@@ -50,4 +49,4 @@ const CategoriaQuartoForm = props => {
   )
 }
 
-export default CategoriaQuartoForm
+export default ReservaForm

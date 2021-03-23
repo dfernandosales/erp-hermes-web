@@ -10,7 +10,7 @@ import * as yup from 'yup'
 import yupValidation from '../../lib/yupValidation'
 import { SEXOS, ESTCIVIL } from './HospedeList'
 import EstadoAutocomplete from '../estado/EstadoAutoComplete'
-import { cpfRegex, telRegex } from '../../utils/regex'
+import { cepRegex, cpfRegex, telRegex } from '../../utils/regex'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -167,11 +167,13 @@ const HospedeForm = props => {
           />
         </Grid>
         <Grid item sm={3} xs={12}>
-          <Field
+        <Field 
             fullWidth
+            type="numeric" 
             name='cep'
             label='CEP'
-            component={TextField}
+            component={MaskedField}
+            mask={cepRegex} 
           />
         </Grid>
         <Grid item sm={3} xs={12}>

@@ -8,21 +8,21 @@ import ReservaHospedeForm from '../reserva-hospede/ReservaHospedeForm'
 
 
 const ReservaFormTabs = () => {
-    const tabsNavigation = useTabsNavigation({
-        mainPath: "reserva",
-        withPaper: false,
-        tabs: [
-          { value: "", label: "Reserva" },
-          { value: "reservaHospedes", label: "Hospedes na Reserva" },
-          { value: "reservaQuarto", label: "Quarto da Reserva" },
-        ],
-      });
-    
+  const tabsNavigation = useTabsNavigation({
+    mainPath: "reserva",
+    withPaper: false,
+    tabs: [
+      { value: "", label: "Reserva" },
+      { value: "reservaHospedes", label: "Hospedes na Reserva" },
+      { value: "reservaQuarto", label: "Quarto da Reserva" },
+    ],
+  });
+
 
   return (
     <CrudTabs {...tabsNavigation}>
-        <CrudRoute render={props => <ReservaForm {...props} />} />
-        <CrudRoute
+      <CrudRoute render={props => <ReservaForm {...props} />} />
+      <CrudRoute
         name="reservaQuarto"
         render={props => (
           <ReservaQuartoList
@@ -38,7 +38,7 @@ const ReservaFormTabs = () => {
         render={props => <ReservaQuartoForm {...props} />}
       />
 
-<CrudRoute
+      <CrudRoute
         name="reservaHospedes"
         render={props => (
           <ReservaHospedeList
@@ -53,8 +53,8 @@ const ReservaFormTabs = () => {
         isForm
         render={props => <ReservaHospedeForm {...props} />}
       />
-      
-      
+
+
     </CrudTabs>
   );
 };

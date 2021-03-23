@@ -25,6 +25,7 @@ import ReservaList from './modules/reserva/ReservaList'
 import ReservaFormTabs from './modules/reserva/ReservaFormTabs'
 import OcupacaoChart from './modules/ocupacao/OcupacaoChart'
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
+import ReservaView from './modules/reserva/ReservaView'
 
 const TEMPO_PING_5_MIN = 1000 * 60 * 5
 const TEMPO_INATIVIDADE_20_MIN = 1000 * 60 * 20
@@ -69,7 +70,7 @@ const allMenuItems = [
     ]
   },
   {
-    label: 'Resserva',
+    label: 'Reserva',
     name: 'reserva',
     icon: AssignmentTurnedInIcon,
     pathname: '/reserva',
@@ -102,7 +103,6 @@ const allMenuItems = [
     list: HospedeList,
     form: HospedeForm,
   },
-
 ]
 
 export const Home = () => {
@@ -153,8 +153,9 @@ export const Home = () => {
         }}
       >
         <Switch>
+          <Route exact path="/categoria-item-quarto" component={CategoriaItemQuartoForm}/>
+          <Route exact path="/reserva/:id/view" component={ReservaView}/>
           <RouteByMenu menuItems={menuItems} />
-          <Route exact path={"/categoria-item-quarto"} component={CategoriaItemQuartoForm}></Route>
           <Redirect to={defaultRedirect} />
         </Switch>
       </AppWrap>

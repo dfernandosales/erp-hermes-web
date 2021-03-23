@@ -8,6 +8,10 @@ const reservaRepository = createRepository({
   queryTransform: {
     ...paginate
   }
-})
+});
+
+reservaRepository.checkout = id => {
+  return restApi.patch(`reserva/${id}`, {dataFimReserva:new Date()});
+};
 
 export default reservaRepository

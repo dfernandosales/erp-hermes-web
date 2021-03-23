@@ -18,14 +18,12 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const quartoSchema = yup.object().shape({
-    numero: yup.number().min(1, "Digite um número maior que zero.").required('Obrigatório'),
+    categoriaQuartoId: yup.number().required('Obrigatório'),
 })
 
 const validate = yupValidation(quartoSchema)
 
 const QuartoForm = props => {
-    const classes = useStyles()
-
     const entityManager = useEntityManager({
         repository: quartoRepository,
         path: 'quarto'

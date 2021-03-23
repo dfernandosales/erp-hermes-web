@@ -1,7 +1,10 @@
-import { Card, Paper, Tooltip, Typography } from '@material-ui/core'
-import React from 'react'
+import { Card, Tooltip, Typography } from '@material-ui/core'
+import React, { useState, useEffect } from 'react'
+import { useEntityManager } from '../../lib/Hooks'
 import { PieChart, BarChart, Pie, Cell, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Legend, Bar } from 'recharts';
 import { withStyles } from "@material-ui/core/styles";
+import quartoRepository from "../quarto/quartoRepository";
+import categoriaQuartoRepository from "../categoria-quarto/categoriaQuartoRepository";
 
 const styles = theme => ({
     card: {
@@ -13,13 +16,42 @@ const styles = theme => ({
 
 });
 
-
-
 const OcupacaoChart = (props) => {
     const { classes } = props;
+    const [ocupados, setOcupados] = useState(0)
+    const [vagos, setVagos] = useState(0)
+    const [total, setTotal] = useState(0)
+    const [categorias, setCategorias] = useState([])
+
+    useEffect(async () => {
+        const todos = await quartoRepository.list({paginate:false});
+        const vagos = await quartoRepository.list(
+            {
+                query: {
+                    vacancia: true,
+                }
+            }
+        );
+        const ocupados = await quartoRepository.list(
+            {
+                query: {
+                    vacancia: false,
+                }
+            }
+        );
+        setVagos(vagos.count)
+        setOcupados(ocupados.count)
+        setTotal(todos.count)
+        const todasCategorias = await categoriaQuartoRepository.list({paginate:false})
+        
+        const allCategorias = todasCategorias.data.map(item => {return item.nome})
+        setCategorias(allCategorias)
+        console.log(categorias)
+    }, [])
+
     const data = [
-        { name: 'Livre', value: 18 },
-        { name: 'Ocupado', value: 30 },
+        { name: 'Livre', value: vagos },
+        { name: 'Ocupado', value: ocupados },
     ];
     const dataLine = [
         {
@@ -70,12 +102,13 @@ const OcupacaoChart = (props) => {
                 </Typography>
                 <ResponsiveContainer height={400}>
                     <PieChart width={800} height={800}>
+                        <Legend/>
+                        <Tooltip />
                         <Pie
                             data={data}
                             cx="50%"
                             cy="50%"
                             outerRadius={150}
-                            label
                             fill="#8884d8"
                             dataKey="value"
                         >

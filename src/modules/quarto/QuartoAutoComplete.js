@@ -7,7 +7,6 @@ const { toOption } = autocompleteHelpers;
 export const loadItemQuarto = async inputValue => {
   const response = await quartoRepository.list({
     query: {
-      nome: inputValue,
       vacancia: true,
       order: "createdAt desc",
     },
@@ -17,7 +16,7 @@ export const loadItemQuarto = async inputValue => {
   });
 
   if (response.ok) {
-    return response.data.map(toOption("id"));
+    return response.data.map(toOption("numero"));
   }
   return [];
 };

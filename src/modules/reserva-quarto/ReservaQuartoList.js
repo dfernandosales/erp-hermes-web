@@ -39,6 +39,7 @@ const ReservaQuartoList = ({ ...props }) => {
       <List
         {...listHook}
         hideDownloadIcon
+        onClickEdit={null}
         listOptions={listOptions}
       />
     </>

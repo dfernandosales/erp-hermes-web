@@ -66,6 +66,7 @@ const ReadView = ({
   config,
   item,
   onGoBack,
+  customActions = [],
   edit = true,
   hideGoBack = false
 }) => {
@@ -131,6 +132,25 @@ const ReadView = ({
                 </Button>
               </Grid>
             )}
+            {customActions.map(action => (
+              <Grid
+                item
+                key={action.label}
+                classes={{ item: classes.buttonContainer }}
+              >
+                <Button
+                  fullWidth
+                  variant='outlined'
+                  type='button'
+                  color='primary'
+                  onClick={event => action.onClick(event)}
+                  component={action.component}
+                  {...action.props}
+                >
+                  {action.label} {action.icon}
+                </Button>
+              </Grid>
+            ))}
             {edit && (
               <Grid item classes={{ item: classes.buttonContainer }}>
                 <Button
