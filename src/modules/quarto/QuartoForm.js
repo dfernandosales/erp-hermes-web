@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, makeStyles, RadioGroup } from '@material-ui/core'
+import { Grid, makeStyles } from '@material-ui/core'
 import { Field } from 'react-final-form'
 import { CrudForm } from '../../lib/Components'
 import { TextField } from '../../lib/Fields'
@@ -18,14 +18,12 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const quartoSchema = yup.object().shape({
-    numero: yup.number().min(1, "Digite um número maior que zero.").required('Obrigatório'),
+    categoriaQuartoId: yup.number().required('Obrigatório'),
 })
 
 const validate = yupValidation(quartoSchema)
 
 const QuartoForm = props => {
-    const classes = useStyles()
-
     const entityManager = useEntityManager({
         repository: quartoRepository,
         path: 'quarto'

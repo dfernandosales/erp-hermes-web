@@ -6,7 +6,6 @@ import { Field } from 'react-final-form'
 import Grid from '@material-ui/core/Grid'
 import quartoRepository from './quartoRepository'
 import CategoriaQuartoAutocomplete from '../categoria-quarto/CategoriaQuartoAutoComplete'
-import { InputLabel } from '@material-ui/core'
 
 export const VACANCIA = [
   { label: 'Vago', value: true },
@@ -71,7 +70,6 @@ const QuartoList = ({ ...props }) => {
     path: 'quarto'
   })
 
-  console.log(listHook.state)
   return (
     <>
       <QuartoFilter />

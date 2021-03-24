@@ -3,25 +3,80 @@ import IdleTimer from 'react-idle-timer'
 import { AppWrap, RouteByMenu } from './lib/AppWrap'
 import { AuthContext } from './lib/Login'
 import { UsuariosList, UsuarioForm, useAbility } from './modules/usuarios'
-import { Switch, Redirect } from 'react-router-dom'
+import { Switch, Redirect, Route } from 'react-router-dom'
 import * as R from 'ramda'
 import Person from '@material-ui/icons/Person'
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd'
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import api from './services/api'
 import CategoriaQuartoList from './modules/categoria-quarto/CategoriaQuartoList'
-import CategoriaQuartoForm from './modules/categoria-quarto/CategoriaQuartoForm'
 import QuartoList from './modules/quarto/QuartoList'
 import QuartoForm from './modules/quarto/QuartoForm'
 import FuncionarioList from './modules/funcionario/FuncionarioList'
 import FuncionarioForm from './modules/funcionario/FuncionarioForm'
 import HospedeList from './modules/hospede/HospedeList'
 import HospedeForm from './modules/hospede/HospedeForm'
+import ItemQuartoList from './modules/item-quarto/ItemQuartoList'
+import ItemQuartoForm from './modules/item-quarto/ItemQuartoForm'
+import HotelIcon from '@material-ui/icons/Hotel';
+import CategoriaQuartoTabsForm from './modules/categoria-quarto/CategoriaQuartoTabsForm'
+import CategoriaItemQuartoForm from './modules/categoria-item-quarto/CategoriaItemQuartoForm'
+import ReservaList from './modules/reserva/ReservaList'
+import ReservaFormTabs from './modules/reserva/ReservaFormTabs'
+import OcupacaoChart from './modules/ocupacao/OcupacaoChart'
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
+import ReservaView from './modules/reserva/ReservaView'
 
 const TEMPO_PING_5_MIN = 1000 * 60 * 5
 const TEMPO_INATIVIDADE_20_MIN = 1000 * 60 * 20
 
 const allMenuItems = [
+  {
+    name: "quartos",
+    label: "Quartos",
+    group: true,
+    icon: HotelIcon,
+    pathname: "/quarto",
+    checkAbility: true,
+    items: [
+      {
+        label: 'Ocupacao',
+        name: 'ocupacao',
+        pathname: '/ocupacao',
+        list: OcupacaoChart
+      },
+      {
+        label: 'Quarto',
+        name: 'quarto',
+        pathname: '/quarto',
+        list: QuartoList,
+        form: QuartoForm
+      },
+      {
+        label: 'Categoria Quarto',
+        name: 'categoria-quarto',
+        pathname: '/categoria-quarto',
+        list: CategoriaQuartoList,
+        form: CategoriaQuartoTabsForm
+      },
+     
+      {
+        label: 'Item Quarto',
+        name: 'item-quarto',
+        pathname: '/item-quarto',
+        list: ItemQuartoList,
+        form: ItemQuartoForm,
+      }
+    ]
+  },
+  {
+    label: 'Reserva',
+    name: 'reserva',
+    icon: AssignmentTurnedInIcon,
+    pathname: '/reserva',
+    list: ReservaList,
+    form: ReservaFormTabs
+  },
   {
     label: 'Usuarios',
     name: 'usuarios',
@@ -30,22 +85,8 @@ const allMenuItems = [
     list: UsuariosList,
     form: UsuarioForm
   },
-  {
-    label: 'Categoria Quarto',
-    name: 'categoria-quarto',
-    pathname: '/categoria-quarto',
-    icon: Person,
-    list: CategoriaQuartoList,
-    form: CategoriaQuartoForm
-  },
-  {
-    label: 'Quarto',
-    name: 'quarto',
-    pathname: '/quarto',
-    icon: Person,
-    list: QuartoList,
-    form: QuartoForm
-  },
+
+
   {
     label: 'Funcionario',
     name: 'funcionario',
@@ -61,7 +102,7 @@ const allMenuItems = [
     icon: PeopleAltIcon,
     list: HospedeList,
     form: HospedeForm,
-  }
+  },
 ]
 
 export const Home = () => {
@@ -107,8 +148,13 @@ export const Home = () => {
           label: 'Olá,'
         }}
         menuItems={menuItems}
+        pathReadableMap={{
+          categoriaItemQuarto: "Item da Categoria",
+        }}
       >
         <Switch>
+          <Route exact path="/categoria-item-quarto" component={CategoriaItemQuartoForm}/>
+          <Route exact path="/reserva/:id/view" component={ReservaView}/>
           <RouteByMenu menuItems={menuItems} />
           <Redirect to={defaultRedirect} />
         </Switch>
