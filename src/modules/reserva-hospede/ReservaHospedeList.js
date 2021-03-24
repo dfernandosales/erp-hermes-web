@@ -22,7 +22,12 @@ const ReservaHospedeList = ({ ...props }) => {
     query: [["reservaId", props.match.params.id]],
   })
   
+  listHook.onClickEdit = props.onClickEdit;
+  listHook.onClickNew = props.onClickNew;
+  listHook.onClickView = null;
+
   delete listHook.undoRemove;
+  delete listHook.removedMessage;
 
   return (
     <>

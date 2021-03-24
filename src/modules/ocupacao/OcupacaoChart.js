@@ -1,10 +1,9 @@
-import { Card, Tooltip, Typography } from '@material-ui/core'
+import { Card, Tooltip, Typography, Grid, FormControlLabel } from '@material-ui/core'
 import React, { useState, useEffect } from 'react'
-import { useEntityManager } from '../../lib/Hooks'
 import { PieChart, BarChart, Pie, Cell, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Legend, Bar } from 'recharts';
 import { withStyles } from "@material-ui/core/styles";
-import quartoRepository from "../quarto/quartoRepository";
-import categoriaQuartoRepository from "../categoria-quarto/categoriaQuartoRepository";
+import ocupacaoRepository from './ocupacaoRepository';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const styles = theme => ({
     card: {
@@ -13,141 +12,117 @@ const styles = theme => ({
     title: {
         marginBottom: theme.spacing(3),
     },
-
 });
 
 const OcupacaoChart = (props) => {
     const { classes } = props;
     const [ocupados, setOcupados] = useState(0)
     const [vagos, setVagos] = useState(0)
-    const [total, setTotal] = useState(0)
-    const [categorias, setCategorias] = useState([])
+    const [dataLine, setDataLine] = useState();
+    const [allChart, setAllChart] = useState(false);
+    const [categoryChart, setCategoryChart] = useState(false);
+
 
     useEffect(async () => {
-        const todos = await quartoRepository.list({paginate:false});
-        const vagos = await quartoRepository.list(
-            {
-                query: {
-                    vacancia: true,
-                }
-            }
-        );
-        const ocupados = await quartoRepository.list(
-            {
-                query: {
-                    vacancia: false,
-                }
-            }
-        );
-        setVagos(vagos.count)
-        setOcupados(ocupados.count)
-        setTotal(todos.count)
-        const todasCategorias = await categoriaQuartoRepository.list({paginate:false})
-        
-        const allCategorias = todasCategorias.data.map(item => {return item.nome})
-        setCategorias(allCategorias)
-        console.log(categorias)
+        const dataTudo = await ocupacaoRepository.list({ query: { type: "Tudo" } });
+        setVagos(dataTudo.data.livre.total);
+        setOcupados(dataTudo.data.ocupado.total);
+        const data = await ocupacaoRepository.list();
+        setDataLine(data.data);
     }, [])
 
     const data = [
         { name: 'Livre', value: vagos },
         { name: 'Ocupado', value: ocupados },
     ];
-    const dataLine = [
-        {
-            name: 'Page A',
-            livre: 4000,
-            ocupado: 2400,
-        },
-        {
-            name: 'Page B',
-            livre: 3000,
-            ocupado: 1398,
-        },
-        {
-            name: 'Page C',
-            livre: 2000,
-            ocupado: 9800,
-        },
-        {
-            name: 'Page D',
-            livre: 2780,
-            ocupado: 3908,
-        },
-        {
-            name: 'Page E',
-            livre: 1890,
-            ocupado: 4800,
-        },
-        {
-            name: 'Page F',
-            livre: 2390,
-            ocupado: 3800,
-        },
-        {
-            name: 'Page G',
-            livre: 3490,
-            ocupado: 4300,
-        },
-    ];
     const COLORS = ['#4caf50', '#f44336'];
-    const RADIAN = Math.PI / 180;
     return (
         <>
             <Card className={classes.card}>
-                <Typography variant="h4"
-                    align="center"
-                    className={classes.title}>
-                    Quantidade total
-                </Typography>
-                <ResponsiveContainer height={400}>
-                    <PieChart width={800} height={800}>
-                        <Legend/>
-                        <Tooltip />
-                        <Pie
-                            data={data}
-                            cx="50%"
-                            cy="50%"
-                            outerRadius={150}
-                            fill="#8884d8"
-                            dataKey="value"
-                        >
-                            {data.map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                            ))}
-                        </Pie>
-                    </PieChart>
-                </ResponsiveContainer>
-            </Card>
-            <Card className={classes.card}>
-                <Typography variant="h4"
-                    align="center"
-                    className={classes.title}>
-                    Quantidade por categoria
-                </Typography>
-                <ResponsiveContainer height={400}>
-                    <BarChart
-                        width={500}
-                        height={300}
-                        data={dataLine}
-                        margin={{
-                            top: 5,
-                            right: 30,
-                            left: 20,
-                            bottom: 5,
-                        }}
-                    >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
-                        <YAxis />
-                        <Tooltip />
-                        <Legend />
-                        <Bar dataKey="livre" fill="#4caf50" />
-                        <Bar dataKey="ocupado" fill="#f44336" />
-                    </BarChart>
-                </ResponsiveContainer>
-            </Card>
+                <Grid container>
 
+                    <Grid item sm={6} xs={12}>
+                        <FormControlLabel
+                            value="end"
+                            control={<Checkbox
+                                checked={allChart}
+                                onChange={() => setAllChart(!allChart)}
+                                value="checkedA"
+                            />}
+                            label="Grafico da ocupacao dos quartos(GERAL)"
+                            labelPlacement="end"
+                        />
+                    </Grid>
+                    <Grid item sm={6} xs={12}>
+                    <FormControlLabel
+                            value="end"
+                            control={<Checkbox
+                                checked={categoryChart}
+                                onChange={() => setCategoryChart(!categoryChart)}
+                                
+    
+                            />}
+                            label="Grafico da ocupacao dos quartos por categoria"
+                            labelPlacement="end"
+                        />
+                        
+                    </Grid>
+                </Grid>
+            </Card>
+            {allChart && <Card className={classes.card}>
+                <Typography variant="h4"
+                    className={classes.title}>
+                    Geral
+                </Typography>
+                {(vagos || ocupados) ?
+                    <ResponsiveContainer height={400}>
+                        <PieChart width={800} height={800}>
+                            <Legend />
+                            <Tooltip />
+                            <Pie
+                                data={data}
+                                cx="50%"
+                                cy="50%"
+                                outerRadius={150}
+                                fill="#8884d8"
+                                dataKey="value"
+                            >
+                                {data.map((entry, index) => (
+                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                ))}
+                            </Pie>
+                        </PieChart>
+                    </ResponsiveContainer> : <Typography align="center" variant="h5"> Ainda nao foi cadastrado um quarto no sistema.</Typography>}
+            </Card>}
+            { categoryChart &&
+                <Card className={classes.card}>
+                    <Typography variant="h4"
+                        className={classes.title}>
+                        Categoria
+                </Typography>
+                    {categoryChart && dataLine?.length > 0 ? <ResponsiveContainer height={400}>
+                        <BarChart
+                            width={300}
+                            height={300}
+                            data={dataLine}
+                            margin={{
+                                top: 5,
+                                right: 30,
+                                left: 20,
+                                bottom: 5,
+                            }}
+                        >
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="name" />
+                            <YAxis />
+                            <Tooltip />
+                            <Legend />
+                            <Bar dataKey="Livre" fill="#4caf50" />
+                            <Bar dataKey="Ocupado" fill="#f44336" />
+                        </BarChart>
+                    </ResponsiveContainer> : <Typography align="center" variant="h5"> Ainda nao foi cadastrado um quarto no sistema.</Typography>}
+                </Card>
+            }
         </>
     )
 }

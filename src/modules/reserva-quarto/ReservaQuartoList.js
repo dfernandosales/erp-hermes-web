@@ -8,12 +8,12 @@ import reservaQuartoRepository from './reservaQuartoRepository'
 const ReservaQuartoList = ({ ...props }) => {
   const listOptions = {
     fields: {
-      quartoId: {
-        label: 'Quarto reservado',
+      numeroQuarto: {
+        label: 'Quarto',
       },
-      quarto: {
+      categoria: {
         label: 'Categoria',
-        format: quarto => quarto.categoriaQuarto.nome
+        format: categoria => categoria
       },
      
     }
@@ -23,16 +23,18 @@ const ReservaQuartoList = ({ ...props }) => {
     repository: reservaQuartoRepository,
     path: 'reserva-quarto',
     query: [["reservaId", props.match.params.id]],
-    forceRemove: true,
   })
+  if(!listHook.state.loading){
+    listHook.state.list = listHook.state.list.map(item => {return {...item, numeroQuarto: item.quarto.numero, categoria:item.quarto.categoriaQuarto.nome}})
+  } 
+  console.log(listHook.state.list)
 
   listHook.onClickEdit = props.onClickEdit;
   listHook.onClickNew = props.onClickNew;
   listHook.onClickView = null;
 
   delete listHook.undoRemove;
-  listHook.deleteFItem = listHook.removeItem;
-  delete listHook.removeItem;
+  delete listHook.removedMessage;
 
   return (
     <>

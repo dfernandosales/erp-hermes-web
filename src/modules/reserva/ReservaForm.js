@@ -9,6 +9,10 @@ import * as yup from 'yup'
 import yupValidation from '../../lib/yupValidation'
 
 const categoriaQuartoSchema = yup.object().shape({
+  dataInicioReserva: yup.date().required("Obrigatoria"),
+  dataFimReserva: yup.date().nullable().when("dataInicioReserva",
+    (dataInicioReserva, yup) => dataInicioReserva && yup.min(dataInicioReserva, "A data final deve ser maior que a data inicial."))
+
 })
 
 const validate = yupValidation(categoriaQuartoSchema)

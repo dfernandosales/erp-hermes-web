@@ -9,6 +9,7 @@ import yupValidation from '../../lib/yupValidation'
 import HospedeAutoComplete from '../hospede/HospedeAutoComplete'
 
 const quartoSchema = yup.object().shape({
+    hospedeId : yup.number().required("Obrigatorio")
 })
 
 const validate = yupValidation(quartoSchema)

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, makeStyles, RadioGroup } from '@material-ui/core'
+import { Card, Grid, makeStyles, RadioGroup, Typography } from '@material-ui/core'
 import { Field } from 'react-final-form'
 import { CrudForm } from '../../lib/Components'
 import { useEntityManager } from '../../lib/Hooks'
@@ -9,6 +9,7 @@ import yupValidation from '../../lib/yupValidation'
 import QuartoAutoComplete from '../quarto/QuartoAutoComplete'
 
 const quartoSchema = yup.object().shape({
+    quartoId : yup.number().required("Obrigatorio")
 })
 
 const validate = yupValidation(quartoSchema)
@@ -26,6 +27,7 @@ const ReservaQuartoForm = props => {
     };
 
     return (
+        <>
         <CrudForm
             {...props}
             {...entityManager}
@@ -44,6 +46,7 @@ const ReservaQuartoForm = props => {
                 </Grid>
             </Grid>
         </CrudForm>
+        </>
     )
 }
 
