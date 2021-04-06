@@ -26,6 +26,10 @@ import ReservaFormTabs from './modules/reserva/ReservaFormTabs'
 import OcupacaoChart from './modules/ocupacao/OcupacaoChart'
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import ReservaView from './modules/reserva/ReservaView'
+import CargoForm from './modules/cargo/CargoForm'
+import CargoList from './modules/cargo/CargoList'
+import FolhaPagamentoFuncionarioList from './modules/folha-pagamento-funcionario/FolhaPagamentoFuncionarioList'
+import AccountBalance from '@material-ui/icons/AccountBalance'
 
 const TEMPO_PING_5_MIN = 1000 * 60 * 5
 const TEMPO_INATIVIDADE_20_MIN = 1000 * 60 * 20
@@ -85,8 +89,14 @@ const allMenuItems = [
     list: UsuariosList,
     form: UsuarioForm
   },
-
-
+  {
+    label: 'Cargo',
+    name: 'cargo',
+    pathname: '/cargo',
+    icon: AssignmentIndIcon,
+    list: CargoList,
+    form: CargoForm,
+  },
   {
     label: 'Funcionario',
     name: 'funcionario',
@@ -102,6 +112,14 @@ const allMenuItems = [
     icon: PeopleAltIcon,
     list: HospedeList,
     form: HospedeForm,
+  },
+  {
+    label: 'Folha de Pagamento de Funcionários',
+    name: 'folhaPagamento',
+    pathname: '/folha-pagamento-funcionario',
+    icon: AccountBalance,
+    list: FolhaPagamentoFuncionarioList,
+    form: FolhaPagamentoFuncionarioList,
   },
 ]
 
