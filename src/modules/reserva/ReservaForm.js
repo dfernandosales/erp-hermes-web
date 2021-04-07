@@ -93,7 +93,7 @@ const ReservaForm = props => {
           <Grid item sm={12} xs={12} >
             <Grid container sm={12} xs={12} justify='space-between'>
               <Typography variant="h6">
-                Reserva
+                Formulario Reserva 
               </Typography>
               <Button onClick={() => handleOpen()}><HelpOutlineIcon /></Button>
             </Grid>

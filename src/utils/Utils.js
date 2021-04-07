@@ -13,3 +13,10 @@ export const formatCpf = (v) => {
     v=v.replace(/(\d{3})(\d{1,2})$/,"$1-$2") 
     return v
 }
+
+
+export const situacaoReserva = [
+    { label: "Aberta", value: "ABERTA" },
+    { label: "Finalizada", value: "Finalizada" },
+  ];
+  
