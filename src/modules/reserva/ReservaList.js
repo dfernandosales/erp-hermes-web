@@ -34,6 +34,7 @@ const ReservaFilter = () => {
     </Filter>
   )
 }
+
 const ReservaList = ({ ...props }) => {
 
   const listOptions = {

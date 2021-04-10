@@ -26,25 +26,30 @@ import ReservaFormTabs from './modules/reserva/ReservaFormTabs'
 import OcupacaoChart from './modules/ocupacao/OcupacaoChart'
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import ReservaView from './modules/reserva/ReservaView'
+import AssessmentIcon from '@material-ui/icons/Assessment';
+import ReceitaList from './modules/receitas/ReceitaList'
+import ApartmentIcon from '@material-ui/icons/Apartment';
 
 const TEMPO_PING_5_MIN = 1000 * 60 * 5
 const TEMPO_INATIVIDADE_20_MIN = 1000 * 60 * 20
 
 const allMenuItems = [
   {
+    label: 'Reserva',
+    name: 'reserva',
+    icon: AssignmentTurnedInIcon,
+    pathname: '/reserva',
+    list: ReservaList,
+    form: ReservaFormTabs
+  },
+  {
     name: "quartos",
     label: "Quartos",
     group: true,
     icon: HotelIcon,
     pathname: "/quarto",
-    checkAbility: true,
     items: [
-      {
-        label: 'Ocupacao',
-        name: 'ocupacao',
-        pathname: '/ocupacao',
-        list: OcupacaoChart
-      },
+
       {
         label: 'Quarto',
         name: 'quarto',
@@ -59,7 +64,6 @@ const allMenuItems = [
         list: CategoriaQuartoList,
         form: CategoriaQuartoTabsForm
       },
-     
       {
         label: 'Item Quarto',
         name: 'item-quarto',
@@ -70,14 +74,6 @@ const allMenuItems = [
     ]
   },
   {
-    label: 'Reserva',
-    name: 'reserva',
-    icon: AssignmentTurnedInIcon,
-    pathname: '/reserva',
-    list: ReservaList,
-    form: ReservaFormTabs
-  },
-  {
     label: 'Usuarios',
     name: 'usuarios',
     pathname: '/users',
@@ -85,8 +81,6 @@ const allMenuItems = [
     list: UsuariosList,
     form: UsuarioForm
   },
-
-
   {
     label: 'Funcionario',
     name: 'funcionario',
@@ -102,6 +96,29 @@ const allMenuItems = [
     icon: PeopleAltIcon,
     list: HospedeList,
     form: HospedeForm,
+  },
+  {
+    label: 'Ocupacao',
+    name: 'ocupacao',
+    pathname: '/ocupacao',
+    icon: ApartmentIcon,
+    list: OcupacaoChart
+  },
+  {
+    name: "relatorios",
+    label: "Relatorios",
+    group: true,
+    icon: AssessmentIcon,
+    pathname: "/relatorios",
+    items: [
+      {
+        label: 'Receitas',
+        name: 'receitas',
+        pathname: '/receitas',
+        list: ReceitaList,
+        form: ReceitaList
+      },
+    ]
   },
 ]
 
@@ -153,8 +170,8 @@ export const Home = () => {
         }}
       >
         <Switch>
-          <Route exact path="/categoria-item-quarto" component={CategoriaItemQuartoForm}/>
-          <Route exact path="/reserva/:id/view" component={ReservaView}/>
+          <Route exact path="/categoria-item-quarto" component={CategoriaItemQuartoForm} />
+          <Route exact path="/reserva/:id/view" component={ReservaView} />
           <RouteByMenu menuItems={menuItems} />
           <Redirect to={defaultRedirect} />
         </Switch>
