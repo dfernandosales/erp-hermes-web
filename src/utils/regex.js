@@ -31,3 +31,16 @@ export const telRegex = [
     /\d/,
     /\d/,
 ];
+
+
+export const cepRegex = [
+    /\d/,
+    /\d/,
+    /\d/,
+    /\d/,
+    /\d/,
+    "-",
+    /\d/,
+    /\d/,
+    /\d/,
+];

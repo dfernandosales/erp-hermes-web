@@ -5,7 +5,6 @@ import { useFilter, useListRepository } from "../../lib/Hooks";
 import { Field } from "react-final-form";
 import Grid from "@material-ui/core/Grid";
 import hospedeRepository from "./hospedeRepository";
-import { formatCpf } from "../../utils/Utils";
 import { cpfRegex } from "../../utils/regex";
 import { Typography } from "@material-ui/core";
 
@@ -57,7 +56,6 @@ const HospedeList = ({ ...props }) => {
       },
       cpf: {
         label: "CPF",
-        format: (cpf) => formatCpf(cpf),
       },
       telefone: {
         label: "Telefone",
@@ -70,7 +68,6 @@ const HospedeList = ({ ...props }) => {
 
   const listHook = useListRepository({
     repository: hospedeRepository,
-    defaultSort: "nomeCompleto",
     path: "hospede",
   });
 

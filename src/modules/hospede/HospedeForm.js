@@ -222,11 +222,13 @@ const HospedeForm = props => {
           />
         </Grid>
         <Grid item sm={3} xs={12}>
-          <Field
+        <Field 
             fullWidth
+            type="numeric" 
             name='cep'
             label='CEP'
-            component={TextField}
+            component={MaskedField}
+            mask={cepRegex} 
           />
         </Grid>
         <Grid item sm={3} xs={12}>
