@@ -28,7 +28,8 @@ import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import ReservaView from './modules/reserva/ReservaView'
 import CargoForm from './modules/cargo/CargoForm'
 import CargoList from './modules/cargo/CargoList'
-import FolhaPagamentoFuncionarioList from './modules/folha-pagamento-funcionario/FolhaPagamentoFuncionarioList'
+import PagamentoList from './modules/pagamento/PagamentoList'
+import PagamentoForm from './modules/pagamento/PagamentoForm'
 import AccountBalance from '@material-ui/icons/AccountBalance'
 
 const TEMPO_PING_5_MIN = 1000 * 60 * 5
@@ -114,12 +115,12 @@ const allMenuItems = [
     form: HospedeForm,
   },
   {
-    label: 'Folha de Pagamento de Funcionários',
-    name: 'folhaPagamento',
-    pathname: '/folha-pagamento-funcionario',
+    label: 'Folha de Pagamento',
+    name: 'pagamento',
+    pathname: '/pagamento',
     icon: AccountBalance,
-    list: FolhaPagamentoFuncionarioList,
-    form: FolhaPagamentoFuncionarioList,
+    list: PagamentoList,
+    form: PagamentoForm,
   },
 ]
 
