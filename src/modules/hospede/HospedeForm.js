@@ -10,7 +10,7 @@ import * as yup from 'yup'
 import yupValidation from '../../lib/yupValidation'
 import { SEXOS, ESTCIVIL } from './HospedeList'
 import EstadoAutocomplete from '../estado/EstadoAutoComplete'
-import { cpfRegex, telRegex } from '../../utils/regex'
+import { cepRegex, cpfRegex, telRegex } from '../../utils/regex'
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
 const useStyles = makeStyles(theme => ({
