@@ -10,7 +10,7 @@ import { cpfRegex } from '../../utils/regex'
 
 export const SEXOS = [
   { label: 'Masculino', value: 'MASCULINO' },
-  { label: 'Femino', value: 'FEMINO' },
+  { label: 'Feminino', value: 'FEMININO' },
   { label: 'Outros', value: 'OUTROS' }
 ]
 
