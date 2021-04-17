@@ -29,7 +29,6 @@ import OcupacaoChart from './modules/ocupacao/OcupacaoChart'
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import ReservaView from './modules/reserva/ReservaView'
 import AssessmentIcon from '@material-ui/icons/Assessment';
-import ReceitaList from './modules/receitas/ReceitaList'
 import ApartmentIcon from '@material-ui/icons/Apartment';
 
 const TEMPO_PING_5_MIN = 1000 * 60 * 5
@@ -114,20 +113,11 @@ const allMenuItems = [
     pathname: "/relatorios",
     items: [
       {
-        label: 'Receitas',
-        name: 'receitas',
-        pathname: '/receitas',
-        list: ReceitaList,
-        form: ReceitaList
-      },
-      {
         label: 'Folha de Recebimento',
         name: 'folhaRecebimento',
         pathname: '/folhaRecebimento',
-        icon: PeopleAltIcon,
         list: FolhaRecebimentoList,
         form: FolhaRecebimentoForm,
-        
       }
     ]
   },
