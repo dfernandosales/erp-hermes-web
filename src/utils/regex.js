@@ -32,7 +32,6 @@ export const telRegex = [
     /\d/,
 ];
 
-
 export const cepRegex = [
     /\d/,
     /\d/,
