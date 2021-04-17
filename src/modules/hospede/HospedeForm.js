@@ -77,13 +77,10 @@ const HospedeForm = props => {
     return (
       <Typography className={classes.paddingAll}>
         <li>
-          Esse formulário é resposável por criar um hóspede que tera acesso ao sistema.
+          Esse formulário é resposável por cadastrar um hóspede no sistema.
         </li>
         <li>
-          Lembre-se de escolher corretamente o cargo do usuario.
-        </li>
-        <li>
-          A senha tem um formato padrao para todo usuario (primeiros 3 digitos do cpf+nome) . 
+          Lembre-se de preencher corretamente os campos abaixo.
         </li>
       </Typography>
     )
@@ -108,7 +105,7 @@ const HospedeForm = props => {
       <Grid item sm={12} xs={12} >
         <Grid container sm={12} xs={12} justify='space-between'>
           <Typography variant="h6">
-            Cadastro de usuarios
+            Cadastro de Hóspedes
           </Typography>
           <Button onClick={() => handleOpen()}><HelpOutlineIcon /></Button>
         </Grid>
