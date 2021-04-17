@@ -10,8 +10,4 @@ const reservaRepository = createRepository({
   }
 });
 
-reservaRepository.checkout = id => {
-  return restApi.patch(`reserva/${id}`, {checkout:true, dataFimReserva:new Date()});
-};
-
 export default reservaRepository

@@ -3,6 +3,7 @@ import { List } from '../../lib/Components'
 import { useListRepository } from '../../lib/Hooks'
 import reservaRepository from './reservaRepository'
 import { formatDateTime, formatMoney } from '../../utils/Utils'
+import { Typography } from '@material-ui/core'
 
 
 const ReceitaList = ({ ...props }) => {
@@ -31,6 +32,9 @@ const ReceitaList = ({ ...props }) => {
 
   return (
     <>
+    <Typography variant="h4">
+      Relatorio Receitas
+    </Typography>
       <List
         {...props}
         {...listHook}
