@@ -51,7 +51,6 @@ const FolhaRecebimentoFilter = () => {
           {...props}
           {...listHook}
           onClickView={null}
-          hideDownloadIcon
           listOptions={listOptions}
         />
       </>

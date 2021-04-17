@@ -1,19 +1,19 @@
 import React from 'react'
-import { useHistory } from 'react-router'
-import { TextField } from '../../lib/Fields'
 import { DatePicker } from '../../Components'
 import { List, Filter } from '../../lib/Components'
+import Select from '../../lib/Fields/Select'
 import { useListRepository, useFilter } from '../../lib/Hooks'
 import reservaRepository from './reservaRepository'
 import { Field } from 'react-final-form'
 import Grid from '@material-ui/core/Grid'
+import { situacaoReserva } from '../../utils/Utils'
 
 const ReservaFilter = () => {
   const filter = useFilter({})
   return (
     <Filter {...filter} labels={{ find: 'Buscar', clear: 'Limpar' }}>
       <Grid container spacing={2}>
-        <Grid item sm={4} xs={12}>
+        <Grid item sm={6} xs={12}>
           <Field
             fullWidth
             name='dataInicioReserva'
@@ -21,12 +21,22 @@ const ReservaFilter = () => {
             component={DatePicker}
           />
         </Grid>
+        <Grid item sm={6} xs={12}>
+          <Field
+            fullWidth
+            name='status'
+            component={Select}
+            label='Status'
+            options={situacaoReserva}
+          />
+        </Grid>
       </Grid>
     </Filter>
   )
 }
+
 const ReservaList = ({ ...props }) => {
- 
+
   const listOptions = {
     fields: {
       id: {
@@ -39,7 +49,7 @@ const ReservaList = ({ ...props }) => {
         label: 'Checkout',
         format: dataFimReserva => dataFimReserva ? dataFimReserva : "-"
       },
-      status:{
+      status: {
         label: "Status da Reserva",
       }
     }
