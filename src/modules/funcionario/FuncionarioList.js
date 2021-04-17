@@ -6,6 +6,7 @@ import { Field } from 'react-final-form'
 import Grid from '@material-ui/core/Grid'
 import funcionarioRepository from './funcionarioRepository'
 import { formatCpf } from '../../utils/Utils'
+import { Typography } from "@material-ui/core";
 import { cpfRegex } from '../../utils/regex'
 
 export const SEXOS = [
@@ -70,6 +71,13 @@ const FuncionarioList = ({ ...props }) => {
   return (
     <>
       <FuncionarioFilter />
+      <Grid container spacing={2}>
+        <Grid item sm={12}>
+          <Typography variant="h6" color="textPrimary">
+            Lista de Funcionários
+          </Typography>
+        </Grid>
+      </Grid>
       <List
         {...props}
         {...listHook}
