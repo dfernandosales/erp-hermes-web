@@ -3,13 +3,12 @@ import { createBasicRepository as createRepository } from '../../lib/Repository'
 import { query, paginate } from '../../lib/feathers'
 
 const folhaRecebimentoRepository = createRepository({
-  path: 'folhaRecebimento',
+  path: 'folha-recebimento',
   restApi,
   queryTransform: {
-    nomeCompleto: query.ilike('nomeCompleto'),
-    email: query.ilike('email'),
-    telefone: query.ilike('telefone'),
-    cpf: query.ilike('cpf'),
+    descricao: query.ilike('descricao'),
+    data: query.ilike('data'),
+    valor: query.ilike('valor'),
     ...paginate
   }
 })
