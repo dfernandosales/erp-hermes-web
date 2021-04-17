@@ -14,6 +14,8 @@ import QuartoList from './modules/quarto/QuartoList'
 import QuartoForm from './modules/quarto/QuartoForm'
 import FuncionarioList from './modules/funcionario/FuncionarioList'
 import FuncionarioForm from './modules/funcionario/FuncionarioForm'
+import FolhaRecebimentoList from './modules/folha-recebimento/FolhaRecebimentoList'
+import FolhaRecebimentoForm from './modules/folha-recebimento/FolhaRecebimentoForm'
 import HospedeList from './modules/hospede/HospedeList'
 import HospedeForm from './modules/hospede/HospedeForm'
 import ItemQuartoList from './modules/item-quarto/ItemQuartoList'
@@ -103,6 +105,15 @@ const allMenuItems = [
     list: HospedeList,
     form: HospedeForm,
   },
+  {
+    label: 'Folha de Recebimento',
+    name: 'folhaRecebimento',
+    pathname: '/folhaRecebimento',
+    icon: PeopleAltIcon,
+    list: FolhaRecebimentoList,
+    form: FolhaRecebimentoForm,
+    
+  }
 ]
 
 export const Home = () => {

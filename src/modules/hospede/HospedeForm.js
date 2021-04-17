@@ -1,5 +1,5 @@
-import React from 'react'
-import { Grid, makeStyles, Typography } from '@material-ui/core'
+import React, { useState } from 'react'
+import { Button, Grid, makeStyles, Modal, Typography } from '@material-ui/core'
 import { Field } from 'react-final-form'
 import { CrudForm } from '../../lib/Components'
 import { MaskedField, Select, TextField } from '../../lib/Fields'
@@ -11,13 +11,38 @@ import yupValidation from '../../lib/yupValidation'
 import { SEXOS, ESTCIVIL } from './HospedeList'
 import EstadoAutocomplete from '../estado/EstadoAutoComplete'
 import { cepRegex, cpfRegex, telRegex } from '../../utils/regex'
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
 const useStyles = makeStyles(theme => ({
   container: {
     '@media (min-height:800px)': {
       marginTop: theme.spacing(3)
     }
-  }
+  },
+  textoHistorico: {
+    marginRight: 8,
+  },
+  negrito: {
+    fontWeight: "bold",
+  },
+  paddingAll: {
+    padding: "5px"
+  },
+  status: {
+    paddingLeft: "10px"
+  },
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    position: 'absolute',
+    width: 800,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
 }))
 
 const hospedeSchema = yup.object().shape({
@@ -40,6 +65,7 @@ const hospedeSchema = yup.object().shape({
 const validate = yupValidation(hospedeSchema)
 
 const HospedeForm = props => {
+  const [open, setOpen] = useState(false)
   const classes = useStyles()
 
   const entityManager = useEntityManager({
@@ -47,7 +73,28 @@ const HospedeForm = props => {
     path: 'hospede'
   })
 
+  const renderContent = () => {
+    return (
+      <Typography className={classes.paddingAll}>
+        <li>
+          Esse formulário é resposável por cadastrar um hóspede no sistema.
+        </li>
+        <li>
+          Lembre-se de preencher corretamente os campos abaixo.
+        </li>
+      </Typography>
+    )
+  }
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
+  <>
     <CrudForm
       {...props}
       {...entityManager}
@@ -55,9 +102,14 @@ const HospedeForm = props => {
       withPaper
     >
       <Grid container spacing={2}>
-        <Grid item sm={12}>
-          <Typography variant="h6" color="textPrimary">Cadastro de Hóspede</Typography>
+      <Grid item sm={12} xs={12} >
+        <Grid container sm={12} xs={12} justify='space-between'>
+          <Typography variant="h6">
+            Cadastro de Hóspedes
+          </Typography>
+          <Button onClick={() => handleOpen()}><HelpOutlineIcon /></Button>
         </Grid>
+      </Grid>
       </Grid>
       <Grid container spacing={2}>
         <Grid item sm={8} xs={12}>
@@ -194,6 +246,20 @@ const HospedeForm = props => {
         </Grid>
       </Grid>
     </CrudForm>
+    <Modal
+        className={classes.modal}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        open={open}
+        onClose={handleClose}
+        fullWidth={true}
+      >
+        <div className={classes.paper}>
+          <h2 >Ajuda</h2>
+          {renderContent()}
+        </div>
+      </Modal>
+  </>
   )
 }
 
