@@ -4,7 +4,7 @@ import { Field } from 'react-final-form'
 import { DatePicker } from '../../Components'
 import { CrudForm } from '../../lib/Components'
 import { useEntityManager } from '../../lib/Hooks'
-import categoriaQuartoRepository from './reservaRepository'
+import reservaRepository from './reservaRepository'
 import * as yup from 'yup'
 import yupValidation from '../../lib/yupValidation'
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
@@ -77,8 +77,8 @@ const ReservaForm = props => {
   }
 
   const entityManager = useEntityManager({
-    repository: categoriaQuartoRepository,
-    path: 'categoria-quarto'
+    repository: reservaRepository,
+    path: 'reserva'
   })
 
   return (

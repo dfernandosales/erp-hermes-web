@@ -11,6 +11,7 @@ import { Email } from '../../Components'
 import * as yup from 'yup'
 import yupValidation from '../../lib/yupValidation'
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import FuncionarioAutoComplete from '../funcionario/FuncionarioAutoComplete'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -129,7 +130,7 @@ const UsuarioForm = props => {
               component={TextField}
             />
           </Grid>
-          <Grid item sm={12} xs={12}>
+          <Grid item sm={6} xs={12}>
             <Field
               fullWidth
               name='role'
@@ -138,6 +139,15 @@ const UsuarioForm = props => {
               options={ROLES}
               hideEmpty
             />
+          </Grid>
+          <Grid item sm={6} xs={12}>
+          <Field
+            fullWidth
+            name='funcionarioId'
+            label='Funcionario'
+            component={FuncionarioAutoComplete}
+            hideEmpty
+          />
           </Grid>
         </Grid>
       </CrudForm>
