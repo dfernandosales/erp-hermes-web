@@ -10,7 +10,7 @@ import * as yup from 'yup'
 import yupValidation from '../../lib/yupValidation'
 import { SEXOS, ESTCIVIL, TURNOS } from './FuncionarioList'
 import EstadoAutocomplete from '../estado/EstadoAutoComplete'
-import { cpfRegex, telRegex } from '../../utils/regex'
+import { cepRegex, cpfRegex, telRegex } from '../../utils/regex'
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
 const useStyles = makeStyles(theme => ({
@@ -237,7 +237,8 @@ const FuncionarioForm = props => {
             fullWidth
             name='cep'
             label='CEP'
-            component={TextField}
+            component={MaskedField}
+            mask = {cepRegex}
           />
         </Grid>
         <Grid item sm={3} xs={12}>
