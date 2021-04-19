@@ -1,5 +1,5 @@
-import React from 'react'
-import { Grid, makeStyles, Typography } from '@material-ui/core'
+import React, { useState } from 'react'
+import { Button, Grid, makeStyles, Typography, Modal } from '@material-ui/core'
 import { Field } from 'react-final-form'
 import { CrudForm } from '../../lib/Components'
 import { MaskedField, Select, TextField } from '../../lib/Fields'
@@ -12,13 +12,38 @@ import { SEXOS, ESTCIVIL, TURNOS } from './FuncionarioList'
 import EstadoAutocomplete from '../estado/EstadoAutoComplete'
 import { cpfRegex, telRegex } from '../../utils/regex'
 import CargoAutocomplete from '../cargo/CargoAutoComplete'
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
 const useStyles = makeStyles(theme => ({
   container: {
     '@media (min-height:800px)': {
       marginTop: theme.spacing(3)
     }
-  }
+  },
+  textoHistorico: {
+    marginRight: 8,
+  },
+  negrito: {
+    fontWeight: "bold",
+  },
+  paddingAll: {
+    padding: "5px"
+  },
+  status: {
+    paddingLeft: "10px"
+  },
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    position: 'absolute',
+    width: 800,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
 }))
 
 const funcionarioSchema = yup.object().shape({
@@ -42,6 +67,7 @@ const funcionarioSchema = yup.object().shape({
 const validate = yupValidation(funcionarioSchema)
 
 const FuncionarioForm = props => {
+  const [open, setOpen] = useState(false)
   const classes = useStyles()
 
   const entityManager = useEntityManager({
@@ -49,7 +75,31 @@ const FuncionarioForm = props => {
     path: 'funcionario'
   })
 
+  const renderContent = () => {
+    return (
+      <Typography className={classes.paddingAll}>
+        <li>
+          Esse formulário é resposável por cadastrar um funcionário que terá acesso ao sistema.
+        </li>
+        <li>
+          Lembre-se de escolher corretamente o cargo do funcionário.
+        </li>
+        <li>
+          A senha tem um formato padrão para todo usuário (primeiros 3 digitos do cpf+nome) . 
+        </li>
+      </Typography>
+    )
+  }
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
+  <>
     <CrudForm
       {...props}
       {...entityManager}
@@ -58,7 +108,12 @@ const FuncionarioForm = props => {
     >
       <Grid container spacing={2}>
         <Grid item sm={12}>
-          <Typography variant="h6" color="textPrimary">Cadastro de Funcionário</Typography>
+        <Grid container sm={12} xs={12} justify='space-between'>
+          <Typography variant="h6">
+            Cadastro de Funcionario
+          </Typography>
+          <Button onClick={() => handleOpen()}><HelpOutlineIcon /></Button>
+        </Grid>
         </Grid>
       </Grid>
       <Grid container spacing={2}>
@@ -204,6 +259,20 @@ const FuncionarioForm = props => {
         </Grid>
       </Grid>
     </CrudForm>
+    <Modal
+        className={classes.modal}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        open={open}
+        onClose={handleClose}
+        fullWidth={true}
+      >
+        <div className={classes.paper}>
+          <h2 >Ajuda</h2>
+          {renderContent()}
+        </div>
+      </Modal>
+    </>
   )
 }
 

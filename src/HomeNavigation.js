@@ -14,6 +14,8 @@ import QuartoList from './modules/quarto/QuartoList'
 import QuartoForm from './modules/quarto/QuartoForm'
 import FuncionarioList from './modules/funcionario/FuncionarioList'
 import FuncionarioForm from './modules/funcionario/FuncionarioForm'
+import FolhaRecebimentoList from './modules/folha-recebimento/FolhaRecebimentoList'
+import FolhaRecebimentoForm from './modules/folha-recebimento/FolhaRecebimentoForm'
 import HospedeList from './modules/hospede/HospedeList'
 import HospedeForm from './modules/hospede/HospedeForm'
 import ItemQuartoList from './modules/item-quarto/ItemQuartoList'
@@ -31,25 +33,29 @@ import CargoList from './modules/cargo/CargoList'
 import PagamentoList from './modules/pagamento/PagamentoList'
 import PagamentoForm from './modules/pagamento/PagamentoForm'
 import AccountBalance from '@material-ui/icons/AccountBalance'
+import AssessmentIcon from '@material-ui/icons/Assessment';
+import ApartmentIcon from '@material-ui/icons/Apartment';
 
 const TEMPO_PING_5_MIN = 1000 * 60 * 5
 const TEMPO_INATIVIDADE_20_MIN = 1000 * 60 * 20
 
 const allMenuItems = [
   {
+    label: 'Reserva',
+    name: 'reserva',
+    icon: AssignmentTurnedInIcon,
+    pathname: '/reserva',
+    list: ReservaList,
+    form: ReservaFormTabs
+  },
+  {
     name: "quartos",
     label: "Quartos",
     group: true,
     icon: HotelIcon,
     pathname: "/quarto",
-    checkAbility: true,
     items: [
-      {
-        label: 'Ocupacao',
-        name: 'ocupacao',
-        pathname: '/ocupacao',
-        list: OcupacaoChart
-      },
+
       {
         label: 'Quarto',
         name: 'quarto',
@@ -64,7 +70,6 @@ const allMenuItems = [
         list: CategoriaQuartoList,
         form: CategoriaQuartoTabsForm
       },
-     
       {
         label: 'Item Quarto',
         name: 'item-quarto',
@@ -73,14 +78,6 @@ const allMenuItems = [
         form: ItemQuartoForm,
       }
     ]
-  },
-  {
-    label: 'Reserva',
-    name: 'reserva',
-    icon: AssignmentTurnedInIcon,
-    pathname: '/reserva',
-    list: ReservaList,
-    form: ReservaFormTabs
   },
   {
     label: 'Usuarios',
@@ -121,6 +118,27 @@ const allMenuItems = [
     icon: AccountBalance,
     list: PagamentoList,
     form: PagamentoForm,
+    label: 'Ocupacao',
+    name: 'ocupacao',
+    pathname: '/ocupacao',
+    icon: ApartmentIcon,
+    list: OcupacaoChart
+  },
+  {
+    name: "relatorios",
+    label: "Relatorios",
+    group: true,
+    icon: AssessmentIcon,
+    pathname: "/relatorios",
+    items: [
+      {
+        label: 'Folha de Recebimento',
+        name: 'folhaRecebimento',
+        pathname: '/folhaRecebimento',
+        list: FolhaRecebimentoList,
+        form: FolhaRecebimentoForm,
+      }
+    ]
   },
 ]
 
@@ -172,8 +190,8 @@ export const Home = () => {
         }}
       >
         <Switch>
-          <Route exact path="/categoria-item-quarto" component={CategoriaItemQuartoForm}/>
-          <Route exact path="/reserva/:id/view" component={ReservaView}/>
+          <Route exact path="/categoria-item-quarto" component={CategoriaItemQuartoForm} />
+          <Route exact path="/reserva/:id/view" component={ReservaView} />
           <RouteByMenu menuItems={menuItems} />
           <Redirect to={defaultRedirect} />
         </Switch>

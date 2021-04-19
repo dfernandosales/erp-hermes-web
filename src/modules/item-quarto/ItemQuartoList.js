@@ -11,7 +11,7 @@ const ItemQuartoFilter = () => {
   return (
     <Filter {...filter} labels={{ find: 'Buscar', clear: 'Limpar' }}>
       <Grid container spacing={3}>
-        <Grid item sm={4} xs={12}>
+        <Grid item sm={12} xs={12}>
           <Field
             name='nome'
             label='Nome do item'
