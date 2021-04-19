@@ -32,7 +32,6 @@ import CargoForm from './modules/cargo/CargoForm'
 import CargoList from './modules/cargo/CargoList'
 import PagamentoList from './modules/pagamento/PagamentoList'
 import PagamentoForm from './modules/pagamento/PagamentoForm'
-import AccountBalance from '@material-ui/icons/AccountBalance'
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import ApartmentIcon from '@material-ui/icons/Apartment';
 
@@ -112,12 +111,6 @@ const allMenuItems = [
     form: HospedeForm,
   },
   {
-    label: 'Folha de Pagamento',
-    name: 'pagamento',
-    pathname: '/pagamento',
-    icon: AccountBalance,
-    list: PagamentoList,
-    form: PagamentoForm,
     label: 'Ocupacao',
     name: 'ocupacao',
     pathname: '/ocupacao',
@@ -137,7 +130,13 @@ const allMenuItems = [
         pathname: '/folhaRecebimento',
         list: FolhaRecebimentoList,
         form: FolhaRecebimentoForm,
-      }
+      },
+      {
+        label: 'Folha de Pagamento',
+        name: 'pagamento',
+        pathname: '/pagamento',
+        list: PagamentoList,
+        form: PagamentoForm,},
     ]
   },
 ]
