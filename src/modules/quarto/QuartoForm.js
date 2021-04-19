@@ -18,7 +18,10 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const quartoSchema = yup.object().shape({
-    categoriaQuartoId: yup.number().required('Obrigatório'),
+    numero: yup.number().positive('O número do quarto deve ser positivo').
+                        integer('O número do quarto deve ser um número inteiro.').
+                        required('O número do quarto é obrigatório.'),
+    categoriaQuartoId: yup.number().required('A categoria do quarto é obrigatória.'),
 })
 
 const validate = yupValidation(quartoSchema)
@@ -41,15 +44,15 @@ const QuartoForm = props => {
                     <Field
                         fullWidth
                         name='numero'
-                        type="number"
+                        type='numeric'
                         label='Número Quarto'
                         component={TextField}
                     />
                 </Grid>
                 <Grid item sm={6} xs={12}>
                     <Field
-                        label="Categoria do Quarto"
-                        name="categoriaQuartoId"
+                        label='Categoria do Quarto'
+                        name='categoriaQuartoId'
                         fullWidth
                         component={CategoriaQuartoAutocomplete}
                     />

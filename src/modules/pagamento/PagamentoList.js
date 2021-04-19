@@ -62,7 +62,6 @@ const PagamentoList = ({ ...props }) => {
         {...props}
         {...listHook}
         onClickView={null}
-        hideDownloadIcon
         listOptions={listOptions}
       />
     </>

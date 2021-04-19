@@ -18,9 +18,10 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const pagamentoSchema = yup.object().shape({
-    descricao: yup.string().required('Obrigatório'),
-    dataPagamento: yup.date().required('Obrigatório'),
-    valor: yup.number().positive().required('Obrigatório'),
+    descricao: yup.string().required('A descrição do pagamento é obrigatória'),
+    dataPagamento: yup.date().required('A data do pagamento é obrigatória'),
+    valor: yup.number().positive('O valor do pagamento deve ser positivo.').
+                required('O valor do pagamento é obrigatório'),
 })
 
 const validate = yupValidation(pagamentoSchema)

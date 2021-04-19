@@ -34,6 +34,7 @@ import PagamentoList from './modules/pagamento/PagamentoList'
 import PagamentoForm from './modules/pagamento/PagamentoForm'
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import ApartmentIcon from '@material-ui/icons/Apartment';
+import RelatorioReservaList from './modules/relatorio-reserva/RelatorioReservaList'
 
 const TEMPO_PING_5_MIN = 1000 * 60 * 5
 const TEMPO_INATIVIDADE_20_MIN = 1000 * 60 * 20
@@ -137,6 +138,12 @@ const allMenuItems = [
         pathname: '/pagamento',
         list: PagamentoList,
         form: PagamentoForm,},
+      {
+        label: 'Relatório de Reservas',
+        name: 'relatorioReserva',
+        pathname: '/relatorioReserva',
+        list: RelatorioReservaList,
+        form: RelatorioReservaList,},
     ]
   },
 ]

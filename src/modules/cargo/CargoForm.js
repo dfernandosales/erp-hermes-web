@@ -10,7 +10,7 @@ import yupValidation from '../../lib/yupValidation'
 
 const quartoSchema = yup.object().shape({
     nomeCargo: yup.string().required('O nome do cargo é obrigatório'),
-    salario: yup.number().moreThan(0).required('O salário do cargo é obrigatório'),
+    salario: yup.number().positive('O sálario deve ser positivo').required('O salário do cargo é obrigatório'),
 })
 
 const validate = yupValidation(quartoSchema)
