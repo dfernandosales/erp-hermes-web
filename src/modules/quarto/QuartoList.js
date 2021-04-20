@@ -27,7 +27,7 @@ const QuartoFilter = () => {
         </Grid>
         <Grid item sm={4} xs={12}>
           <Field
-            name='categoria'
+            name='categoriaQuartoId'
             label='Categoria'
             fullWidth
             component={CategoriaQuartoAutocomplete} />

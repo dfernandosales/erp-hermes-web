@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
 
 const categoriaQuartoSchema = yup.object().shape({
   nome: yup.string().required('Obrigatório'),
-  valor: yup.number().required('Obrigatório'),
+  valor: yup.number().positive('O valor da categoria de quarto deve ser positivo').required('Obrigatório'),
 })
 
 const validate = yupValidation(categoriaQuartoSchema)
@@ -50,7 +50,7 @@ const CategoriaQuartoForm = props => {
           <Field
             fullWidth
             name='valor'
-            type="numeric"
+            type='numeric'
             label='Valor da Categoria'
             component={TextField}
           />
