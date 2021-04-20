@@ -4,7 +4,7 @@ import { List, Filter } from '../../lib/Components'
 import { useListRepository, useFilter } from '../../lib/Hooks'
 import { Field } from 'react-final-form'
 import Grid from '@material-ui/core/Grid'
-import reservaRepository from '../reserva/reservaRepository'
+import relatorioReservaRepository from './relatorioReservaRepository'
 
 const RelatorioReservaFilter = () => {
   const filter = useFilter({})
@@ -53,8 +53,7 @@ const RelatorioReservaList = ({ ...props }) => {
   }
 
   const listHook = useListRepository({
-    repository: reservaRepository,
-    path: 'reserva',
+    repository: relatorioReservaRepository,
   })
 
   return (
