@@ -5,6 +5,7 @@ import { useFilter, useListRepository } from '../../lib/Hooks'
 import { Field } from 'react-final-form'
 import Grid from '@material-ui/core/Grid'
 import folhaRecebimentoRepository from './folhaRecebimentoRepository'
+import { formatMoney } from '../../utils/Utils'
 import { DatePicker } from '../../Components'
 
 const FolhaRecebimentoFilter = () => {
@@ -33,7 +34,8 @@ const FolhaRecebimentoFilter = () => {
           label: 'Descricao'
         },
         valor: {
-          label: 'Valor'
+          label: 'Valor',
+          format: valor => formatMoney(valor)
         },
       }
     }
