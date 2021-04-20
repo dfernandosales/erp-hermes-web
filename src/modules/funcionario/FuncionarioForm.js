@@ -11,6 +11,7 @@ import yupValidation from '../../lib/yupValidation'
 import { SEXOS, ESTCIVIL, TURNOS } from './FuncionarioList'
 import EstadoAutocomplete from '../estado/EstadoAutoComplete'
 import { cepRegex, cpfRegex, telRegex } from '../../utils/regex'
+import CargoAutocomplete from '../cargo/CargoAutoComplete'
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
 const useStyles = makeStyles(theme => ({
@@ -52,7 +53,7 @@ const funcionarioSchema = yup.object().shape({
   dataNascimento: yup.string().required('Obrigatório'),
   sexo: yup.string().required('Obrigatório'),
   estadoCivil: yup.string().required('Obrigatório'),
-  cargo: yup.string().required('Obrigatório'),
+  cargoId: yup.number().required('Obrigatório'),
   telefone: yup.string().required('Obrigatório'),
   turnoTrabalho: yup.string().required('Obrigatório'),
   rua: yup.string().required('Obrigatório'),
@@ -173,9 +174,9 @@ const FuncionarioForm = props => {
         </Grid>
         <Grid item sm={4} xs={12}>
           <Field 
-            fullWidth name='cargo' 
+            fullWidth name='cargoId' 
             label='Cargo' 
-            component={TextField} 
+            component={CargoAutocomplete} 
           />
         </Grid>
         <Grid item sm={4} xs={12}>

@@ -28,9 +28,14 @@ import ReservaFormTabs from './modules/reserva/ReservaFormTabs'
 import OcupacaoChart from './modules/ocupacao/OcupacaoChart'
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import ReservaView from './modules/reserva/ReservaView'
+import CargoForm from './modules/cargo/CargoForm'
+import CargoList from './modules/cargo/CargoList'
+import PagamentoList from './modules/pagamento/PagamentoList'
+import PagamentoForm from './modules/pagamento/PagamentoForm'
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import ApartmentIcon from '@material-ui/icons/Apartment';
 import RelatorioHospedeList from './modules/relatorio-hospede/RelatorioHospedeList'
+import RelatorioReservaList from './modules/relatorio-reserva/RelatorioReservaList'
 
 const TEMPO_PING_5_MIN = 1000 * 60 * 5
 const TEMPO_INATIVIDADE_20_MIN = 1000 * 60 * 20
@@ -84,6 +89,14 @@ const allMenuItems = [
     form: UsuarioForm
   },
   {
+    label: 'Cargo',
+    name: 'cargo',
+    pathname: '/cargo',
+    icon: AssignmentIndIcon,
+    list: CargoList,
+    form: CargoForm,
+  },
+  {
     label: 'Funcionario',
     name: 'funcionario',
     pathname: '/funcionario',
@@ -126,7 +139,19 @@ const allMenuItems = [
         pathname: '/relatorioHospede',
         list: RelatorioHospedeList,
         form: RelatorioHospedeList,
-      }
+      },
+      {
+        label: 'Folha de Pagamento',
+        name: 'pagamento',
+        pathname: '/pagamento',
+        list: PagamentoList,
+        form: PagamentoForm,},
+      {
+        label: 'Relatório de Reservas',
+        name: 'relatorioReserva',
+        pathname: '/relatorioReserva',
+        list: RelatorioReservaList,
+        form: RelatorioReservaList,},
     ]
   },
 ]
